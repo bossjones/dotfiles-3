@@ -55,8 +55,12 @@ function python {
 }
 
 function update {
-  config pull
-  source ~/.bash_profile
+  if command_exists 'git'; then
+    config pull
+    source ~/.bash_profile
+  else
+    echo 'Please install Git.'
+  fi
 }
 
 ################################################################################
