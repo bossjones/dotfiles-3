@@ -56,13 +56,9 @@ function python {
   fi
 }
 
-function update_shell {
-  if command_exists 'git'; then
-    cd "$PROFILES"
-    git pull
-  else
-    echo 'Git must be installed.'
-  fi
+function update {
+  config pull
+  source ~/.bash_profile
 }
 
 ################################################################################
