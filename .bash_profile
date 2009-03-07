@@ -49,7 +49,7 @@ function get {
 function python {
   if [[ -n "$1" ]]; then
     python $@
-  elif command_exists 'ipython';
+  elif command_exists 'ipython'; then
     ipython
   else
     python
