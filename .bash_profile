@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ################################################################################
 # Helper Functions
 ################################################################################
@@ -70,7 +68,7 @@ function load_darwin {
 
   # Fix screen
   alias screen='export SCREENPWD=$(pwd); /usr/bin/screen'
-  export SHELL='/bin/bash -rcfile ~/.bash_profile';
+  export SHELL='/bin/bash -rcfile ~/.bash_profile'
 
   # Switch to current working directory when screen is started
   if [[ "$TERM" == 'screen' ]]; then
@@ -115,6 +113,7 @@ set -o vi
 # Local environment
 ################################################################################
 
+# Use bashrc for local configuration options
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi

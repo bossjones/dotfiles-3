@@ -1,2 +1,11 @@
+# Disable startup message
+startup_message off
+
+# Use shell variable for shell (OS X fix)
+shell -$SHELL
+
+# Disable visual bell
 vbell off 
+
+# Set long scrollback buffer
 defscrollback 30000
