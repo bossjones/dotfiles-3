@@ -21,7 +21,6 @@ function extend_path {
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
-alias profile='$EDITOR $HOME/.bash_profile'
 alias reload='source $HOME/.bash_profile'
 alias sdf='ssh silas@tty.freeshell.net'
 
@@ -29,9 +28,8 @@ alias sdf='ssh silas@tty.freeshell.net'
 # Exports
 ################################################################################
 
-export PROFILES="$HOME/.profiles"
-export EDITOR="vim"
-export PS1="[\u@\h \W]$ "
+export EDITOR='vim'
+export PS1='[\u@\h \W]$ '
 extend_path "$HOME/.local/bin"
 
 ################################################################################
@@ -47,6 +45,11 @@ function get {
   esac
 }
 
+function profile {
+  "$EDITOR" "$HOME/.bash_profile"
+  reload
+}
+
 function python {
   if [[ -n "$1" ]]; then
     python $@
@@ -59,7 +62,7 @@ function python {
 
 function update {
   if command_exists 'git'; then
-    config commit -a
+    config commit -a --untracked-files=no
     config pull
     reload
   else
