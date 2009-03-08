@@ -59,7 +59,7 @@ function python {
 
 function update {
   if command_exists 'git'; then
-    config commit -a --quiet
+    config commit -a
     config pull
     reload
   else
