@@ -21,6 +21,7 @@ function extend_path {
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias sdf='ssh silas@tty.freeshell.net'
 
 ################################################################################
 # Exports
