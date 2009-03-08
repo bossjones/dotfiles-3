@@ -21,6 +21,7 @@ function extend_path {
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias profile='$EDITOR $HOME/.bash_profile'
 alias reload='source $HOME/.bash_profile'
 alias sdf='ssh silas@tty.freeshell.net'
 
@@ -58,6 +59,7 @@ function python {
 
 function update {
   if command_exists 'git'; then
+    config commit -a --quiet
     config pull
     reload
   else
