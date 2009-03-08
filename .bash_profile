@@ -62,7 +62,7 @@ function python {
 
 function update {
   if command_exists 'git'; then
-    config commit -a --untracked-files=no
+    config commit -a --untracked-files=no && config push
     config pull
     reload
   else
