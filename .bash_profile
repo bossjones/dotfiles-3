@@ -62,8 +62,9 @@ function python {
 
 function update {
   if command_exists 'git'; then
-    config commit -a --untracked-files=no && config push
+    config commit -a --untracked-files=no
     config pull
+    config push
     reload
   else
     echo 'Please install Git.'
