@@ -23,7 +23,7 @@ function random_line {
   echo $LINE
 }
 
-function string_cut {
+function string_slice {
   STRING="$1"
   declare -i LENGTH="${#STRING}"
   declare -i START="$2"
