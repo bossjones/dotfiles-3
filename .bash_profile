@@ -68,7 +68,7 @@ function python {
 }
 
 function tip {
-  echo -e "\n  " `random_line "$HOME/.tips"` "\n"
+  echo -e "\n " `random_line "$HOME/.tips"` "\n"
 }
 
 function update {
