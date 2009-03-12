@@ -43,6 +43,7 @@ function string_slice {
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias ll='ls -lh'
 alias reload='source $HOME/.bash_profile'
 alias sdf='ssh silas@tty.freeshell.net'
 
