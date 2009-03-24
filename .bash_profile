@@ -54,6 +54,7 @@ alias sdf='ssh silas@tty.freeshell.net'
 ################################################################################
 
 export EDITOR='vim'
+export HISTIGNORE="[ \t]*"
 export PS1='[\u@\h \W]$ '
 extend_path "$HOME/.local/bin"
 

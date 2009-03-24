@@ -14,7 +14,7 @@ Bash vi mode: v :: Edit (and execute) the current command in a text editor (an e
 Bash vi mode: I or SPACE :: Move one character to right.
 Bash vi mode: h :: Move one character left.
 Bash vi mode: w :: Move one word or token right.
-Bash vi mode: b :: MOve one word or token left.
+Bash vi mode: b :: Move one word or token left.
 Bash vi mode: W :: Move one non-blank word right.
 Bash vi mode: B :: Move one non-blank word left.
 Bash vi mode: e :: Move to the end of the current word.
