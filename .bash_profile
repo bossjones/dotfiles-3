@@ -39,24 +39,27 @@ function string_slice {
 }
 
 ################################################################################
-# Aliases
+# Setttings
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
-alias ll='ls -lh'
+alias ll='\ls -F -lh'
+alias ls='\ls -F'
 alias nc='nc -v'
 alias reload='source $HOME/.bash_profile'
 alias root="sudo bash --init-file $HOME/.bashrc"
 alias sdf='ssh silas@tty.freeshell.net'
 
-################################################################################
-# Exports
-################################################################################
-
 export EDITOR='vim'
-export HISTIGNORE="[ \t]*"
+export HISTCONTROL=ignoreboth
 export PS1='[\u@\h \W]$ '
+
 extend_path "$HOME/.local/bin"
+
+set -o vi
+
+shopt -s checkwinsize
+shopt -s histappend
 
 ################################################################################
 # Functions
@@ -146,18 +149,17 @@ case "`uname`" in
 esac
 
 ################################################################################
-# Settings
-################################################################################
-
-set -o vi
-
-################################################################################
 # Local environment
 ################################################################################
 
 # Use bashrc for local configuration options
-if [ -f ~/.bashrc ]; then
+if [ -f ~/.bashrc ] && [ -z BASH_PROFILE ]; then
   . ~/.bashrc
+fi
+
+# Enable programmable completion (if available)
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
 fi
 
 ################################################################################
