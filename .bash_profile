@@ -43,8 +43,7 @@ function string_slice {
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
-alias ll='\ls -F -lh'
-alias ls='\ls -F'
+alias ll='ls -lh'
 alias nc='nc -v'
 alias reload='source $HOME/.bash_profile'
 alias root="sudo bash --init-file $HOME/.bashrc"
