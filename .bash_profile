@@ -64,6 +64,16 @@ shopt -s histappend
 # Functions
 ################################################################################
 
+function archive {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && mv "$1" "$DIR/"
+}
+
+function backup {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && cp -r "$1" "$DIR/"
+}
+
 function get {
   case "$PLATFORM" in
     'darwin')
