@@ -83,6 +83,10 @@ function get {
   esac
 }
 
+function predate {
+  mv "$1" "$(date +%Y-%m-%d)-$1"
+}
+
 function profile {
   "$EDITOR" "$HOME/.bash_profile"
   reload
