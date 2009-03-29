@@ -49,6 +49,7 @@ alias reload='source $HOME/.bash_profile'
 alias root="sudo bash --init-file $HOME/.bashrc"
 alias sdf='ssh silas@tty.freeshell.net'
 
+export CDPATH=':..:~:~/resources'
 export EDITOR='vim'
 export HISTCONTROL=ignoreboth
 export PS1='[\u@\h \W]$ '
