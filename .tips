@@ -60,3 +60,4 @@ Bash vi mode: 1, 2, 3, ... :: Sets the numeric argument.
 Bash vi mode: CTRL+v :: Insert a character literally (quoted insert).
 Bash vi mode: CTRL+t :: Transpose (exchange) two characters.
 Vim: CTRL+v -> MC -> SHIFT+i -> # -> ESC :: Comment out multiple lines.
+Ubuntu: sysv-rc-conf :: Command line run level editor.

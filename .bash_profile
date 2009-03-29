@@ -39,28 +39,40 @@ function string_slice {
 }
 
 ################################################################################
-# Aliases
+# Setttings
 ################################################################################
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 alias ll='ls -lh'
+alias nc='nc -v'
 alias reload='source $HOME/.bash_profile'
 alias root="sudo bash --init-file $HOME/.bashrc"
 alias sdf='ssh silas@tty.freeshell.net'
 
-################################################################################
-# Exports
-################################################################################
-
-export CDPATH=':..:~:~/resources'
 export EDITOR='vim'
-export HISTIGNORE="[ \t]*"
+export HISTCONTROL=ignoreboth
 export PS1='[\u@\h \W]$ '
+
 extend_path "$HOME/.local/bin"
+
+set -o vi
+
+shopt -s checkwinsize
+shopt -s histappend
 
 ################################################################################
 # Functions
 ################################################################################
+
+function archive {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && mv "$1" "$DIR/"
+}
+
+function backup {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && cp -r "$1" "$DIR/"
+}
 
 function get {
   case "$PLATFORM" in
@@ -69,6 +81,10 @@ function get {
     *)
       wget "$1" ;;
   esac
+}
+
+function predate {
+  mv "$1" "$(date +%Y-%m-%d)-$1"
 }
 
 function profile {
@@ -146,18 +162,17 @@ case "`uname`" in
 esac
 
 ################################################################################
-# Settings
-################################################################################
-
-set -o vi
-
-################################################################################
 # Local environment
 ################################################################################
 
 # Use bashrc for local configuration options
-if [ -f ~/.bashrc ]; then
+if [ -f ~/.bashrc ] && [ -z BASH_PROFILE ]; then
   . ~/.bashrc
+fi
+
+# Enable programmable completion (if available)
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
 fi
 
 ################################################################################
