@@ -52,6 +52,7 @@ alias sdf='ssh silas@tty.freeshell.net'
 # Exports
 ################################################################################
 
+export CDPATH=':..:~:~/resources'
 export EDITOR='vim'
 export HISTIGNORE="[ \t]*"
 export PS1='[\u@\h \W]$ '
