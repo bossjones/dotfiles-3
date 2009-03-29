@@ -1,4 +1,4 @@
-"Disable AI
+""Disable AI
 set noai
 
 ""Disable VI's compatible mode
@@ -20,7 +20,7 @@ set autoread
 set nu
 
 ""Set line numbers to green
-highlight LineNr      term=NONE cterm=NONE ctermfg=DarkGreen ctermbg=NONE
+highlight LineNr term=NONE cterm=NONE ctermfg=DarkGreen ctermbg=NONE
 
 ""Smart search
 set incsearch
@@ -64,9 +64,9 @@ endfunction
 nmap <F4> :call ToggleSpell()<CR>
 imap <F4> <Esc>:call ToggleSpell()<CR>
 
-""alt-j and alt-k for moving between tabs
+""Alt+j and Alt+k to move between tabs
 nnoremap <A-j> gT
 nnoremap <A-k> gt
 
-""ctrl-space for autocomplete
+""Ctrl+Space for autocomplete
 imap <c-space> <c-x><c-o>

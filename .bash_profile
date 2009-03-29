@@ -53,6 +53,7 @@ export CDPATH=':..:~:~/resources'
 export EDITOR='vim'
 export HISTCONTROL=ignoreboth
 export PS1='[\u@\h \W]$ '
+export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
 
@@ -95,11 +96,11 @@ function profile {
 
 function python {
   if [[ -n "$1" ]]; then
-    python $@
+    $PYTHON $@
   elif command_exists 'ipython'; then
     ipython
   else
-    python
+    $PYTHON
   fi
 }
 
