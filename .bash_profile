@@ -51,6 +51,8 @@ alias root="sudo bash --init-file $HOME/.bashrc"
 alias sdf='ssh silas@tty.freeshell.net'
 
 export CDPATH=':..:~:~/resources'
+export CVS_RSH='ssh'
+export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
 export HISTCONTROL='ignoreboth'
 export PS1='[\u@\h \W]$ '
