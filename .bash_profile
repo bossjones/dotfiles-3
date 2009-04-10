@@ -47,8 +47,9 @@ alias fedora='ssh silas@fedorapeople.org'
 alias ll='ls -lh'
 alias nc='nc -v'
 alias reload="source $HOME/.bash_profile"
-alias root="sudo bash --init-file $HOME/.bashrc"
+alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
+alias srpm='rpmbuild -bs --nodeps'
 
 export CDPATH=':..:~:~/resources'
 export CVS_RSH='ssh'
@@ -122,6 +123,14 @@ function update {
   fi
 }
 
+function vi {
+  if command_exists 'vim'; then
+    vim $@
+  else
+    vi $@
+  fi
+}
+
 ################################################################################
 # OS specific settings
 ################################################################################
@@ -139,7 +148,9 @@ function load_darwin {
   fi
 
   # Load Fink on OS X
-  test -r /sw/bin/init.sh && . /sw/bin/init.sh
+  if [[ -r /sw/bin/init.sh ]]; then
+    . /sw/bin/init.sh
+  fi
 }
 
 function load_freebsd {
@@ -173,9 +184,9 @@ esac
 # Local environment
 ################################################################################
 
-# Use bashrc for local configuration options
-if [ -f ~/.bashrc ] && [ -z BASH_PROFILE ]; then
-  . ~/.bashrc
+# Load local configuration settings
+if [ -f "$HOME/.bash_local" ]; then
+  . "$HOME/.bash_local"
 fi
 
 # Enable programmable completion (if available)
@@ -184,7 +195,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 ################################################################################
-# One at start
+# Run at start
 ################################################################################
 
 tip
