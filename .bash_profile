@@ -51,6 +51,8 @@ alias sdf='ssh silas@tty.freeshell.net'
 # Exports
 ################################################################################
 
+export DEBFULLNAME='Silas Sewell'
+export DEBEMAIL='silas@sewell.ch'
 export EDITOR='vim'
 export PS1='[\u@\h \W]$ '
 extend_path "$HOME/.local/bin"
@@ -113,6 +115,9 @@ function load_darwin {
   if [[ "$TERM" == 'screen' ]]; then
     cd "$SCREENPWD"
   fi
+
+  # Load Fink if it exists
+  test -r /sw/bin/init.sh && . /sw/bin/init.sh
 }
 
 function load_freebsd {
