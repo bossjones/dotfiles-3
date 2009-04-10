@@ -39,27 +39,45 @@ function string_slice {
 }
 
 ################################################################################
-# Aliases
+# Setttings
 ################################################################################
 
-alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+alias fedora='ssh silas@fedorapeople.org'
 alias ll='ls -lh'
-alias reload='source $HOME/.bash_profile'
+alias nc='nc -v'
+alias reload="source $HOME/.bash_profile"
+alias root="sudo bash --init-file $HOME/.bashrc"
 alias sdf='ssh silas@tty.freeshell.net'
 
-################################################################################
-# Exports
-################################################################################
-
-export DEBFULLNAME='Silas Sewell'
-export DEBEMAIL='silas@sewell.ch'
+export CDPATH=':..:~:~/resources'
+export CVS_RSH='ssh'
+export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
+export HISTCONTROL='ignoreboth'
 export PS1='[\u@\h \W]$ '
+export PYTHON='/usr/bin/env python'
+
 extend_path "$HOME/.local/bin"
+
+set -o vi
+
+shopt -s checkwinsize
+shopt -s histappend
 
 ################################################################################
 # Functions
 ################################################################################
+
+function archive {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && mv "$1" "$DIR/"
+}
+
+function backup {
+  DIR="$HOME/Backup/$(date +%y/%m/%d)"
+  mkdir -p "$DIR" && cp -r "$1" "$DIR/"
+}
 
 function get {
   case "$PLATFORM" in
@@ -70,6 +88,10 @@ function get {
   esac
 }
 
+function predate {
+  mv "$1" "$(date +%Y-%m-%d)-$1"
+}
+
 function profile {
   "$EDITOR" "$HOME/.bash_profile"
   reload
@@ -77,11 +99,11 @@ function profile {
 
 function python {
   if [[ -n "$1" ]]; then
-    python $@
+    $PYTHON $@
   elif command_exists 'ipython'; then
     ipython
   else
-    python
+    $PYTHON
   fi
 }
 
@@ -108,15 +130,15 @@ function load_darwin {
   export PLATFORM='darwin'
 
   # Fix screen
-  alias screen='export SCREENPWD=$(pwd); /usr/bin/screen'
-  export SHELL='/bin/bash -rcfile ~/.bash_profile'
+  alias screen="export SCREENPWD=$(pwd); /usr/bin/screen"
+  export SHELL="/bin/bash -rcfile $HOME/.bash_profile"
 
   # Switch to current working directory when screen is started
   if [[ "$TERM" == 'screen' ]]; then
     cd "$SCREENPWD"
   fi
 
-  # Load Fink if it exists
+  # Load Fink on OS X
   test -r /sw/bin/init.sh && . /sw/bin/init.sh
 }
 
@@ -148,18 +170,17 @@ case "`uname`" in
 esac
 
 ################################################################################
-# Settings
-################################################################################
-
-set -o vi
-
-################################################################################
 # Local environment
 ################################################################################
 
 # Use bashrc for local configuration options
-if [ -f ~/.bashrc ]; then
+if [ -f ~/.bashrc ] && [ -z BASH_PROFILE ]; then
   . ~/.bashrc
+fi
+
+# Enable programmable completion (if available)
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
 fi
 
 ################################################################################
