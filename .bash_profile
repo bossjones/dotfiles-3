@@ -50,18 +50,20 @@ alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
 alias srpm='rpmbuild -bs --nodeps'
+alias vi='echo Just type vim, it will save you time in the long run.'
 
 export CDPATH=':..:~:~/resources'
 export CVS_RSH='ssh'
 export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
 export HISTCONTROL='ignoreboth'
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
 
-set -o vi
+set -o emacs
 
 shopt -s checkwinsize
 shopt -s histappend
@@ -120,14 +122,6 @@ function update {
     reload
   else
     echo 'Please install Git.'
-  fi
-}
-
-function vi {
-  if command_exists 'vim'; then
-    vim $@
-  else
-    vi $@
   fi
 }
 
