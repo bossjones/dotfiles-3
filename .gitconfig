@@ -8,4 +8,5 @@
 [alias]
     a = commit -a
     co = checkout
+    p = push
     s = status
