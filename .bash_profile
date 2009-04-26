@@ -133,6 +133,7 @@ function load_darwin {
   export PLATFORM='darwin'
 
   # Fix screen
+  alias ls='ls -G'
   alias screen="export SCREENPWD=$(pwd); /usr/bin/screen"
   export SHELL="/bin/bash -rcfile $HOME/.bash_profile"
 
