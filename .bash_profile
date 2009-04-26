@@ -63,7 +63,7 @@ export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
 
-set -o emacs
+set -o vi
 
 shopt -s checkwinsize
 shopt -s histappend
