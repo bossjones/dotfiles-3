@@ -110,6 +110,10 @@ function python {
   fi
 }
 
+function rpm-extract {
+  rpm2cpio "$1" | cpio -idmv
+}
+
 function tip {
   echo `random_line "$HOME/.tips"`
 }
