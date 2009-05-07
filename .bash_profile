@@ -45,6 +45,7 @@ function string_slice {
 alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias fedora='ssh silas@fedorapeople.org'
 alias ll='ls -lh'
+alias lr='ls -R'
 alias nc='nc -v'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
