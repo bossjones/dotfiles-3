@@ -45,17 +45,20 @@ function string_slice {
 alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias fedora='ssh silas@fedorapeople.org'
 alias ll='ls -lh'
+alias lr='ls -R'
 alias nc='nc -v'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
 alias srpm='rpmbuild -bs --nodeps'
+alias vi='echo Just type vim, it will save you time in the long run.'
 
 export CDPATH=':..:~:~/resources'
 export CVS_RSH='ssh'
 export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
 export HISTCONTROL='ignoreboth'
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
@@ -108,6 +111,10 @@ function python {
   fi
 }
 
+function rpm-extract {
+  rpm2cpio "$1" | cpio -idmv
+}
+
 function tip {
   echo `random_line "$HOME/.tips"`
 }
@@ -123,14 +130,6 @@ function update {
   fi
 }
 
-function vi {
-  if command_exists 'vim'; then
-    vim $@
-  else
-    vi $@
-  fi
-}
-
 ################################################################################
 # OS specific settings
 ################################################################################
@@ -139,6 +138,7 @@ function load_darwin {
   export PLATFORM='darwin'
 
   # Fix screen
+  alias ls='ls -G'
   alias screen="export SCREENPWD=$(pwd); /usr/bin/screen"
   export SHELL="/bin/bash -rcfile $HOME/.bash_profile"
 

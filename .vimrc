@@ -1,5 +1,5 @@
-""Disable AI
-set noai
+""Enable AI
+set ai
 
 ""Disable VI's compatible mode
 set nocompatible

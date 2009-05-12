@@ -1,3 +1,12 @@
 [user]
   email = silas@sewell.ch
   name = Silas Sewell
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[alias]
+    a = commit -a
+    co = checkout
+    p = push
+    s = status
