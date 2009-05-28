@@ -150,6 +150,13 @@ function load_darwin {
   if [[ -r /sw/bin/init.sh ]]; then
     . /sw/bin/init.sh
   fi
+
+  # Enable programmable completion (if available)
+  if [ -f /sw/etc/bash_completion ]; then
+    . /sw/etc/bash_completion
+  else
+    echo "No bash completion."
+  fi
 }
 
 function load_freebsd {
@@ -161,6 +168,13 @@ function load_linux {
   extend_path '/sbin'
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
+
+  # Enable programmable completion (if available)
+  if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  else
+    echo "No bash completion."
+  fi
 }
 
 function load_netbsd {
@@ -186,11 +200,6 @@ esac
 # Load local configuration settings
 if [ -f "$HOME/.bash_local" ]; then
   . "$HOME/.bash_local"
-fi
-
-# Enable programmable completion (if available)
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
 fi
 
 ################################################################################
