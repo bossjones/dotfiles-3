@@ -83,6 +83,15 @@ function backup {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
+function dns_clear {
+  case "$PLATFORM" in
+    'darwin')
+      dscacheutil -flushcache ;;
+    *)
+      echo Not supported ;;
+  esac
+}
+
 function get {
   case "$PLATFORM" in
     'darwin')
