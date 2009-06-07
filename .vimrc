@@ -13,6 +13,9 @@ set ruler
 ""Set backspace
 set backspace=eol,start,indent
 
+""Auto indent
+set autoindent
+
 ""Set to auto read when a file is changed from the outside
 set autoread
 
