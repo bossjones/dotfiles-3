@@ -167,8 +167,6 @@ function load_darwin {
   else
     echo "No bash completion."
   fi
-
-  cd ~/Desktop
 }
 
 function load_freebsd {
