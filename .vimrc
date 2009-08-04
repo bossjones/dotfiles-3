@@ -13,6 +13,9 @@ set ruler
 ""Set backspace
 set backspace=eol,start,indent
 
+""Ignores
+set wildignore=*.o,*.obj,*.bak,*.exe
+
 ""Auto indent
 set autoindent
 
