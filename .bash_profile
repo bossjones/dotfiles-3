@@ -2,6 +2,10 @@
 # Helper Functions
 ################################################################################
 
+function calc {
+  echo "$@" | bc
+}
+
 function command_exists {
   if command -v "$1" &>/dev/null; then
     return 0
@@ -202,6 +206,9 @@ function load_darwin {
   if [[ -r /sw/bin/init.sh ]]; then
     . /sw/bin/init.sh
   fi
+
+  # Setup Java
+  export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
 
   # Enable programmable completion (if available)
   if [ -f /sw/etc/bash_completion ]; then
