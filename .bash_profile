@@ -178,6 +178,7 @@ function load_linux {
   extend_path '/sbin'
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
+  alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
 
   # Enable programmable completion (if available)
   if [ -f /etc/bash_completion ]; then
