@@ -136,7 +136,7 @@ function svn {
   case "$1" in
   'diff')
     if [[ -n $( /usr/bin/svn status ) ]]; then
-      command_run svn diff | vless
+      command_run svn $@ | vless
     fi
     ;;
   'status')
