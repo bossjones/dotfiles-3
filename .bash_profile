@@ -152,13 +152,7 @@ function load_darwin {
 
   # Fix screen
   alias ls='ls -G'
-  alias screen="export SCREENPWD=$(pwd); /usr/bin/screen"
-  export SHELL="/bin/bash -rcfile $HOME/.bash_profile"
-
-  # Switch to current working directory when screen is started
-  if [[ "$TERM" == 'screen' ]]; then
-    cd "$SCREENPWD"
-  fi
+  alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
   # Load Fink on OS X
   if [[ -r /sw/bin/init.sh ]]; then
@@ -218,9 +212,3 @@ esac
 if [ -f "$HOME/.bash_local" ]; then
   . "$HOME/.bash_local"
 fi
-
-################################################################################
-# Run at start
-################################################################################
-
-tip
