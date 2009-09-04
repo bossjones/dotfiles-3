@@ -14,6 +14,10 @@ function command_exists {
   fi
 }
 
+function command_run {
+  `dirname $( whereis -b "$1" | awk '{ print $2 '} )`/$@
+}
+
 function extend_path {
   if [[ $PATH != *:$1* ]]; then
     export PATH="$PATH:$1"
@@ -128,6 +132,27 @@ function rpm-extract {
   rpm2cpio "$1" | cpio -idmv
 }
 
+function svn {
+  case "$1" in
+  'diff')
+    if [[ -n $( /usr/bin/svn status ) ]]; then
+      command_run svn $@ | vless
+    fi
+    ;;
+  'status')
+    if [[ "$PWD" == "$HOME" ]]
+    then
+      command_run svn $@ | grep -v "^\?"
+    else
+      command_run svn $@
+    fi
+    ;;
+  *)
+    command_run svn $@
+    ;;
+  esac
+}
+
 function tip {
   echo `random_line "$HOME/.tips"`
 }
@@ -140,6 +165,23 @@ function update {
     reload
   else
     echo 'Please install Git.'
+  fi
+}
+
+function vless {
+  if test -t 1; then
+    if test $# = 0; then
+      vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
+    else
+      vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
+    fi
+  else
+    # Output is not a terminal, cat arguments or stdin
+    if test $# = 0; then
+      cat
+    else
+      cat "$@"
+    fi
   fi
 }
 
@@ -179,6 +221,7 @@ function load_linux {
   extend_path '/sbin'
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
+  alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
 
   # Enable programmable completion (if available)
   if [ -f /etc/bash_completion ]; then
