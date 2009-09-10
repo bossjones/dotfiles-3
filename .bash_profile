@@ -207,8 +207,6 @@ function load_darwin {
   # Enable programmable completion (if available)
   if [ -f /sw/etc/bash_completion ]; then
     . /sw/etc/bash_completion
-  else
-    echo "No bash completion."
   fi
 }
 
@@ -226,8 +224,6 @@ function load_linux {
   # Enable programmable completion (if available)
   if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-  else
-    echo "No bash completion."
   fi
 }
 
