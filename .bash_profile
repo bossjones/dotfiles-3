@@ -54,7 +54,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../../'
-alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias fedora='ssh silas@fedorapeople.org'
 alias lessf='less +F'
 alias ll='ls -lh'
@@ -158,6 +157,18 @@ function python {
   else
     $PYTHON
   fi
+}
+
+function config {
+  command="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+  case "$1" in
+  'add')
+    $command $@ -f
+    ;;
+  *)
+    $command $@
+    ;;
+  esac
 }
 
 function svn {
