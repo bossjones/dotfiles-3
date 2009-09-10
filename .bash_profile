@@ -50,8 +50,12 @@ function string_slice {
 # Setttings
 ################################################################################
 
-alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../../'
 alias fedora='ssh silas@fedorapeople.org'
+alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
 alias nc='nc -v'
@@ -100,6 +104,28 @@ function dns_clear {
   esac
 }
 
+function extract {
+    if [ -f "$1" ] ; then
+        case "$1" in
+            *.tar.bz2) tar xvjf "$1" ;;
+            *.tar.gz)  tar xvzf "$1" ;;
+            *.bz2)     bunzip2 "$1" ;;
+            *.rar)     unrar x "$1" ;;
+            *.rpm)     rpm2cpio "$1" | cpio -idmv ;;
+            *.gz)      gunzip "$1" ;;
+            *.tar)     tar xvf "$1" ;;
+            *.tbz2)    tar xvjf "$1" ;;
+            *.tgz)     tar xvzf "$1" ;;
+            *.zip)     unzip "$1" ;;
+            *.Z)       uncompress "$1" ;;
+            *.7z)      7z x "$1" ;;
+            *)         echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
 function get {
   case "$PLATFORM" in
     'darwin')
@@ -107,6 +133,11 @@ function get {
     *)
       wget "$1" ;;
   esac
+}
+
+function gmail {
+  curl -u silassewell --silent "https://mail.google.com/mail/feed/atom" |\
+  perl -ne 'print "\t" if /<name>/; print "$2\n" if /<(title|name)>(.*)<\/\1>/;'
 }
 
 function predate {
@@ -128,8 +159,16 @@ function python {
   fi
 }
 
-function rpm-extract {
-  rpm2cpio "$1" | cpio -idmv
+function config {
+  command="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+  case "$1" in
+  'add')
+    $command $@ -f
+    ;;
+  *)
+    $command $@
+    ;;
+  esac
 }
 
 function svn {
@@ -192,7 +231,8 @@ function vless {
 function load_darwin {
   export PLATFORM='darwin'
 
-  # Fix screen
+  alias copy='pbcopy'
+  alias paste='pbpaste'
   alias ls='ls -G'
   alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
@@ -220,6 +260,7 @@ function load_linux {
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
   alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
+  alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
 
   # Enable programmable completion (if available)
   if [ -f /etc/bash_completion ]; then
