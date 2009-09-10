@@ -50,6 +50,10 @@ function string_slice {
 # Setttings
 ################################################################################
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../../'
 alias config="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias fedora='ssh silas@fedorapeople.org'
 alias ll='ls -lh'
@@ -192,7 +196,8 @@ function vless {
 function load_darwin {
   export PLATFORM='darwin'
 
-  # Fix screen
+  alias copy='pbcopy'
+  alias paste='pbpaste'
   alias ls='ls -G'
   alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
