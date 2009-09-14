@@ -71,7 +71,7 @@ export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
 export HISTCONTROL='ignoreboth'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export PS1='\n[\u@\h \W]$ '
+export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
