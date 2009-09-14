@@ -243,13 +243,6 @@ function load_darwin {
 
   # Setup Java
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
-
-  # Enable programmable completion (if available)
-  if [ -f /sw/etc/bash_completion ]; then
-    . /sw/etc/bash_completion
-  else
-    echo "No bash completion."
-  fi
 }
 
 function load_freebsd {
@@ -263,13 +256,6 @@ function load_linux {
   extend_path '/usr/local/sbin'
   alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
   alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
-
-  # Enable programmable completion (if available)
-  if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  else
-    echo "No bash completion."
-  fi
 }
 
 function load_netbsd {
