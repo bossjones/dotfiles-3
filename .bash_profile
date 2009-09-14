@@ -95,12 +95,16 @@ function backup {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
-function dns_clear {
+function clean {
   case "$PLATFORM" in
     'darwin')
-      dscacheutil -flushcache ;;
+      dscacheutil -flushcache
+      find "$HOME" -name \.DS_Store -delete
+      rm -fr "$HOME/Library/Preferences/Macromedia/Flash Player/#SharedObjects/"*
+      ;;
     *)
-      echo Not supported ;;
+      echo Not supported
+      ;;
   esac
 }
 
