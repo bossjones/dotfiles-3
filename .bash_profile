@@ -95,12 +95,35 @@ function backup {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
+function clean_all {
+  case "$PLATFORM" in
+    'darwin')
+      dscacheutil -flushcache
+      find "$HOME" -name '.DS_Store' -delete
+      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
+      rm -fr "$HOME/Library/"*
+      ;;
+    'linux')
+      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
+      ;;
+    *)
+      echo Not supported
+      ;;
+  esac
+}
+
 function clean {
   case "$PLATFORM" in
     'darwin')
       dscacheutil -flushcache
-      find "$HOME" -name \.DS_Store -delete
-      rm -fr "$HOME/Library/Preferences/Macromedia/Flash Player/#SharedObjects/"*
+      find "$HOME" -name '.DS_Store' -delete
+      find "$HOME/Library/Application Support/Chromium/Default" -type f -not -name Preferences -not -name 'Web Data' -delete
+      rm -fr "$HOME/Library/Caches/"*
+      rm -fr "$HOME/Library/Cookies/"*
+      rm -fr "$HOME/Library/Logs/"*
+      rm -fr "$HOME/Library/Safari/"*
+      rm -fr "$HOME/Library/Preferences/Macromedia/"*
+      rm -fr "$HOME/Library/Preferences/VLC/"*
       ;;
     *)
       echo Not supported
