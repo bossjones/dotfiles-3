@@ -63,6 +63,8 @@ alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
 alias srpm='rpmbuild -bs --nodeps'
+alias today='date +"%Y-%m-%d"'
+alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
 export CDPATH=':..:~:~/resources'
@@ -95,12 +97,39 @@ function backup {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
-function dns_clear {
+function clean_all {
   case "$PLATFORM" in
     'darwin')
-      dscacheutil -flushcache ;;
+      dscacheutil -flushcache
+      find "$HOME" -name '.DS_Store' -delete
+      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
+      rm -fr "$HOME/Library/"*
+      ;;
+    'linux')
+      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
+      ;;
     *)
-      echo Not supported ;;
+      echo Not supported
+      ;;
+  esac
+}
+
+function clean {
+  case "$PLATFORM" in
+    'darwin')
+      dscacheutil -flushcache
+      find "$HOME" -name '.DS_Store' -delete
+      find "$HOME/Library/Application Support/Chromium/Default" -type f -not -name Preferences -not -name 'Web Data' -delete
+      rm -fr "$HOME/Library/Caches/"*
+      rm -fr "$HOME/Library/Cookies/"*
+      rm -fr "$HOME/Library/Logs/"*
+      rm -fr "$HOME/Library/Safari/"*
+      rm -fr "$HOME/Library/Preferences/Macromedia/"*
+      rm -fr "$HOME/Library/Preferences/VLC/"*
+      ;;
+    *)
+      echo Not supported
+      ;;
   esac
 }
 
