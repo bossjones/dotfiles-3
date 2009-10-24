@@ -50,8 +50,8 @@ colorscheme desert
 
 ""Tabs
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
 ""File specific tabs
 au FileType html,make,php setl noexpandtab
