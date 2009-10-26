@@ -48,6 +48,9 @@ colorscheme desert
 "set nowb
 "set noswapfile
 
+""Enable filetype plugins
+filetype plugin on
+
 ""Tabs
 set expandtab
 set tabstop=4
