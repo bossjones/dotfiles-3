@@ -67,7 +67,6 @@ alias today='date +"%Y-%m-%d"'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
-export CDPATH=':..:~:~/resources'
 export CVS_RSH='ssh'
 export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
