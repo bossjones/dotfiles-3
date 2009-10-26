@@ -54,7 +54,7 @@ set tabstop=4
 set shiftwidth=4
 
 ""File specific tabs
-au FileType html,make,php setl noexpandtab
+au FileType make setl noexpandtab
 
 ""Spell check
 function! ToggleSpell()
