@@ -53,8 +53,8 @@ filetype plugin on
 
 ""Tabs
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 
 ""File specific tabs
 au FileType make setl noexpandtab

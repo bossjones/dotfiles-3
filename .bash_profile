@@ -58,7 +58,6 @@ alias fedora='ssh silas@fedorapeople.org'
 alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
-alias nc='nc -v'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
@@ -195,27 +194,6 @@ function config {
     ;;
   *)
     $command $@
-    ;;
-  esac
-}
-
-function svn {
-  case "$1" in
-  'diff')
-    if [[ -n $( /usr/bin/svn status ) ]]; then
-      command_run svn $@ | vless
-    fi
-    ;;
-  'status')
-    if [[ "$PWD" == "$HOME" ]]
-    then
-      command_run svn $@ | grep -v "^\?"
-    else
-      command_run svn $@
-    fi
-    ;;
-  *)
-    command_run svn $@
     ;;
   esac
 }
