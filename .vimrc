@@ -58,7 +58,7 @@ set shiftwidth=2
 
 ""File specific tabs
 au FileType make setl noexpandtab
-au FileType php setl tabstop=4 shiftwidth=4
+au FileType c,php setl tabstop=4 shiftwidth=4
 
 ""Spell check
 function! ToggleSpell()
