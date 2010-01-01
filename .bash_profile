@@ -243,10 +243,14 @@ function load_darwin {
   alias ls='ls -G'
   alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
-  # Load Fink on OS X
+  # Fink
   if [[ -r /sw/bin/init.sh ]]; then
     . /sw/bin/init.sh
   fi
+
+  # MacPorts
+  extend_path '/opt/local/bin'
+  extend_path '/opt/local/sbin'
 
   # Setup Java
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
