@@ -76,6 +76,7 @@ export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
+extend_path "$HOME/src/scripts"
 
 set -o vi
 
