@@ -102,11 +102,11 @@ alias fedora='ssh silas@fedorapeople.org'
 alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
-alias nc='nc -v'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
 alias srpm='rpmbuild -bs --nodeps'
+alias srpm-epel='rpmbuild -bs --define _source_filedigest_algorithm=1 --nodeps'
 alias today='date +"%Y-%m-%d"'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
@@ -120,6 +120,7 @@ export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
 extend_path "$HOME/.local/bin"
+extend_path "$HOME/src/scripts"
 
 set -o vi
 
@@ -287,10 +288,14 @@ function load_darwin {
   alias ls='ls -G'
   alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
-  # Load Fink on OS X
+  # Fink
   if [[ -r /sw/bin/init.sh ]]; then
     . /sw/bin/init.sh
   fi
+
+  # MacPorts
+  extend_path '/opt/local/bin'
+  extend_path '/opt/local/sbin'
 
   # Setup Java
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
