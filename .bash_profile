@@ -2,7 +2,19 @@
 # Inline apps
 ################################################################################
 
-function docs_cidr_mask {
+docs_speed() {
+  echo ' --------------------------------------------------------------------------------'
+  echo '| Type                                       | Speed                             |'
+  echo ' --------------------------------------------------------------------------------'
+  echo '| execute single instruction                 | 1 nanosec = (1/1,000,000,000) sec |'
+  echo '| fetch word from L1 cache memory            | 2 nanoseci                        |'
+  echo '| fetch word from main memory                | 10 nanosec                        |'
+  echo '| fetch word from consecutive disk location  | 200 nanosec                       |'
+  echo '| fetch word from new disk location (seek)   | 8,000,000 nanosec = 8 millisec    |'
+  echo ' --------------------------------------------------------------------------------'
+}
+
+docs_cidr_mask() {
   echo ' ---------------------------------------------- '
   echo '| IP/CIDR    | Mask            | # of Hosts    |'
   echo ' ---------------------------------------------- '
@@ -42,15 +54,81 @@ function docs_cidr_mask {
   echo ' ---------------------------------------------- '
 }
 
+note() {
+  note-setup
+  if [ -n "$*" ]; then
+    vim "$HOME/.notes/$*"
+  else
+    vim "$HOME/.notes/$( date +%Y-%m-%d )"
+  fi
+}
+
+note-cat() {
+  if [ -n "$*" ]; then
+    note-setup
+    cat "$HOME/.notes/$*"
+  else
+    echo "Note name required."
+  fi
+}
+
+note-copy() {
+  if [ -n "$*" ]; then
+    note-setup
+    cat "$HOME/.notes/$*" | copy
+  else
+    echo "Note name required."
+  fi
+}
+
+note-ls() {
+  note-setup
+  if [ -n "$*" ]; then
+    find "$HOME/.notes" -type f -name "*$**" -exec basename {} \;
+  else
+    find "$HOME/.notes" -type f -exec basename {} \;
+  fi
+}
+
+note-path() {
+  if [ -n "$*" ]; then
+    echo "$HOME/.notes/$*"
+  else
+    echo "Note name required."
+  fi
+}
+
+note-paste() {
+  if [ -n "$*" ]; then
+    note-setup
+    paste > "$HOME/.notes/$*"
+  else
+    echo "Note name required."
+  fi
+}
+
+note-rm() {
+  if [ -n "$*" ]; then
+    note-setup
+    rm -f "$HOME/.notes/$*"
+  else
+    echo "Note name required."
+  fi
+}
+
+note-setup() {
+  mkdir -p "$HOME/.notes/"
+}
+
 ################################################################################
 # Helper Functions
 ################################################################################
 
-function calc {
+calc() {
   echo "$@" | bc
 }
 
-function command_exists {
+command_exists() {
   if command -v "$1" &>/dev/null; then
     return 0
   else
@@ -58,24 +136,24 @@ function command_exists {
   fi
 }
 
-function command_run {
+command_run() {
   `dirname $( whereis -b "$1" | awk '{ print $2 '} )`/$@
 }
 
-function extend_path {
+extend_path() {
   if [[ $PATH != *:$1* ]]; then
     export PATH="$PATH:$1"
   fi
 }
 
-function random_line {
+random_line() {
   LINES=$( wc -l "$1" | awk '{ print ($1 + 1) }' )
   RANDSEED=$( date '+%S%M%I' )
   LINE=$( cat "$1" | awk -v "COUNT=$LINES" -v "SEED=$RANDSEED" 'BEGIN { srand(SEED); i=int(rand()*COUNT) } FNR==i { print $0 }' )
   echo "$LINE"
 }
 
-function string_slice {
+string_slice() {
   STRING="$1"
   declare -i LENGTH="${#STRING}"
   declare -i START="$2"
@@ -131,20 +209,20 @@ shopt -s histappend
 # Functions
 ################################################################################
 
-function archive {
+archive() {
   DIR="$HOME/Backup/$(date +%y/%m/%d)"
   mkdir -p "$DIR" && mv "$1" "$DIR/"
 }
 
-function backup {
+backup() {
   DIR="$HOME/Backup/$(date +%y/%m/%d)"
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
-function clean_all {
+clean_all() {
   case "$PLATFORM" in
     'darwin')
-      dscacheutil -flushcache
+      clear_dns
       find "$HOME" -name '.DS_Store' -delete
       find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
       rm -fr "$HOME/Library/"*
@@ -158,10 +236,10 @@ function clean_all {
   esac
 }
 
-function clean {
+clean() {
   case "$PLATFORM" in
     'darwin')
-      dscacheutil -flushcache
+      clear_dns
       find "$HOME" -name '.DS_Store' -delete
       find "$HOME/Library/Application Support/Chromium/Default" -type f -not -name Preferences -not -name 'Web Data' -delete
       rm -fr "$HOME/Library/Caches/"*
@@ -177,7 +255,18 @@ function clean {
   esac
 }
 
-function extract {
+clear_dns() {
+  case "$PLATFORM" in
+    'darwin')
+      dscacheutil -flushcache
+      ;;
+    *)
+      echo Not supported
+      ;;
+  esac
+}
+
+extract() {
     if [ -f "$1" ] ; then
         case "$1" in
             *.tar.bz2) tar xvjf "$1" ;;
@@ -199,7 +288,7 @@ function extract {
     fi
 }
 
-function get {
+get() {
   case "$PLATFORM" in
     'darwin')
       curl -O "$1" ;;
@@ -208,21 +297,21 @@ function get {
   esac
 }
 
-function gmail {
+gmail() {
   curl -u silassewell --silent "https://mail.google.com/mail/feed/atom" |\
   perl -ne 'print "\t" if /<name>/; print "$2\n" if /<(title|name)>(.*)<\/\1>/;'
 }
 
-function predate {
+predate() {
   mv "$1" "$(date +%Y-%m-%d)-$1"
 }
 
-function profile {
+profile() {
   "$EDITOR" "$HOME/.bash_profile"
   reload
 }
 
-function python {
+python() {
   if [[ -n "$1" ]]; then
     $PYTHON $@
   elif command_exists 'ipython'; then
@@ -232,7 +321,7 @@ function python {
   fi
 }
 
-function config {
+config() {
   command="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
   case "$1" in
   'add')
@@ -244,11 +333,11 @@ function config {
   esac
 }
 
-function tip {
+tip() {
   echo `random_line "$HOME/.tips"`
 }
 
-function update {
+update() {
   if command_exists 'git'; then
     config commit -a --untracked-files=no
     config pull
@@ -259,7 +348,7 @@ function update {
   fi
 }
 
-function vless {
+vless() {
   if test -t 1; then
     if test $# = 0; then
       vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
@@ -280,7 +369,7 @@ function vless {
 # OS specific settings
 ################################################################################
 
-function load_darwin {
+load_darwin() {
   export PLATFORM='darwin'
 
   alias copy='pbcopy'
@@ -301,11 +390,11 @@ function load_darwin {
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
 }
 
-function load_freebsd {
+load_freebsd() {
   export PLATFORM='freebsd'
 }
 
-function load_linux {
+load_linux() {
   export PLATFORM='linux'
   extend_path '/sbin'
   extend_path '/usr/sbin'
@@ -314,7 +403,7 @@ function load_linux {
   alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
 }
 
-function load_netbsd {
+load_netbsd() {
   export PLATFORM='netbsd'
 }
 
