@@ -117,7 +117,9 @@ note-rm() {
 }
 
 note-setup() {
-  mkdir -p "$HOME/.notes/"
+  if [ ! -e "$HOME/.notes" ]; then
+    mkdir -p "$HOME/.notes"
+  fi
 }
 
 ################################################################################
