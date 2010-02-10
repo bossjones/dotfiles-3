@@ -140,15 +140,11 @@ calc() {
 }
 
 command_exists() {
-  if command -v "$1" &>/dev/null; then
+  if type -f "$1" &> /dev/null; then
     return 0
   else
     return 1
   fi
-}
-
-command_run() {
-  `dirname $( whereis -b "$1" | awk '{ print $2 '} )`/$@
 }
 
 extend_path() {
@@ -300,17 +296,13 @@ extract() {
 }
 
 get() {
-  case "$PLATFORM" in
-    'darwin')
-      curl -O "$1" ;;
-    *)
-      wget "$1" ;;
-  esac
-}
-
-gmail() {
-  curl -u silassewell --silent "https://mail.google.com/mail/feed/atom" |\
-  perl -ne 'print "\t" if /<name>/; print "$2\n" if /<(title|name)>(.*)<\/\1>/;'
+  if command_exists 'curl'; then
+    curl -O "$1"
+  elif command_exists 'wget'; then
+    wget "$1"
+  else
+    echo 'No get command found.'
+  fi
 }
 
 predate() {
