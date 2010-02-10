@@ -81,6 +81,11 @@ note-copy() {
   fi
 }
 
+note-grep() {
+  note-setup
+  grep "$*" "$HOME/.notes"
+}
+
 note-ls() {
   note-setup
   if [ -n "$*" ]; then
@@ -120,6 +125,10 @@ note-setup() {
   if [ ! -e "$HOME/.notes" ]; then
     mkdir -p "$HOME/.notes"
   fi
+}
+
+note-yesterday() {
+  note $( date -v -1d +%Y-%m-%d )
 }
 
 ################################################################################
@@ -224,7 +233,7 @@ backup() {
 clean_all() {
   case "$PLATFORM" in
     'darwin')
-      clear_dns
+      clean_dns
       find "$HOME" -name '.DS_Store' -delete
       find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
       rm -fr "$HOME/Library/"*
@@ -241,7 +250,7 @@ clean_all() {
 clean() {
   case "$PLATFORM" in
     'darwin')
-      clear_dns
+      clean_dns
       find "$HOME" -name '.DS_Store' -delete
       find "$HOME/Library/Application Support/Chromium/Default" -type f -not -name Preferences -not -name 'Web Data' -delete
       rm -fr "$HOME/Library/Caches/"*
@@ -257,7 +266,7 @@ clean() {
   esac
 }
 
-clear_dns() {
+clean_dns() {
   case "$PLATFORM" in
     'darwin')
       dscacheutil -flushcache
