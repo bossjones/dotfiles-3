@@ -208,6 +208,7 @@ extend_path "$HOME/.local/bin"
 extend_path "$HOME/src/scripts"
 
 set -o vi
+set bell-style none
 
 shopt -s checkwinsize
 shopt -s histappend
