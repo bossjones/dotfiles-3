@@ -227,6 +227,20 @@ backup() {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
+rip-iso() {
+  case "$PLATFORM" in
+    'darwin')
+      hdiutil makehybrid -o "$1" /dev/disk1 -verbose
+      ;;
+    'linux')
+      dd if=/dev/cdrom of="$1"
+      ;;
+    *)
+      echo Not supported
+      ;;
+  esac
+}
+
 clean_all() {
   case "$PLATFORM" in
     'darwin')
