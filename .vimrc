@@ -14,7 +14,7 @@ set ruler
 set backspace=eol,start,indent
 
 ""Ignores
-set wildignore=*.o,*.obj,*.bak,*.exe
+set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc
 
 ""Auto indent
 set autoindent
@@ -54,6 +54,7 @@ filetype plugin on
 ""Tabs
 set expandtab
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 
 ""File specific tabs
@@ -79,3 +80,9 @@ nnoremap <A-k> gt
 
 ""Ctrl+Space for autocomplete
 imap <c-space> <c-x><c-o>
+
+""Toggle set list
+nmap <leader>l :set list!<CR>
+
+""TextMate style tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
