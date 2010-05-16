@@ -59,6 +59,8 @@ set shiftwidth=4
 
 ""File specific tabs
 au FileType make setl noexpandtab
+au FileType cpp setl tabstop=2 softtabstop=2 shiftwidth=2
+au FileType javascript setl tabstop=2 softtabstop=2 shiftwidth=2
 
 ""Spell check
 function! ToggleSpell()
