@@ -419,6 +419,8 @@ load_linux() {
   extend_path '/usr/local/sbin'
   alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
   alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
+  alias fmb32='mock -vr fedora-rawhide-i686'
+  alias fmb64='mock -vr fedora-rawhide-x86_64'
 }
 
 load_netbsd() {
