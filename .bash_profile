@@ -54,6 +54,12 @@ docs_cidr_mask() {
   echo ' ---------------------------------------------- '
 }
 
+github() {
+  if [ "$1" == "clone" ]; then
+    git clone "git@github.com:silas/$2.git"
+  fi
+}
+
 note() {
   note-setup
   if [ -n "$*" ]; then
