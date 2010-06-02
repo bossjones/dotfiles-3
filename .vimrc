@@ -7,6 +7,10 @@ set nocompatible
 ""Enable syntax hightlighting
 syntax enable
 
+""Python syntax highlighting for scon files
+autocmd BufReadPre SConstruct set filetype=python
+autocmd BufReadPre SConscript set filetype=python
+
 ""Always show current position
 set ruler
 
