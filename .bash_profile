@@ -233,6 +233,10 @@ backup() {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
+function new {
+  \screen bash -c "cd \"$PWD\" && exec $SHELL --login"
+}
+
 rip-iso() {
   case "$PLATFORM" in
     'darwin')
@@ -399,7 +403,6 @@ load_darwin() {
   alias copy='pbcopy'
   alias paste='pbpaste'
   alias ls='ls -G'
-  alias screen="/usr/bin/screen /bin/bash -rcfile /Users/silas/.bash_profile"
 
   # Fink
   if [[ -r /sw/bin/init.sh ]]; then
