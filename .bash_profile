@@ -54,12 +54,6 @@ docs_cidr_mask() {
   echo ' ---------------------------------------------- '
 }
 
-github() {
-  if [ "$1" == "clone" ]; then
-    git clone "git@github.com:silas/$2.git"
-  fi
-}
-
 note() {
   note-setup
   if [ -n "$*" ]; then
@@ -426,6 +420,7 @@ load_linux() {
   alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
   alias fmb32='mock -vr fedora-rawhide-i686'
   alias fmb64='mock -vr fedora-rawhide-x86_64'
+  export LD_LIBRARY_PATH='.'
 }
 
 load_netbsd() {
