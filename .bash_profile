@@ -233,10 +233,6 @@ backup() {
   mkdir -p "$DIR" && cp -r "$1" "$DIR/"
 }
 
-function new {
-  \screen bash -c "cd \"$PWD\" && exec $SHELL --login"
-}
-
 rip-iso() {
   case "$PLATFORM" in
     'darwin')
