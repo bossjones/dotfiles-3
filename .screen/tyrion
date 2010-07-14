@@ -1,0 +1,17 @@
+# Load defaults
+source "$HOME/.screenrc"
+
+# Setup code window
+chdir "$HOME/src/tyrion/src"
+screen -t code  0
+
+# Setup build window
+chdir "$HOME/src/tyrion"
+screen -t build  1
+
+# Setup test window
+chdir "$HOME/src/tyrion/tests"
+screen -t tests  2
+
+# Set default directory
+chdir "$HOME/src/tyrion"

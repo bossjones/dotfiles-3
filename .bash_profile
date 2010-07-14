@@ -179,10 +179,6 @@ string_slice() {
 # Setttings
 ################################################################################
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../../'
 alias fedora='ssh silas@fedorapeople.org'
 alias lessf='less +F'
 alias ll='ls -lh'
@@ -349,6 +345,14 @@ config() {
     $command $@
     ;;
   esac
+}
+
+sp() {
+  if [[ -f "$HOME/.screen/$1" ]]; then
+    screen -c "$HOME/.screen/$1"
+  else
+    echo "Unknown screen profile '$1'"
+  fi
 }
 
 tip() {
