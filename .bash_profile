@@ -351,7 +351,7 @@ sp() {
   if [[ -f "$HOME/.screen/$1" ]]; then
     screen -c "$HOME/.screen/$1"
   else
-    echo "Unknown screen profile '$1'"
+    echo "Unknown screen profile '$1'."
   fi
 }
 
