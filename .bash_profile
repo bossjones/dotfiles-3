@@ -153,6 +153,12 @@ extend_path() {
   fi
 }
 
+extend_python_path() {
+  if [[ $PYTHONPATH != *:$1* ]]; then
+    export PYTHONPATH="$PYTHONPATH:$1"
+  fi
+}
+
 random_line() {
   LINES=$( wc -l "$1" | awk '{ print ($1 + 1) }' )
   RANDSEED=$( date '+%S%M%I' )
