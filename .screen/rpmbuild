@@ -9,4 +9,7 @@ screen -t sources  1
 chdir "/var/lib/mock"
 screen -t mock  2
 
-chdir "$HOME/src/rpm"
+chdir "$HOME/src/rpms"
+screen -t rpms  3
+
+chdir "$HOME"

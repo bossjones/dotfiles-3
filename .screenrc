@@ -9,3 +9,6 @@ vbell off
 
 # Set long scrollback buffer
 defscrollback 30000
+
+# Enable scrolling
+termcapinfo xterm* ti@:te@
