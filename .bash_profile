@@ -195,6 +195,7 @@ alias sdf='ssh silas@tty.freeshell.net'
 alias srpm='rpmbuild -bs --nodeps'
 alias srpm-epel='rpmbuild -bs --define _source_filedigest_algorithm=1 --nodeps'
 alias today='date +"%Y-%m-%d"'
+alias todo='note todo'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
