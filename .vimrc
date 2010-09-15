@@ -11,6 +11,13 @@ syntax enable
 autocmd BufReadPre SConstruct set filetype=python
 autocmd BufReadPre SConscript set filetype=python
 
+""Python syntax highlighting for waf files
+autocmd BufReadPre wscript set filetype=python
+autocmd BufReadPre wscript set filetype=python
+
+""Alway use assume bash for sh
+let is_bash=1
+
 ""Always show current position
 set ruler
 
@@ -63,7 +70,7 @@ set shiftwidth=2
 
 ""File specific tabs
 au FileType make setl noexpandtab
-au FileType python setl tabstop=4 softtabstop=4 shiftwidth=4
+au FileType erlang,python setl tabstop=4 softtabstop=4 shiftwidth=4
 
 ""Spell check
 function! ToggleSpell()
