@@ -166,7 +166,9 @@ extend_path() {
 }
 
 extend_python_path() {
-  if [[ $PYTHONPATH != *:$1* ]]; then
+  if [[ -z $PYTHONPATH ]]; then
+    export PYTHONPATH="$1"
+  elif [[ $PYTHONPATH != *:$1* && $PYTHONPATH != $1 ]]; then
     export PYTHONPATH="$PYTHONPATH:$1"
   fi
 }
@@ -232,14 +234,44 @@ shopt -s histappend
 # Functions
 ################################################################################
 
-archive() {
-  DIR="$HOME/Backup/$(date +%y/%m/%d)"
-  mkdir -p "$DIR" && mv "$1" "$DIR/"
+backup() {
+  src_path="$1"
+  dst_path="$HOME/Dropbox/Backups"
+  src_name="$( basename $src_path )"
+  dst_name="$( date +%Y-%m-%d )-$( basename $src_path )"
+
+  if [[ ! -d "$src_path" ]]; then
+    echo "Invalid source path: $src_path"
+    exit 2
+  fi
+
+  if [[ ! -d "$dst_path" ]]; then
+    echo "Invalid destination path: $dst_path"
+    exit 2
+  fi
+
+  pushd "$( dirname $src_path )" > /dev/null
+
+  if [[ -e "$dst_name" ]]; then
+    echo "Desination name already exists: $dst_name"
+    exit 2
+  fi
+
+  if [[ -e "$dst_path/$dst_name.tar.bz2" ]]; then
+    echo "Desination path already exists: $dst_path"
+    exit 2
+  fi
+
+  mv "$src_name" "$dst_name" && \
+  tar -cjf "$dst_name.tar.bz2" "$dst_name" && \
+  mv "$dst_name.tar.bz2" "$dst_path" && \
+  mv "$dst_name" "$src_name" &&
+  popd > /dev/null
 }
 
-backup() {
-  DIR="$HOME/Backup/$(date +%y/%m/%d)"
-  mkdir -p "$DIR" && cp -r "$1" "$DIR/"
+backup-drop() {
+  backup "$1" && \
+  rm -fr "$1"
 }
 
 rip-iso() {
