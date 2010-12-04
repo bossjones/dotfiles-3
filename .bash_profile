@@ -196,6 +196,14 @@ string_slice() {
 }
 
 ################################################################################
+# Complete options
+################################################################################
+
+complete -W "$(echo $(cat ~/.ssh/known_hosts | \
+  cut -f 1 -d ' ' | sed -e s/,.*//g | \
+  sort -u | grep -v "\["))" ssh
+
+################################################################################
 # Setttings
 ################################################################################
 
@@ -501,4 +509,9 @@ esac
 # Load local configuration settings
 if [ -f "$HOME/.bash_local" ]; then
   . "$HOME/.bash_local"
+fi
+
+# Load host configuration settings
+if [ -f "$HOME/.bash_$HOSTNAME" ]; then
+  . "$HOME/.bash_$HOSTNAME"
 fi
