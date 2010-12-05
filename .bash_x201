@@ -1,0 +1,12 @@
+export LOCAL_MODE='true'
+
+extend_path "$HOME/.local/lib/google_appengine"
+
+extend_python_path "$HOME/src/django-haystack"
+extend_python_path "$HOME/src/nodehub"
+extend_python_path "$HOME/src/opsutils"
+
+alias plovr="java -jar $HOME/.local/lib/plovr.jar"
+alias desktop="cd $HOME/Desktop"
+alias download="cd $HOME/Downloads"
+alias src="cd $HOME/src"
