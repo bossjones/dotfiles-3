@@ -143,6 +143,33 @@ note-yesterday() {
   note $( date -v -1d +%Y-%m-%d )
 }
 
+setup-fedora() {
+  sudo yum install -y \
+    @virtualization \
+    Django \
+    Django-south \
+    curl \
+    erlang \
+    fedpkg \
+    gcc \
+    gcc-c++ \
+    git \
+    gnome-do \
+    gnome-do-plugins \
+    java-1.6.0-openjdk \
+    keepassx \
+    mock \
+    pidgin \
+    pidgin-otr \
+    python-ipaddr \
+    python-sphinx \
+    python-twisted \
+    rpmdevtools \
+    vim-enhanced \
+    wget \
+    || :
+}
+
 ################################################################################
 # Helper Functions
 ################################################################################
