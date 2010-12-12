@@ -1,11 +1,18 @@
 export LOCAL_MODE='true'
 
 extend_path "$HOME/.local/lib/google_appengine"
+extend_path "$HOME/src/twistdev/scripts"
+extend_path "$HOME/src/go/bin"
 
 extend_python_path "$HOME/src/django-haystack"
+extend_python_path "$HOME/src/django-json-rpc"
 extend_python_path "$HOME/src/nodehub"
-extend_python_path "$HOME/src/opsutils"
+extend_python_path "$HOME/src/ops"
+extend_python_path "$HOME/src/twistdev"
+extend_python_path "$HOME/src/validictory"
 
+alias djrun='./manage.py runserver'
+alias plrun='plovr serve config.js'
 alias plovr="java -jar $HOME/.local/lib/plovr.jar"
 alias desktop="cd $HOME/Desktop"
 alias download="cd $HOME/Downloads"
