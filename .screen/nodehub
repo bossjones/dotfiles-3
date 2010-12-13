@@ -1,0 +1,15 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/nodehub/nodehub"
+screen -t code0  0
+
+chdir "$HOME/src/nodehub/nodehub"
+screen -t code1  1
+
+chdir "$HOME/src/nodehub"
+screen -t shell 2
+
+chdir "$HOME/src/nodehub"
+screen -t test 3
+
+chdir "$HOME/src/nodehub"
