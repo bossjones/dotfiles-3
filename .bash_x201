@@ -1,4 +1,4 @@
-export LOCAL_MODE='true'
+export NODEHUB_LOCAL_MODE='true'
 
 extend_path "$HOME/.local/lib/google_appengine"
 extend_path "$HOME/src/twistdev/scripts"
@@ -11,9 +11,22 @@ extend_python_path "$HOME/src/ops"
 extend_python_path "$HOME/src/twistdev"
 extend_python_path "$HOME/src/validictory"
 
-alias djrun='./manage.py runserver'
+alias djrun='djmanage runserver'
+alias djtest='djmanage test'
 alias plrun='plovr serve config.js'
 alias plovr="java -jar $HOME/.local/lib/plovr.jar"
 alias desktop="cd $HOME/Desktop"
 alias download="cd $HOME/Downloads"
 alias src="cd $HOME/src"
+
+djmanage() {
+  name="$( basename $PWD )"
+
+  if [[ -f "./manage.py" ]]; then
+    python "./manage.py" $@
+  elif [[ -f "$name/manage.py" ]]; then
+    python "$name/manage.py" $@
+  else
+    echo "Can't find manage.py"
+  fi
+}
