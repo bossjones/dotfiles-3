@@ -2,58 +2,6 @@
 # Inline apps
 ################################################################################
 
-docs_speed() {
-  echo ' --------------------------------------------------------------------------------'
-  echo '| Type                                       | Speed                             |'
-  echo ' --------------------------------------------------------------------------------'
-  echo '| execute single instruction                 | 1 nanosec = (1/1,000,000,000) sec |'
-  echo '| fetch word from L1 cache memory            | 2 nanoseci                        |'
-  echo '| fetch word from main memory                | 10 nanosec                        |'
-  echo '| fetch word from consecutive disk location  | 200 nanosec                       |'
-  echo '| fetch word from new disk location (seek)   | 8,000,000 nanosec = 8 millisec    |'
-  echo ' --------------------------------------------------------------------------------'
-}
-
-docs_cidr_mask() {
-  echo ' ---------------------------------------------- '
-  echo '| IP/CIDR    | Mask            | # of Hosts    |'
-  echo ' ---------------------------------------------- '
-  echo '| a.b.c.d/32 | 255.255.255.255 |             1 |'
-  echo '| a.b.c.d/31 | 255.255.255.254 |             2 |'
-  echo '| a.b.c.d/30 | 255.255.255.252 |             4 |'
-  echo '| a.b.c.d/29 | 255.255.255.248 |             8 |'
-  echo '| a.b.c.d/28 | 255.255.255.240 |            16 |'
-  echo '| a.b.c.d/27 | 255.255.255.224 |            32 |'
-  echo '| a.b.c.d/26 | 255.255.255.192 |            64 |'
-  echo '| a.b.c.d/25 | 255.255.255.128 |           128 |'
-  echo '| a.b.c.0/24 | 255.255.255.000 |           256 |'
-  echo '| a.b.c.0/23 | 255.255.254.000 |           512 |'
-  echo '| a.b.c.0/22 | 255.255.252.000 |         1,024 |'
-  echo '| a.b.c.0/21 | 255.255.248.000 |         2,048 |'
-  echo '| a.b.c.0/20 | 255.255.240.000 |         4,096 |'
-  echo '| a.b.c.0/19 | 255.255.224.000 |         8,192 |'
-  echo '| a.b.c.0/18 | 255.255.192.000 |        16,384 |'
-  echo '| a.b.c.0/17 | 255.255.128.000 |        32,768 |'
-  echo '| a.b.0.0/16 | 255.255.000.000 |        65,536 |'
-  echo '| a.b.0.0/15 | 255.254.000.000 |       131,072 |'
-  echo '| a.b.0.0/14 | 255.252.000.000 |       262,144 |'
-  echo '| a.b.0.0/13 | 255.248.000.000 |       524,288 |'
-  echo '| a.b.0.0/12 | 255.240.000.000 |     1,048,576 |'
-  echo '| a.b.0.0/11 | 255.224.000.000 |     2,097,152 |'
-  echo '| a.b.0.0/10 | 255.192.000.000 |     4,194,304 |'
-  echo '| a.b.0.0/9  | 255.128.000.000 |     8,388,608 |'
-  echo '| a.0.0.0/8  | 255.000.000.000 |    16,777,216 |'
-  echo '| a.0.0.0/7  | 254.000.000.000 |    33,554,432 |'
-  echo '| a.0.0.0/6  | 252.000.000.000 |    67,108,864 |'
-  echo '| a.0.0.0/5  | 248.000.000.000 |   134,217,728 |'
-  echo '| a.0.0.0/4  | 240.000.000.000 |   268,435,456 |'
-  echo '| a.0.0.0/3  | 224.000.000.000 |   536,870,912 |'
-  echo '| a.0.0.0/2  | 192.000.000.000 | 1,073,741,824 |'
-  echo '| a.0.0.0/1  | 128.000.000.000 | 2,147,483,648 |'
-  echo '| 0.0.0.0/0  | 000.000.000.000 | 4,294,967,296 |'
-  echo ' ---------------------------------------------- '
-}
-
 git-tar-bz2() {
   name="$1"
   tag="$2"
@@ -248,8 +196,6 @@ alias todo='note todo'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
-export CVS_RSH='ssh'
-export CVSROOT=':ext:silas@cvs.fedoraproject.org:/cvs/pkgs'
 export EDITOR='vim'
 export HISTCONTROL='ignoreboth'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
@@ -271,7 +217,7 @@ shopt -s histappend
 
 backup() {
   src_path="$1"
-  dst_path="$HOME/Dropbox/Backups"
+  dst_path="${BACKUP_PATH-$HOME/Dropbox/Backups}"
   src_name="$( basename $src_path )"
   dst_name="$( date +%Y-%m-%d )-$( basename $src_path )"
 
@@ -323,53 +269,6 @@ rip-iso() {
   esac
 }
 
-clean_all() {
-  case "$PLATFORM" in
-    'darwin')
-      clean_dns
-      find "$HOME" -name '.DS_Store' -delete
-      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
-      rm -fr "$HOME/Library/"*
-      ;;
-    'linux')
-      find "$HOME" -name \.\* -maxdepth 1 -exec rm -fr {} \;
-      ;;
-    *)
-      echo Not supported
-      ;;
-  esac
-}
-
-clean() {
-  case "$PLATFORM" in
-    'darwin')
-      clean_dns
-      find "$HOME" -name '.DS_Store' -delete
-      find "$HOME/Library/Application Support/Chromium/Default" -type f -not -name Preferences -not -name 'Web Data' -delete
-      rm -fr "$HOME/Library/Caches/"*
-      rm -fr "$HOME/Library/Cookies/"*
-      rm -fr "$HOME/Library/Logs/"*
-      rm -fr "$HOME/Library/Safari/"*
-      rm -fr "$HOME/Library/Preferences/Macromedia/"*
-      rm -fr "$HOME/Library/Preferences/VLC/"*
-      ;;
-    *)
-      echo Not supported
-      ;;
-  esac
-}
-
-clean_dns() {
-  case "$PLATFORM" in
-    'darwin')
-      dscacheutil -flushcache
-      ;;
-    *)
-      echo Not supported
-      ;;
-  esac
-}
-
 extract() {
     if [ -f "$1" ] ; then
         case "$1" in
@@ -390,16 +289,6 @@ extract() {
     else
         echo "'$1' is not a valid file"
     fi
-}
-
-get() {
-  if command_exists 'curl'; then
-    curl -O "$1"
-  elif command_exists 'wget'; then
-    wget "$1"
-  else
-    echo 'No get command found.'
-  fi
 }
 
 predate() {
@@ -441,10 +330,6 @@ sp() {
   fi
 }
 
-tip() {
-  echo `random_line "$HOME/.tips"`
-}
-
 update() {
   if command_exists 'git'; then
     config commit -a --untracked-files=no
@@ -453,23 +338,6 @@ update() {
     reload
   else
     echo 'Please install Git.'
-  fi
-}
-
-vless() {
-  if test -t 1; then
-    if test $# = 0; then
-      vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
-    else
-      vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
-    fi
-  else
-    # Output is not a terminal, cat arguments or stdin
-    if test $# = 0; then
-      cat
-    else
-      cat "$@"
-    fi
   fi
 }
 
