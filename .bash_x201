@@ -1,4 +1,5 @@
 export NODEHUB_LOCAL_MODE='true'
+export GOROOT="$HOME/src/go"
 
 extend_path "$HOME/.local/lib/google_appengine"
 extend_path "$HOME/src/twistdev/scripts"
@@ -13,7 +14,7 @@ extend_python_path "$HOME/src/validictory"
 
 alias djrun='djmanage runserver'
 alias djtest='djmanage test'
-alias plrun='plovr serve config.js'
+alias plrun='plovr serve gui.js'
 alias plovr="java -jar $HOME/.local/lib/plovr.jar"
 alias desktop="cd $HOME/Desktop"
 alias download="cd $HOME/Downloads"
