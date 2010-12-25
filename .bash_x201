@@ -8,7 +8,7 @@ extend_path "$HOME/src/go/bin"
 extend_python_path "$HOME/src/django-haystack"
 extend_python_path "$HOME/src/django-json-rpc"
 extend_python_path "$HOME/src/nodehub"
-extend_python_path "$HOME/src/ops"
+#extend_python_path "$HOME/src/ops"
 extend_python_path "$HOME/src/twistdev"
 extend_python_path "$HOME/src/validictory"
 
@@ -16,9 +16,6 @@ alias djrun='djmanage runserver'
 alias djtest='djmanage test'
 alias plrun='plovr serve gui.js'
 alias plovr="java -jar $HOME/.local/lib/plovr.jar"
-alias desktop="cd $HOME/Desktop"
-alias download="cd $HOME/Downloads"
-alias src="cd $HOME/src"
 
 djmanage() {
   name="$( basename $PWD )"

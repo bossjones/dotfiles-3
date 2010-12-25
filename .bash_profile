@@ -182,18 +182,20 @@ complete -W "$(echo $(cat ~/.ssh/known_hosts | \
 # Setttings
 ################################################################################
 
+alias desktop="cd $HOME/Desktop"
+alias download="cd $HOME/Downloads"
 alias fedora='ssh silas@fedorapeople.org'
 alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
+alias now='date +"%Y-%m-%d-%H%M%S"'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
-alias srpm='rpmbuild -bs --nodeps'
+alias src="cd $HOME/src"
 alias srpm-epel='rpmbuild -bs --define _source_filedigest_algorithm=1 --nodeps'
+alias srpm='rpmbuild -bs --nodeps'
 alias today='date +"%Y-%m-%d"'
-alias todo='note todo'
-alias now='date +"%Y-%m-%d-%H%M%S"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
 export EDITOR='vim'
