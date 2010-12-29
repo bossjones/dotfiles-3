@@ -15,7 +15,6 @@ git-tar-gz() {
 }
 
 note() {
-  note-setup
   if [ -n "$*" ]; then
     vim "$HOME/.notes/$*"
   else
@@ -25,7 +24,6 @@ note() {
 
 note-cat() {
   if [ -n "$*" ]; then
-    note-setup
     cat "$HOME/.notes/$*"
   else
     echo "Note name required."
@@ -34,7 +32,6 @@ note-cat() {
 
 note-copy() {
   if [ -n "$*" ]; then
-    note-setup
     cat "$HOME/.notes/$*" | copy
   else
     echo "Note name required."
@@ -42,17 +39,7 @@ note-copy() {
 }
 
 note-grep() {
-  note-setup
   grep "$*" "$HOME/.notes"
-}
-
-note-ls() {
-  note-setup
-  if [ -n "$*" ]; then
-    find "$HOME/.notes" -type f -name "*$**" -exec basename {} \;
-  else
-    find "$HOME/.notes" -type f -exec basename {} \;
-  fi
 }
 
 note-path() {
@@ -63,27 +50,11 @@ note-path() {
   fi
 }
 
-note-paste() {
-  if [ -n "$*" ]; then
-    note-setup
-    paste > "$HOME/.notes/$*"
-  else
-    echo "Note name required."
-  fi
-}
-
 note-rm() {
   if [ -n "$*" ]; then
-    note-setup
     rm -f "$HOME/.notes/$*"
   else
     echo "Note name required."
-  fi
-}
-
-note-setup() {
-  if [ ! -e "$HOME/.notes" ]; then
-    mkdir -p "$HOME/.notes"
   fi
 }
 
@@ -174,6 +145,10 @@ string_slice() {
 # Complete options
 ################################################################################
 
+# note names
+complete -W "$( ls ~/.notes )" note
+
+# ssh hosts
 complete -W "$(echo $(cat ~/.ssh/known_hosts | \
   cut -f 1 -d ' ' | sed -e s/,.*//g | \
   sort -u | grep -v "\["))" ssh
@@ -193,8 +168,6 @@ alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
 alias sdf='ssh silas@tty.freeshell.net'
 alias src="cd $HOME/src"
-alias srpm-epel='rpmbuild -bs --define _source_filedigest_algorithm=1 --nodeps'
-alias srpm='rpmbuild -bs --nodeps'
 alias today='date +"%Y-%m-%d"'
 alias vi='echo Just type vim, it will save you time in the long run.'
 
@@ -354,15 +327,6 @@ load_darwin() {
   alias paste='pbpaste'
   alias ls='ls -G'
 
-  # Fink
-  if [[ -r /sw/bin/init.sh ]]; then
-    . /sw/bin/init.sh
-  fi
-
-  # MacPorts
-  extend_path '/opt/local/bin'
-  extend_path '/opt/local/sbin'
-
   # Setup Java
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
 }
@@ -373,13 +337,15 @@ load_freebsd() {
 
 load_linux() {
   export PLATFORM='linux'
+
+  alias show-mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
+  alias srpm-epel='rpmbuild -bs --define _source_filedigest_algorithm=1 --nodeps'
+  alias srpm='rpmbuild -bs --nodeps'
+
   extend_path '/sbin'
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
-  alias show_mock="ls -1 /etc/mock/ | cut -d'.' -f1 | egrep '(86|64|ppc|sparc|90)'"
-  alias build_epel='rpmbuild -bs --nodeps --define "_source_filedigest_algorithm md5" --define "_binary_filedigest_algorithm md5"'
-  alias fmb32='mock -vr fedora-rawhide-i686'
-  alias fmb64='mock -vr fedora-rawhide-x86_64'
+
   export LD_LIBRARY_PATH='.'
 }
 
