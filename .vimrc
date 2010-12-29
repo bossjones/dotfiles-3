@@ -70,7 +70,7 @@ set shiftwidth=2
 
 ""File specific tabs
 au FileType c,make setl noexpandtab
-au FileType c,erlang,make,python setl tabstop=4 softtabstop=4 shiftwidth=4
+au FileType c,erlang,go,make,python setl tabstop=4 softtabstop=4 shiftwidth=4
 
 ""Spell check
 function! ToggleSpell()
