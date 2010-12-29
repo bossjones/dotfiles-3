@@ -15,6 +15,52 @@ git-tar-gz() {
 }
 
 note() {
+
+  case "$1" in
+    "-d")
+      shift
+      libnote-delete $@
+      ;;
+    "-e")
+      shift
+      libnote-edit $@
+      ;;
+    "-h")
+      echo "Usage: note [option] [NAME]"
+      echo
+      echo "Options:"
+      echo "  -h       display help message"
+      echo "  -d NAME  delete note"
+      echo "  -e NAME  edit note"
+      echo "  -p NAME  print note"
+      ;;
+    "-l")
+      ls ~/.notes/
+      ;;
+    "-p")
+      shift
+      libnote-print $@
+      ;;
+    -[[:digit:]]*)
+      libnote-edit "$( date --date="${1:1} day ago" +%Y-%m-%d )"
+      ;;
+    *)
+      libnote-edit $@
+      ;;
+  esac
+
+}
+
+libnote-delete() {
+  if [ -n "$*" ]; then
+    rm -f "$HOME/.notes/$*" &> /dev/null || \
+      echo "Note doesn't exist." >&2
+  else
+    echo "Note name required." >&2
+  fi
+}
+
+libnote-edit() {
   if [ -n "$*" ]; then
     vim "$HOME/.notes/$*"
   else
@@ -22,44 +68,13 @@ note() {
   fi
 }
 
-note-cat() {
+libnote-print() {
   if [ -n "$*" ]; then
-    cat "$HOME/.notes/$*"
+    cat "$HOME/.notes/$*" 2> /dev/null || \
+      echo "Note doesn't exist." >&2
   else
     echo "Note name required."
   fi
-}
-
-note-copy() {
-  if [ -n "$*" ]; then
-    cat "$HOME/.notes/$*" | copy
-  else
-    echo "Note name required."
-  fi
-}
-
-note-grep() {
-  grep "$*" "$HOME/.notes"
-}
-
-note-path() {
-  if [ -n "$*" ]; then
-    echo "$HOME/.notes/$*"
-  else
-    echo "Note name required."
-  fi
-}
-
-note-rm() {
-  if [ -n "$*" ]; then
-    rm -f "$HOME/.notes/$*"
-  else
-    echo "Note name required."
-  fi
-}
-
-note-yesterday() {
-  note $( date -v -1d +%Y-%m-%d )
 }
 
 setup-fedora() {
@@ -145,13 +160,15 @@ string_slice() {
 # Complete options
 ################################################################################
 
-# note names
-complete -W "$( ls ~/.notes )" note
+if [[ -d "$HOME/.notes" ]]; then
+  complete -W "$( ls ~/.notes )" note
+fi
 
-# ssh hosts
-complete -W "$(echo $(cat ~/.ssh/known_hosts | \
-  cut -f 1 -d ' ' | sed -e s/,.*//g | \
-  sort -u | grep -v "\["))" ssh
+if [[ -f "$HOME/.ssh/known_hosts" ]]; then
+  complete -W "$(echo $(cat ~/.ssh/known_hosts | \
+    cut -f 1 -d ' ' | sed -e s/,.*//g | \
+    sort -u | grep -v "\["))" ssh
+fi
 
 ################################################################################
 # Setttings
