@@ -1,9 +1,9 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/nodehub/nodehub"
+chdir "$HOME/src/nodehub/srv"
 screen -t code0  0
 
-chdir "$HOME/src/nodehub/nodehub"
+chdir "$HOME/src/nodehub/srv"
 screen -t code1  1
 
 chdir "$HOME/src/nodehub/gui"
@@ -13,7 +13,7 @@ chdir "$HOME/src/nodehub/gui"
 screen -t gui1  3
 
 chdir "$HOME/src/nodehub"
-screen -t django 4
+screen -t nodejs 4
 
 chdir "$HOME/src/nodehub"
 screen -t plovr 5

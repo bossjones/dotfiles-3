@@ -177,13 +177,13 @@ fi
 alias desktop="cd $HOME/Desktop"
 alias download="cd $HOME/Downloads"
 alias fedora='ssh silas@fedorapeople.org'
+alias freeshell='ssh silas@tty.freeshell.net'
 alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
-alias sdf='ssh silas@tty.freeshell.net'
 alias src="cd $HOME/src"
 alias today='date +"%Y-%m-%d"'
 alias vi='echo Just type vim, it will save you time in the long run.'
@@ -362,6 +362,8 @@ load_linux() {
   extend_path '/sbin'
   extend_path '/usr/sbin'
   extend_path '/usr/local/sbin'
+
+  complete -W "$( ls /etc/init.d/ )" service
 
   export LD_LIBRARY_PATH='.'
 }
