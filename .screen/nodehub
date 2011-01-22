@@ -1,9 +1,9 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/nodehub/srv"
+chdir "$HOME/src/nodehub/srv/lib"
 screen -t code0  0
 
-chdir "$HOME/src/nodehub/srv"
+chdir "$HOME/src/nodehub/srv/lib"
 screen -t code1  1
 
 chdir "$HOME/src/nodehub/gui"

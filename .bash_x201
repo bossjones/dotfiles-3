@@ -1,12 +1,14 @@
 export NODEHUB_LOCAL_MODE='true'
 export GOROOT="$HOME/src/go"
 
-extend_path "$HOME/.local/lib/google_appengine"
+extend_path "$HOME/src/brpm/scripts"
 extend_path "$HOME/src/go/bin"
-extend_path "$HOME/src/twistdev/scripts"
+extend_path "$HOME/src/huck/scripts"
 
+extend_python_path "$HOME/src/brpm"
 extend_python_path "$HOME/src/django-haystack"
 extend_python_path "$HOME/src/django-json-rpc"
+extend_python_path "$HOME/src/huck"
 extend_python_path "$HOME/src/nodehub"
 extend_python_path "$HOME/src/ops"
 extend_python_path "$HOME/src/twistdev"
