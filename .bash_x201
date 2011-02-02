@@ -12,10 +12,15 @@ extend_python_path "$HOME/src/huck"
 extend_python_path "$HOME/src/nodehub"
 extend_python_path "$HOME/src/ops"
 extend_python_path "$HOME/src/twistdev"
+extend_python_path "$HOME/src/txldap"
 extend_python_path "$HOME/src/validictory"
+
+export FAB_USER="ssewell"
 
 alias djrun='djmanage runserver'
 alias djtest='djmanage test'
+alias ndrun='node srv/server.js'
+alias mongod='sudo /etc/init.d/mongod'
 alias plrun='plovr serve gui.js'
 alias plovr="java -jar $HOME/.local/lib/plovr.jar"
 
