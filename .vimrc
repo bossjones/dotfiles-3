@@ -69,8 +69,8 @@ set softtabstop=2
 set shiftwidth=2
 
 ""File specific tabs
-au FileType c,make setl noexpandtab
-au FileType c,erlang,go,make,python setl tabstop=4 softtabstop=4 shiftwidth=4
+au FileType go,make setl noexpandtab tabstop=4 softtabstop=4
+au FileType c,erlang,make,perl,python setl tabstop=4 softtabstop=4 shiftwidth=4
 
 ""Spell check
 function! ToggleSpell()
@@ -85,6 +85,7 @@ endfunction
  
 nmap <F4> :call ToggleSpell()<CR>
 imap <F4> <Esc>:call ToggleSpell()<CR>
+nmap <c-t> :CommandT<CR>
 
 ""Alt+j and Alt+k to move between tabs
 nnoremap <A-j> gT

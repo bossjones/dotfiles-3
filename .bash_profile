@@ -134,6 +134,14 @@ extend_python_path() {
   fi
 }
 
+httpify() {
+  if [[ -d "$1" ]]; then
+    cd "$1"
+    shift
+  fi
+  python -m SimpleHTTPServer $@
+}
+
 random_line() {
   LINES=$( wc -l "$1" | awk '{ print ($1 + 1) }' )
   RANDSEED=$( date '+%S%M%I' )
@@ -181,6 +189,7 @@ alias freeshell='ssh silas@tty.freeshell.net'
 alias lessf='less +F'
 alias ll='ls -lh'
 alias lr='ls -R'
+alias memfo='ps -eo pmem,ppid,comm | sort -k 1 -r | head -11 | tail -10'
 alias now='date +"%Y-%m-%d-%H%M%S"'
 alias reload="source $HOME/.bash_profile"
 alias root="sudo bash --init-file $HOME/.bash_profile"
@@ -274,6 +283,7 @@ extract() {
             *.tbz2)    tar xvjf "$1" ;;
             *.tgz)     tar xvzf "$1" ;;
             *.zip)     unzip "$1" ;;
+            *.egg)     unzip "$1" ;;
             *.Z)       uncompress "$1" ;;
             *.7z)      7z x "$1" ;;
             *)         echo "'$1' cannot be extracted via >extract<" ;;
@@ -315,7 +325,9 @@ config() {
 }
 
 sp() {
-  if [[ -f "$HOME/.screen/$1" ]]; then
+  if [[ -z "$1" ]]; then
+    screen
+  elif [[ -f "$HOME/.screen/$1" ]]; then
     screen -c "$HOME/.screen/$1"
   else
     echo "Unknown screen profile '$1'."
