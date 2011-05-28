@@ -1,38 +1,14 @@
-export NODE_PATH=$HOME/src/nodehub/lib
-export FAB_USER="ssewell"
 export GOROOT="$HOME/src/go"
-export NODEHUB_CONFIG="$HOME/src/nodehub/conf/development.conf"
 
 extend_path "$HOME/src/brpm/scripts"
 extend_path "$HOME/src/go/bin"
-extend_path "$HOME/src/huck/scripts"
 extend_path "$HOME/src/private/scripts"
-extend_path "$HOME/src/twistdev/scripts"
-extend_path "$HOME/src/twistdev/scripts"
 extend_path "$HOME/.local/lib/google_appengine"
+extend_path "./node_modules/.bin"
 
 extend_python_path "$HOME/src/brpm"
-extend_python_path "$HOME/src/django"
 extend_python_path "$HOME/src/huck"
-extend_python_path "$HOME/src/mongo-async-python-driver"
-extend_python_path "$HOME/src/mongoengine"
-extend_python_path "$HOME/src/nodehub"
-extend_python_path "$HOME/src/nodehub/nodehub"
-extend_python_path "$HOME/src/oplog"
 extend_python_path "$HOME/src/ops"
-extend_python_path "$HOME/src/selenium"
-extend_python_path "$HOME/src/tornado"
-extend_python_path "$HOME/src/twistdev"
-extend_python_path "$HOME/src/txldap"
-extend_python_path "$HOME/src/validictory"
-
-alias djrun='djmanage runserver'
-alias djtest='djmanage test'
-alias ndrun='node srv/server.js'
-alias mongod='sudo /etc/init.d/mongod'
-alias plrun='plovr serve gui.js'
-alias plovr="java -jar $HOME/.local/lib/plovr.jar"
-alias nhdev="$HOME/src/nodehub/scripts/nodehub -c $HOME/src/conf/nodehub.conf"
 
 djmanage() {
   name="$( basename $PWD )"
@@ -46,16 +22,4 @@ djmanage() {
   fi
 }
 
-ssl-import() {
-  REMHOST=$1
-  REMPORT=${2:-443}
-  exec 6>&1
-  exec > $REMHOST
-  echo | openssl s_client -connect ${REMHOST}:${REMPORT} 2>&1 |sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
-  certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "$REMHOST" -i $REMHOST
-  exec 1>&6 6>&-
-}
-
 export PERL_CPANM_OPT="--local-lib=~/perl5"
-alias fix-chrome='sudo cp /opt/linusmemcpy/google-chrome /opt/google/chrome/google-chrome'
-alias fix-firefox='sudo cp /opt/linusmemcpy/firefox /usr/bin/firefox'
