@@ -271,26 +271,28 @@ rip-iso() {
 }
 
 extract() {
-    if [ -f "$1" ] ; then
-        case "$1" in
-            *.tar.bz2) tar xvjf "$1" ;;
-            *.tar.gz)  tar xvzf "$1" ;;
-            *.bz2)     bunzip2 "$1" ;;
-            *.rar)     unrar x "$1" ;;
-            *.rpm)     rpm2cpio "$1" | cpio -idmv ;;
-            *.gz)      gunzip "$1" ;;
-            *.tar)     tar xvf "$1" ;;
-            *.tbz2)    tar xvjf "$1" ;;
-            *.tgz)     tar xvzf "$1" ;;
-            *.zip)     unzip "$1" ;;
-            *.egg)     unzip "$1" ;;
-            *.Z)       uncompress "$1" ;;
-            *.7z)      7z x "$1" ;;
-            *)         echo "'$1' cannot be extracted via >extract<" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
+    for path in $@; do
+        if [ -f "$path" ] ; then
+            case "$path" in
+                *.tar.bz2) tar xvjf "$path" ;;
+                *.tar.gz)  tar xvzf "$path" ;;
+                *.bz2)     bunzip2 "$path" ;;
+                *.rar)     unrar x "$path" ;;
+                *.rpm)     rpm2cpio "$path" | cpio -idmv ;;
+                *.gz)      gunzip "$path" ;;
+                *.tar)     tar xvf "$path" ;;
+                *.tbz2)    tar xvjf "$path" ;;
+                *.tgz)     tar xvzf "$path" ;;
+                *.zip)     unzip "$path" ;;
+                *.egg)     unzip "$path" ;;
+                *.Z)       uncompress "$path" ;;
+                *.7z)      7z x "$path" ;;
+                *)         echo "'$path' cannot be extracted via >extract<" ;;
+            esac
+        else
+            echo "'$path' is not a valid file"
+        fi
+    done
 }
 
 predate() {
