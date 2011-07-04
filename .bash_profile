@@ -380,6 +380,10 @@ load_linux() {
   complete -W "$( ls /etc/init.d/ )" service
 
   export LD_LIBRARY_PATH='.'
+
+  if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+    source "$HOME/.rvm/scripts/rvm"
+  fi
 }
 
 load_netbsd() {
