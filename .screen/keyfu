@@ -1,0 +1,12 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/keyfu/src"
+screen -t code  0
+
+chdir "$HOME/src/keyfu/template"
+screen -t template  1
+
+chdir "$HOME/src/keyfu"
+screen -t make  2
+
+chdir "$HOME/src/tyrion"
