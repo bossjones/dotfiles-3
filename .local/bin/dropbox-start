@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-nm-online -t 120
-dropbox start -i
