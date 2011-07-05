@@ -1,26 +1,14 @@
 export GOROOT="$HOME/src/go"
 
-extend_path "$HOME/src/brpm/scripts"
-extend_path "$HOME/src/go/bin"
-extend_path "$HOME/src/private/scripts"
-extend_path "$HOME/.local/lib/google_appengine"
-extend_path "./node_modules/.bin"
+grow-path PATH "$HOME/src/brpm/scripts"
+grow-path PATH "$HOME/src/go/bin"
+grow-path PATH "$HOME/src/private/scripts"
+grow-path PATH "$HOME/.local/lib/google_appengine"
+grow-path PATH "./node_modules/.bin"
 
-extend_python_path "$HOME/src/bottle"
-extend_python_path "$HOME/src/brpm"
-extend_python_path "$HOME/src/huck"
-extend_python_path "$HOME/src/ops"
+grow-path PYTHONPATH "$HOME/src/bottle"
+grow-path PYTHONPATH "$HOME/src/brpm"
+grow-path PYTHONPATH "$HOME/src/huck"
+grow-path PYTHONPATH "$HOME/src/ops"
 
-dj() {
-  name="$( basename $PWD )"
-
-  if [[ -f "./manage.py" ]]; then
-    python "./manage.py" $@
-  elif [[ -f "$name/manage.py" ]]; then
-    python "$name/manage.py" $@
-  else
-    echo "Can't find manage.py"
-  fi
-}
-
-export PERL_CPANM_OPT="--local-lib=~/perl5"
+export PERL_CPANM_OPT="--local-lib=$HOME/perl5"
