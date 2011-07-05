@@ -102,12 +102,12 @@ update() {
 # Complete options
 ################################################################################
 
-if [[ -d "$HOME/.notes" ]]; then
-  complete -W "$( ls ~/.notes )" note
+if [[ -d "${NOTE_PATH-$HOME/.notes}" ]]; then
+  complete -W "$( ls ${NOTE_PATH-$HOME/.notes} )" note
 fi
 
 if [[ -f "$HOME/.ssh/known_hosts" ]]; then
-  complete -W "$(echo $(cat ~/.ssh/known_hosts | \
+  complete -W "$(echo $(cat $HOME/.ssh/known_hosts | \
     cut -f 1 -d ' ' | sed -e s/,.*//g | \
     sort -u | grep -v "\["))" ssh
 fi
