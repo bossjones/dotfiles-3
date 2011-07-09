@@ -6,7 +6,10 @@ screen -t code  0
 chdir "$HOME/src/keyfu/template"
 screen -t template  1
 
-chdir "$HOME/src/keyfu"
-screen -t make  2
+chdir "$HOME/src/keyfu/static"
+screen -t static  2
 
-chdir "$HOME/src/tyrion"
+chdir "$HOME/src/keyfu"
+screen -t make  3
+
+chdir "$HOME/src/keyfu"
