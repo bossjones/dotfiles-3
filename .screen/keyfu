@@ -12,4 +12,7 @@ screen -t static  2
 chdir "$HOME/src/keyfu"
 screen -t make  3
 
+chdir "$HOME/src/keyfu/tests"
+screen -t tests  4
+
 chdir "$HOME/src/keyfu"

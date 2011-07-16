@@ -12,3 +12,5 @@ grow-path PYTHONPATH "$HOME/src/huck"
 grow-path PYTHONPATH "$HOME/src/ops"
 
 export PERL_CPANM_OPT="--local-lib=$HOME/perl5"
+
+export BACKUP_PATH="/home/silas/Dropbox/Backups"
