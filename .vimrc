@@ -62,15 +62,13 @@ colorscheme desert
 ""Enable filetype plugins
 filetype plugin on
 
-""Tabs
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+""Set default tabs
+setl noexpandtab
+setl tabstop=4
+setl softtabstop=4
 
 ""File specific tabs
-au FileType go,make setl noexpandtab tabstop=4 softtabstop=4
-au FileType c,erlang,make,perl,python setl tabstop=4 softtabstop=4 shiftwidth=4
+au FileType c,erlang,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 ""Spell check
 function! ToggleSpell()
