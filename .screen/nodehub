@@ -1,21 +1,15 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/nodehub/nodehub"
-screen -t code0 0
-
-chdir "$HOME/src/nodehub/nodehub"
-screen -t code1 1
-
-chdir "$HOME/src/nodehub/nodehub/templates"
-screen -t templates 2
+chdir "$HOME/src/nodehub/nodehub/apps/nodes"
+screen -t 'code' 0
 
 chdir "$HOME/src/nodehub/nodehub/static"
-screen -t static 3
+screen -t 'static' 1
 
-chdir "$HOME/src/nodehub/nodehub/test"
-screen -t test 4
+chdir "$HOME/src/nodehub/nodehub/templates"
+screen -t 'templates' 2
 
 chdir "$HOME/src/nodehub"
-screen -t run 4
+screen -t 'run' 3
 
 chdir "$HOME/src/nodehub"
