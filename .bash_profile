@@ -24,11 +24,18 @@ config() {
 
 dj() {
   name="$( basename $PWD )"
+  command="$1"; shift
+
+  case $command in
+    'run')
+	  command='runserver'
+	  ;;
+  esac
 
   if [[ -f "./manage.py" ]]; then
-    python "./manage.py" $@
+    python "./manage.py" $command $@
   elif [[ -f "$name/manage.py" ]]; then
-    python "$name/manage.py" $@
+    python "$name/manage.py" $command $@
   else
     echo "Can't find manage.py"
   fi
