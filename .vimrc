@@ -63,13 +63,14 @@ colorscheme desert
 filetype plugin on
 
 ""Set default tabs
-setl noexpandtab
-setl tabstop=4
-setl softtabstop=4
+setl expandtab
+setl tabstop=2
+setl softtabstop=2
 
 ""File specific tabs
-au FileType javascript setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+au FileType bash,javascript setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 au FileType c,erlang,markdown,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+au FileType make,go setl tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 ""Spell check
 function! ToggleSpell()
