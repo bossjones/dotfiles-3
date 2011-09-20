@@ -69,7 +69,7 @@ setl softtabstop=4
 
 ""File specific tabs
 au FileType javascript setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-au FileType c,erlang,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+au FileType c,erlang,markdown,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 ""Spell check
 function! ToggleSpell()
