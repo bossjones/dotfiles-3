@@ -141,6 +141,8 @@ export PYTHON='/usr/bin/env python'
 
 grow-path PATH "$HOME/.local/bin"
 grow-path PATH "$HOME/src/scripts"
+grow-path PATH "./node_modules/.bin"
+grow-path PATH "./bin"
 
 set -o vi
 set bell-style none

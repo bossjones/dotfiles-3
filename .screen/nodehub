@@ -1,6 +1,6 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/nodehub/nodehub/apps"
+chdir "$HOME/src/nodehub/nodehub"
 screen -t code 0
 
 chdir "$HOME/src/nodehub/nodehub/static"

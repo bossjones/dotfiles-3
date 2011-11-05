@@ -7,7 +7,6 @@ grow-path PATH "$HOME/src/brpm/scripts"
 grow-path PATH "$HOME/src/go/bin"
 grow-path PATH "$HOME/src/private/scripts"
 grow-path PATH "$HOME/.local/lib/google_appengine"
-grow-path PATH "./node_modules/.bin"
 
 grow-path PYTHONPATH "$HOME/src/bottle"
 grow-path PYTHONPATH "$HOME/src/brpm"

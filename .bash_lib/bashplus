@@ -165,3 +165,18 @@ libnote-print() {
     echo "Note name required."
   fi
 }
+
+slice() {
+  string="$1"
+  declare -i length="${#string}"
+  declare -i start="$2"
+  declare -i stop="$3"
+  if [ $start -lt 0 ]; then
+      start=$[ $length + $start ]
+  fi
+  if [ $stop -le 0 ]; then
+      stop=$[ $length + $stop ]
+  fi
+  start=$[ $start + 1 ]
+  (printf "%s\n" "$string" | cut -c $start-$stop) 2> /dev/null
+}
