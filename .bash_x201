@@ -1,10 +1,4 @@
-export BACKUP_PATH="$HOME/Dropbox/Backups"
-export DJANGO_ENV="dev"
-export GOROOT="$HOME/src/go"
-export PERL_CPANM_OPT="--local-lib=$HOME/perl5"
-
 grow-path PATH "$HOME/src/brpm/scripts"
-grow-path PATH "$HOME/src/go/bin"
 grow-path PATH "$HOME/src/private/scripts"
 grow-path PATH "$HOME/.local/lib/google_appengine"
 

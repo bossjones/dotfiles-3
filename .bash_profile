@@ -133,16 +133,20 @@ alias root="sudo bash --init-file $HOME/.bash_profile"
 alias src="cd $HOME/src"
 alias vi='echo Just type vim, it will save you time in the long run.'
 
+export BACKUP_PATH="$HOME/Dropbox/Backups"
+export DJANGO_ENV="dev"
 export EDITOR='vim'
+export GOROOT="$HOME/src/go"
 export HISTCONTROL='ignoreboth'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
 grow-path PATH "$HOME/.local/bin"
+grow-path PATH "$HOME/src/go/bin"
 grow-path PATH "$HOME/src/scripts"
-grow-path PATH "./node_modules/.bin"
 grow-path PATH "./bin"
+grow-path PATH "./node_modules/.bin"
 
 set -o vi
 set bell-style none

@@ -1,3 +1,5 @@
+set rtp+=$GOROOT/misc/vim
+
 ""Enable AI
 set ai
 
@@ -61,6 +63,7 @@ colorscheme desert
 
 ""Enable filetype plugins
 filetype plugin on
+filetype plugin indent on
 
 ""Set default tabs
 setl expandtab
