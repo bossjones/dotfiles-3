@@ -55,6 +55,36 @@ git-dist() {
   git archive --format=tar --prefix="$name-$tag/" "$tag" | bzip2 > "$name-$tag".tar.bz2
 }
 
+junk() {
+  code=0
+
+  mkdir -p "$HOME/Junk"
+
+  for path in $@; do
+    name=$( basename $path )
+
+    if [[ ! -e "$path" ]]; then
+      echo "Source doesn't exist: $path" >&2
+      code=2
+
+      continue
+    fi
+
+    if [[ -e "$HOME/Junk/$name" ]]; then
+      echo "Destination already exists: $name" >&2
+      code=2
+
+      continue
+    fi
+
+    if [[ ! $( mv "$path" "$HOME/Junk" ) ]]; then
+      code=2
+    fi
+  done
+
+  return $code
+}
+
 httpify() {
   if [[ -d "$1" ]]; then
     cd "$1"
