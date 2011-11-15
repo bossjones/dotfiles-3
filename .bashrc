@@ -34,6 +34,11 @@ dj() {
   name="$( basename $PWD )"
   command="$1"; shift
 
+  if [[ -f dev/bin/activate ]]; then
+    deactivate &>/dev/null
+    source dev/bin/activate
+  fi
+
   case $command in
     'run')
 	  command='runserver'
