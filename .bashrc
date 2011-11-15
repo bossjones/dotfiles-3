@@ -222,6 +222,6 @@ if [ -f "$HOME/.bash_local" ]; then
 fi
 
 # Load host configuration settings
-if [ -f "$HOME/.bash_$HOSTNAME" ]; then
-  . "$HOME/.bash_$HOSTNAME"
+if [ -f "$HOME/.bash_$( hostname )" ]; then
+  . "$HOME/.bash_$( hostname )"
 fi

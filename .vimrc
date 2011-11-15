@@ -7,7 +7,7 @@ set ai
 set nocompatible
 
 ""Enable syntax hightlighting
-syntax enable
+syntax on
 
 ""Python syntax highlighting for scon files
 autocmd BufReadPre SConstruct set filetype=python
@@ -63,7 +63,6 @@ colorscheme desert
 
 ""Enable filetype plugins
 filetype plugin on
-filetype plugin indent on
 
 ""Set default tabs
 setl expandtab
