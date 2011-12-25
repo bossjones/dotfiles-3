@@ -33,10 +33,11 @@ config() {
 dj() {
   name="$( basename $PWD )"
   command="$1"; shift
+  virtualenv=${VIRTUALENV-dev}
 
-  if [[ -f dev/bin/activate ]]; then
+  if [[ -f ${virtualenv}/bin/activate ]]; then
     deactivate &>/dev/null
-    source dev/bin/activate
+    source ${virtualenv}/bin/activate
   fi
 
   case $command in
@@ -179,12 +180,14 @@ alias vi='echo Just type vim, it will save you time in the long run.'
 export BACKUP_PATH="$HOME/Dropbox/Backups"
 export DJANGO_ENV="dev"
 export EDITOR='vim'
+export GEM_HOME="$HOME/.gem"
 export GOROOT="$HOME/src/go"
 export HISTCONTROL='ignoreboth'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
+grow-path PATH "$HOME/.gem/bin"
 grow-path PATH "$HOME/.local/bin"
 grow-path PATH "$HOME/src/go/bin"
 grow-path PATH "$HOME/src/scripts"

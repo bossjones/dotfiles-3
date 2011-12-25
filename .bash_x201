@@ -6,3 +6,6 @@ grow-path PYTHONPATH "$HOME/src/bottle"
 grow-path PYTHONPATH "$HOME/src/brpm"
 grow-path PYTHONPATH "$HOME/src/huck"
 grow-path PYTHONPATH "$HOME/src/ops"
+
+. ~/.nvm/nvm.sh
+nvm use 0.4.1 &>/dev/null
