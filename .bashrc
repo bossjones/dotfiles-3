@@ -55,10 +55,17 @@ dj() {
   fi
 }
 
-git-dist() {
+git-tar-bz2() {
   name="$1"
   tag="$2"
-  git archive --format=tar --prefix="$name-$tag/" "$tag" | bzip2 > "$name-$tag".tar.bz2
+  git archive --format=tar --prefix="${name}-${tag}/" "$tag" | gzip > "${name}-${tag}.tar.bz2"
+}
+
+git-tar-gz() {
+  name="$1"
+  tag="$2"
+  ext="${3-tar.gz}"
+  git archive --format=tar --prefix="${name}-${tag}/" "$tag" | gzip > "${name}-${tag}.${ext}"
 }
 
 junk() {
