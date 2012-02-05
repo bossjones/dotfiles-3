@@ -33,7 +33,7 @@ config() {
 dj() {
   name="$( basename $PWD )"
   command="$1"; shift
-  virtualenv=${VIRTUALENV-dev}
+  virtualenv=${VIRTUALENV-deps}
 
   if [[ -f ${virtualenv}/bin/activate ]]; then
     deactivate &>/dev/null

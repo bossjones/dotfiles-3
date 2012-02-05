@@ -1,5 +1,6 @@
 grow-path PATH "$HOME/.local/lib/google_appengine"
 grow-path PATH "$HOME/.local/opt/scala/bin"
+grow-path PATH "$HOME/.local/opt/sbt"
 grow-path PATH "$HOME/src/brpm/scripts"
 
 grow-path PYTHONPATH "$HOME/src/brpm"
