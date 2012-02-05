@@ -58,7 +58,7 @@ dj() {
 git-tar-bz2() {
   name="$1"
   tag="$2"
-  git archive --format=tar --prefix="${name}-${tag}/" "$tag" | gzip > "${name}-${tag}.tar.bz2"
+  git archive --format=tar --prefix="${name}-${tag}/" "$tag" | bzip2 > "${name}-${tag}.tar.bz2"
 }
 
 git-tar-gz() {
@@ -194,10 +194,10 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 export PYTHON='/usr/bin/env python'
 
+grow-path PATH "$HOME/.cabal/bin"
 grow-path PATH "$HOME/.gem/bin"
 grow-path PATH "$HOME/.local/bin"
 grow-path PATH "$HOME/src/go/bin"
-grow-path PATH "$HOME/src/scripts"
 grow-path PATH "./bin"
 grow-path PATH "./node_modules/.bin"
 

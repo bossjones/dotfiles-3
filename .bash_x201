@@ -1,10 +1,8 @@
-grow-path PATH "$HOME/src/brpm/scripts"
-grow-path PATH "$HOME/src/private/scripts"
 grow-path PATH "$HOME/.local/lib/google_appengine"
+grow-path PATH "$HOME/.local/opt/scala/bin"
+grow-path PATH "$HOME/src/brpm/scripts"
 
-grow-path PYTHONPATH "$HOME/src/bottle"
 grow-path PYTHONPATH "$HOME/src/brpm"
-grow-path PYTHONPATH "$HOME/src/huck"
 grow-path PYTHONPATH "$HOME/src/ops"
 
 . ~/.nvm/nvm.sh
