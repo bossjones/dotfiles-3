@@ -1,3 +1,6 @@
+export BROWSERMOB_PROXY_PATH="$HOME/.local/opt/browsermob-proxy/bin/browsermob-proxy"
+export GOPATH="$HOME/src/go"
+
 grow-path PATH "$HOME/.local/lib/google_appengine"
 grow-path PATH "$HOME/.local/opt/scala/bin"
 grow-path PATH "$HOME/.local/opt/sbt"
