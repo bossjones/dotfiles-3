@@ -3,7 +3,7 @@ source "$HOME/.screenrc"
 chdir "$HOME/src/go/src/keyfu"
 screen -t code  0
 
-chdir "$HOME/src/go/srckeyfu/templates"
+chdir "$HOME/src/go/src/keyfu/templates"
 screen -t templates  1
 
 chdir "$HOME/src/go/src/keyfu/static"
@@ -15,7 +15,7 @@ screen -t run  3
 chdir "$HOME/src/go/src/keyfu/tests"
 screen -t tests  4
 
-chdir "$HOME/src/go/src"
+chdir "$HOME/src/go/src/keyfu"
 screen -t vagrant  5
 
 chdir "$HOME/src/go/src/keyfu"
