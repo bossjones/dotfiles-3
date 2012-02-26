@@ -12,7 +12,14 @@ fi
 
 if [[ -d "$HOME/.scripts/lib" ]]; then
   source "$HOME/.scripts/lib/"*
+  grow-path PATH "$HOME/.scripts/bin"
+else
+  echo "Scripts not found."
 fi
+
+################################################################################
+# Setup misc
+################################################################################
 
 p() {
   if [[ -n "$1" ]]; then
