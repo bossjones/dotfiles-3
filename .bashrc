@@ -64,6 +64,7 @@ alias download="cd $HOME/Downloads"
 alias ll='ls -lh'
 alias reload="source $HOME/.bashrc"
 alias src="cd $HOME/src"
+alias pp="git pull && git push"
 alias vi='echo Just type vim, it will save you time in the long run.'
 
 export BACKUP_PATH="$HOME/Dropbox/Backups"
