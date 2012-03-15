@@ -1,3 +1,6 @@
+# general
+export NOTE_PATH="$HOME/Dropbox/Notes"
+
 # python
 grow-path PATH "$HOME/src/brpm"
 grow-path PYTHONPATH "$HOME/src/ops"
@@ -7,5 +10,7 @@ grow-path PYTHONPATH "$HOME/src/ops"
 nvm use 0.6.12 &>/dev/null
 
 # ruby
-export GEM_HOME="$HOME/.gem"
-grow-path PATH "$HOME/.gem/bin"
+grow-path PATH "$HOME/.gem/ruby/1.8/bin"
+
+# vagrant
+grow-path PATH "/opt/vagrant/bin"
