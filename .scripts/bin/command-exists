@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+main() {
+  type -f "$1" &> /dev/null
+}
+
+main $@

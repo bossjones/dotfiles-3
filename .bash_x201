@@ -6,8 +6,10 @@ grow-path PATH "$HOME/src/brpm"
 grow-path PYTHONPATH "$HOME/src/ops"
 
 # node
-. ~/.nvm/nvm.sh
-nvm use 0.6.12 &>/dev/null
+if [[ -f ~/.nvm/nvm.sh ]]; then
+  . ~/.nvm/nvm.sh
+  nvm use 0.6.18 &>/dev/null
+fi
 
 # ruby
 grow-path PATH "$HOME/.gem/ruby/1.8/bin"

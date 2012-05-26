@@ -1,0 +1,18 @@
+# vim:syntax=sh
+
+grow-path() {
+  name="$1"
+  path_list="${!name}"
+  path="$2"
+  prepend="$3"
+
+  if [[ $path_list == "" ]]; then
+    export $name="$path"
+  elif [[ $path_list != $path && $path_list != $path:* && $path_list != *:$path:* && $path_list != *:$path ]]; then
+    if [[ -n $prepend ]]; then
+      export $name="$path:$path_list"
+    else
+      export $name="$path_list:$path"
+    fi
+  fi
+}

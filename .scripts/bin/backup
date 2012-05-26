@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+main() {
+  code=0
+
+  for src_path in $@; do
+    dst_path="${BACKUP_PATH-$HOME/Backups}"
+    src_name="$( basename $src_path )"
+    dst_name="$( date +%Y-%m-%d )-$( basename $src_path )"
+    
+    if [[ ! -d "$src_path" ]]; then
+      echo "Invalid source path: $src_path" 1>&2
+      code=2; break
+    fi
+    
+    if [[ ! -d "$dst_path" ]]; then
+      echo "Invalid destination path: $dst_path" 1>&2
+      code=2; break
+    fi
+    
+    if ! pushd "$( dirname $src_path )" > /dev/null; then
+      code=2; break
+    fi
+    
+    if [[ -e "$dst_name" ]]; then
+      echo "Desination name already exists: $dst_name" 1>&2
+      code=2; break
+    fi
+    
+    if [[ -e "$dst_path/$dst_name.tar.bz2" ]]; then
+      echo "Desination path already exists: $dst_path" 1>&2
+      code=2; break
+    fi
+    
+    if ! (mv "$src_name" "$dst_name" && \
+          tar cjf "$dst_name.tar.bz2" "$dst_name" && \
+          mv "$dst_name.tar.bz2" "$dst_path" && \
+          mv "$dst_name" "$src_name" &&
+          popd > /dev/null
+        ); then
+      code=2; break
+    fi
+  done
+
+  return $code
+}
+
+main $@

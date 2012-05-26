@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+main() {
+  if [[ -d "$1" ]]; then
+    cd "$1"
+    shift
+  fi
+  python -m SimpleHTTPServer $@ 2>/dev/null
+}
+
+main $@
