@@ -12,7 +12,11 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
 fi
 
 # ruby
-grow-path PATH "$HOME/.gem/ruby/1.8/bin"
+if [[ -f ~/.rvm/scripts/rvm ]]; then
+  . ~/.rvm/scripts/rvm
+fi
 
-# vagrant
-grow-path PATH "/opt/vagrant/bin"
+test -d "$HOME/.gem/ruby/1.8/bin" && grow-path PATH "$HOME/.gem/ruby/1.8/bin"
+test -d "$HOME/.local/loop" && grow-path PATH "$HOME/.local/loop"
+test -d "/opt/vagrant/bin" && grow-path PATH "/opt/vagrant/bin"
+test -d "/opt/apache-maven/bin" && grow-path PATH "/opt/apache-maven/bin"
