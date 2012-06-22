@@ -12,7 +12,7 @@ main() {
   case "$type" in
     c)
       mkdir -p "$name"
-      echo -e "#include <stdio.h>\n\nint main()\n{\n    return 0;\n}" > "${name}/${name}.c"
+      echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[])\n{\n    return 0;\n}" > "${name}/${name}.c"
       echo -e "CFLAGS=-Wall -g\n\nall: ${name}\n\nclean:\n\trm -f ${name}" > "${name}/Makefile"
       ;;
     *)
