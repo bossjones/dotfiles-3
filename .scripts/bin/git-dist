@@ -14,18 +14,18 @@ git-dist-archive() {
 
 main() {
   name="$( basename "$( pwd )" )"
-  case "$1" in
+  case "${2-gzip}" in
     "bzip2")
-      git-dist-archive bzip2 "$2" "${3-$name}" "${4-tar.bz2}"
+      git-dist-archive bzip2 "$1" "${3-$name}" "${4-tar.bz2}"
       ;;
     "gzip")
-      git-dist-archive gzip "$2" "${3-$name}" "${4-tar.gz}"
+      git-dist-archive gzip "$1" "${3-$name}" "${4-tar.gz}"
       ;;
     "zip")
-      git-dist-archive zip "$2" "${3-$name}" "${4-zip}"
+      git-dist-archive zip "$1" "${3-$name}" "${4-zip}"
       ;;
     *)
-      echo "Unknown type: $1"
+      echo "Unknown type: $2"
       return 1
       ;;
   esac
