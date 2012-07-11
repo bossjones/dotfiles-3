@@ -3,7 +3,11 @@ export NOTE_PATH="$HOME/Dropbox/Notes"
 
 # python
 grow-path PATH "$HOME/src/brpm"
+grow-path PATH "$HOME/src/rock/tools/src"
+grow-path PATH "$HOME/src/rock/python-rock/scripts"
+grow-path PATH "/opt/vagrant/bin"
 grow-path PYTHONPATH "$HOME/src/ops"
+grow-path PYTHONPATH "$HOME/src/rock/python-rock"
 
 # node
 if [[ -f ~/.nvm/nvm.sh ]]; then
