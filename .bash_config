@@ -77,9 +77,12 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1='[\u@\h \W]$ '
 
 grow-path PATH "$HOME/.local/bin"
-grow-path PATH "$HOME/src/go/bin"
-grow-path PATH "./bin"
+grow-path PATH "$HOME/src/brpm"
 grow-path PATH "./node_modules/.bin"
+
+grow-path PYTHONPATH "$HOME/src/ops"
+
+[[ -d /opt/vagrant/bin ]] && grow-path PATH "/opt/vagrant/bin"
 
 set -o vi
 set bell-style none

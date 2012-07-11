@@ -1,22 +1,2 @@
 # general
 export NOTE_PATH="$HOME/Dropbox/Notes"
-
-# python
-grow-path PATH "$HOME/src/brpm"
-grow-path PYTHONPATH "$HOME/src/ops"
-
-# node
-if [[ -f ~/.nvm/nvm.sh ]]; then
-  . ~/.nvm/nvm.sh
-  nvm use 0.6.18 &>/dev/null
-fi
-
-# ruby
-if [[ -f ~/.rvm/scripts/rvm ]]; then
-  . ~/.rvm/scripts/rvm
-fi
-
-test -d "$HOME/.gem/ruby/1.8/bin" && grow-path PATH "$HOME/.gem/ruby/1.8/bin"
-test -d "$HOME/.local/loop" && grow-path PATH "$HOME/.local/loop"
-test -d "/opt/vagrant/bin" && grow-path PATH "/opt/vagrant/bin"
-test -d "/opt/apache-maven/bin" && grow-path PATH "/opt/apache-maven/bin"
