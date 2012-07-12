@@ -6,13 +6,13 @@ screen -t code 0
 chdir "$HOME/src/rock/packages/rpm"
 screen -t packages 1
 
-chdir "$HOME/src/rock/tools"
+chdir "$HOME/src/rock/tools/src"
 screen -t tools 2
 
 chdir "$HOME/src/rock/tests"
 screen -t tests 3
 
 chdir "$HOME/src/rock"
-screen -t vagrant 4
+screen -t shell 4
 
 chdir "$HOME/src/rock"
