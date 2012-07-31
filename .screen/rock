@@ -3,7 +3,7 @@ source "$HOME/.screenrc"
 chdir "$HOME/src/rock/rock/rock"
 screen -t 'rock - code' 0
 
-chdir "$HOME/src/rock/rock/rock"
+chdir "$HOME/src/rock/rock"
 screen -t 'rock - tests' 1
 
 chdir "$HOME/src/rock/packages/rpm"
