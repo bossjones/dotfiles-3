@@ -1,2 +1,6 @@
 # general
 export NOTE_PATH="$HOME/Dropbox/Notes"
+
+# rock
+grow-path PATH "$HOME/src/rock/rock/scripts"
+grow-path PYTHONPATH "$HOME/src/rock/rock"

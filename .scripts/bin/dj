@@ -3,7 +3,7 @@
 main() {
   name="$( basename $PWD )"
   command="$1" ; shift
-  virtualenv=${VIRTUALENV-deps}
+  virtualenv=${VIRTUALENV-venv}
 
   if [[ -f ${virtualenv}/bin/activate ]]; then
     deactivate &>/dev/null
