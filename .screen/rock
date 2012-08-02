@@ -1,13 +1,13 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/rock/python-rock/rock"
-screen -t code 0
+chdir "$HOME/src/rock/rock/rock"
+screen -t 'rock - code' 0
+
+chdir "$HOME/src/rock/rock"
+screen -t 'rock - tests' 1
 
 chdir "$HOME/src/rock/packages/rpm"
-screen -t packages 1
-
-chdir "$HOME/src/rock/tools/src"
-screen -t tools 2
+screen -t rpms 2
 
 chdir "$HOME/src/rock/tests"
 screen -t tests 3
