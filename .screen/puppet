@@ -1,0 +1,21 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/puppet/src/manifests/nodes/shuttercorp"
+screen -t 'manifests 0' 0
+
+chdir "$HOME/src/puppet/src/manifests"
+screen -t 'manifests 1' 1
+
+chdir "$HOME/src/puppet/src/modules"
+screen -t 'modules 0' 2
+
+chdir "$HOME/src/puppet/src/modules"
+screen -t 'modules 1' 3
+
+chdir "$HOME/src/puppet-modules"
+screen -t 'puppet-modules 0' 4
+
+chdir "$HOME/src/puppet-modules"
+screen -t 'puppet-modules 1' 5
+
+chdir "$HOME/src/puppet"
