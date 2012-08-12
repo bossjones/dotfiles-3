@@ -82,7 +82,9 @@ grow-path PATH "./node_modules/.bin"
 
 grow-path PYTHONPATH "$HOME/src/ops"
 
-[[ -d /opt/vagrant/bin ]] && grow-path PATH "/opt/vagrant/bin"
+if [[ -d /opt/vagrant/bin ]]; then
+  grow-path PATH "/opt/vagrant/bin"
+fi
 
 set -o vi
 set bell-style none
@@ -139,4 +141,8 @@ esac
 
 if [ -f "$HOME/.bash_$( hostname )" ]; then
   . "$HOME/.bash_$( hostname )"
+fi
+
+if [ -f "$HOME/.bash_local" ]; then
+  . "$HOME/.bash_local"
 fi
