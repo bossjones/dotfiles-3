@@ -1,27 +1,24 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/raku/lib/raku"
-screen -t code1 0
+chdir "$HOME/src/raku/web/lib"
+screen -t web-code 0
 
-chdir "$HOME/src/raku/lib/raku"
-screen -t code2 1
+chdir "$HOME/src/raku/web/test"
+screen -t web-test 1
 
-chdir "$HOME/src/raku/templates"
-screen -t templates 2
+chdir "$HOME/src/raku/web/views"
+screen -t web-views 2
 
-chdir "$HOME/src/raku/static"
-screen -t static 3
+chdir "$HOME/src/raku/web/stylus"
+screen -t web-stylus 3
 
-chdir "$HOME/src/raku/spec"
-screen -t spec 4
+chdir "$HOME/src/raku/web/static"
+screen -t web-js 4
 
 chdir "$HOME/src/raku"
 screen -t run 5
 
 chdir "$HOME/src/raku"
 screen -t shell 6
-
-chdir "$HOME/src/raku"
-screen -t dbshell 7
 
 chdir "$HOME/src/raku"
