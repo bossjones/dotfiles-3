@@ -1,5 +1,10 @@
 set rtp+=$GOROOT/misc/vim
 
+""Pathogen
+call pathogen#infect()
+
+filetype plugin indent on
+
 ""Enable AI
 set ai
 
