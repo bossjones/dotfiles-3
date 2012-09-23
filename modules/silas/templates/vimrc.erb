@@ -1,13 +1,16 @@
+""Disable VI's compatible mode
+set nocompatible
+
 set rtp+=$GOROOT/misc/vim
+
+""Leader
+let mapleader = ","
 
 ""Pathogen
 call pathogen#infect()
 
 ""Enable AI
 set ai
-
-""Disable VI's compatible mode
-set nocompatible
 
 ""Enable syntax hightlighting
 syntax on
@@ -104,3 +107,15 @@ nmap <leader>l :set list!<CR>
 
 ""TextMate style tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+
+""NERD Tree shortcut
+nmap ` :NERDTreeToggle<CR>
+
+""Sudo write
+cmap w!! w !sudo tee % >/dev/null
+
+""Toggle paste
+set pastetoggle=<leader>p
+
+""Toggle set list
+nmap <leader>l :set list!<CR>
