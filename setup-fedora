@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+if [[ $EUID -ne 0 ]]; then
+ echo 'Root as root' >&2
+ exit 1
+fi
+
+set -o errexit
+set -o verbose
+
+build="$1"
+
+# create a tmp workspace
+cd "$( mktemp -d )"
+
+# no abrtd thanks
+if rpm -qi abrt &> /dev/null; then
+  systemctl disable abrtd.service
+  systemctl stop abrtd.service
+fi
+
+if [[ $build == 'desktop' ]]; then
+  # install rpmfusion (free)
+  if ! rpm -qi rpmfusion-free-release &>/dev/null; then
+    rpm -i http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
+  fi
+  # install rpmfusion (nonfree)
+  if ! rpm -qi rpmfusion-nonfree-release &>/dev/null; then
+    rpm -i http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm
+  fi
+fi
+
+# install personal repos
+for name in rockplatform sewell; do
+  curl -s "http://dl.sewell.org/rpm/${name}/fedora/${name}.repo" > "/etc/yum.repos.d/${name}.repo"
+done
+
+# install and update
+yum clean all
+yum remove -y \
+  PackageKit-command-not-found
+yum update -y
+yum install -y \
+  PyYAML \
+  brpm \
+  curl \
+  fabric \
+  fedpkg \
+  gcc \
+  gcc-c++ \
+  git \
+  ipython \
+  jwhois \
+  make \
+  mock \
+  nc \
+  openssl-devel \
+  puppet \
+  rock-runtime-node04 \
+  rock-runtime-node06 \
+  rock-runtime-node08 \
+  rock-runtime-perl516 \
+  rock-runtime-php54 \
+  rock-runtime-python27 \
+  rock-runtime-ruby18 \
+  rock-runtime-ruby19 \
+  rpmdevtools \
+  rpmlint \
+  rubygem-pry \
+  screen \
+  strace \
+  vim-enhanced \
+  wget
+
+if [[ $build == 'desktop' ]]; then
+  yum install -y \
+    kernel-devel \
+    kernel-headers \
+    gstreamer-plugins-bad \
+    gstreamer-plugins-good \
+    gstreamer-plugins-ugly \
+    gtkpod \
+    keepassx \
+    pidgin \
+    pithos \
+    xmoto
+fi
+
+if [[ $build == 'desktop' ]]; then
+  # install chrome
+  if ! rpm -qa | grep -P '^google-chrome-' &>/dev/null; then
+    curl -s -O https://dl.google.com/linux/direct/google-chrome-unstable_current_x86_64.rpm
+    yum localinstall -y --nogpgcheck google-chrome-unstable_current_x86_64.rpm
+  fi
+  # install virtualbox
+  if ! rpm -qa | grep -P '^VirtualBox-' &>/dev/null; then
+    curl -s -O http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc
+    rpm --import oracle_vbox.asc
+    curl -s http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo > /etc/yum.repos.d/virtualbox.repo
+    yum install -y VirtualBox-4.1
+  fi
+  # install vagrant
+  if ! rpm -qa | grep -P '^vagrant-' &>/dev/null; then
+    VAGRANT_URL="$( curl -s 'http://vagrantup.com/' | grep 'downloads.vagrantup.com' | awk -F\" '{ print $2 }' )"
+    VAGRANT_DOWNLOAD_URL="$( curl -s "$VAGRANT_URL" | grep x86_64.rpm | awk -F\" '{ print $4 }' )"
+    curl -sL "$VAGRANT_DOWNLOAD_URL" > vagrant.rpm
+    yum localinstall -y --nogpgcheck vagrant.rpm
+  fi
+  # dropbox
+  if ! rpm -qa | grep -P '^nautilus-dropbox-' &>/dev/null; then
+    DROPBOX_PATH="$( curl -s 'https://www.dropbox.com/install?os=lnx' | grep x86_64 | grep rpm | awk -F\" '{ print $2 }' )"
+    curl -sL "https://www.dropbox.com$DROPBOX_PATH" > dropbox.rpm
+    yum localinstall -y --nogpgcheck dropbox.rpm
+  fi
+fi
+
+echo -e '\nDone'
