@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+main() {
+  type="$1"
+  name="$2"
+
+  if [[ -d "$name" ]]; then
+    echo "Project already exists: ${name}" >&2
+    return 1
+  fi
+
+  case "$type" in
+    c)
+      mkdir -p "$name"
+      echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[])\n{\n    return 0;\n}" > "${name}/${name}.c"
+      echo -e "CFLAGS=-Wall -g\n\nall: ${name}\n\nclean:\n\trm -f ${name}" > "${name}/Makefile"
+      ;;
+    *)
+      echo "Unknown type: ${type}" >&2
+      return 1
+      ;;
+  esac
+
+  return 0
+}
+
+main "$@"

@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+
+source ./lib/*
+
+export PATH="./bin:$PATH"
+export TMP_PATH="${TMP_PATH-/tmp/scripts-test.XXXXXXXX}"
+
+setup() {
+  mkdir -p "$TMP_PATH"
+}
+
+teardown() {
+  rmfr "$TMP_PATH"
+
+  return $1
+}
+
+fail() {
+  echo "FAILED: $@"
+  echo
+}
+
+tmpdir() {
+  mktemp -d "$TMP_PATH"
+}
+
+rmfr() {
+  for path in $@; do
+    if [[ $path = /tmp/* ]]; then
+      rm -fr "$path"
+    else
+      echo "You tried to rm -fr $path" 1>&2
+    fi
+  done
+}
+
+run-test() {
+  func="test-$1"
+  code=1
+  
+  echo "################################################################################"
+  echo "# $func"
+  echo "################################################################################"
+  echo
+  
+  $func 1>&2
+  code=$?
+  
+  if [[ $code == 0 ]]; then
+    echo "Passed."
+    echo
+  fi
+  
+  return $code
+}
+
+test-backup() {
+  old_backup_path="$BACKUP_PATH"
+  tmp_backup_path="$( tmpdir )"
+  
+  export BACKUP_PATH="$tmp_backup_path"
+  
+  data1="hello world"
+  path1="$( tmpdir )"
+  echo "$data1" > "$path1/test"
+  
+  data2="foo bar"
+  path2="$( tmpdir )"
+  echo "$data2" > "$path2/test"
+  
+  backup_name1="$( date +%Y-%m-%d )-$( basename $path1 )"
+  backup_name2="$( date +%Y-%m-%d )-$( basename $path2 )"
+  backup "$path1" "$path2"
+  
+  export BACKUP_PATH="$old_backup_path"
+  
+  pushd "$tmp_backup_path" &>/dev/null
+  
+  for x in {1..2}; do
+    backup_name="backup_name$x"
+    data="data$x"
+    
+    if [[ ! -f "${!backup_name}.tar.bz2" ]]; then
+      fail "create backup $x" ; return 1
+    fi
+    
+    if ! tar xjf "${!backup_name}.tar.bz2"; then
+      fail "extract backup" ; return 1
+    fi
+    
+    if [[ "$( cat "${!backup_name}/test" )" != "${!data}" ]]; then
+      fail "extract content for backup $x" ; return 1
+    fi
+  done
+  
+  popd &>/dev/null
+}
+
+test-backup-drop() {
+  old_backup_path="$BACKUP_PATH"
+  tmp_backup_path="$( tmpdir )"
+
+  export BACKUP_PATH="$tmp_backup_path"
+
+  path="$( tmpdir )"
+  backup_name="$( date +%Y-%m-%d )-$( basename $path )"
+  backup-drop "$path"
+  
+  export BACKUP_PATH="$tmp_backup_path"
+
+  if [[ -e "$path" ]]; then
+    fail "failed to delete backup directory: $path" ; return 1
+  fi
+
+  if [[ ! -f "$tmp_backup_path/$backup_name.tar.bz2" ]]; then
+    fail 'create backup' ; return 1
+  fi
+}
+
+test-command-exists() {
+  if ! command-exists 'sh' &>/dev/null; then
+    fail 'command exists' ; return 1
+  fi
+  
+  if ! command-exists '/bin/sh' &>/dev/null; then
+    fail 'full path command exists' ; return 1
+  fi
+  
+  if command-exists '4e2dd0f9-4282-4fcd-bdd1-fd8c6edb37a4' &>/dev/null; then
+    fail 'command not exists' ; return 1
+  fi
+}
+
+test-grow-path() {
+  test1='/hello:/world'
+  test2=$test1
+  
+  grow-path test1 /hello
+  if [[ $test1 != $test2 ]]; then
+    fail "exists at beginning: $test1 != $test2" ; return 1
+  fi
+  
+  grow-path test1 /world
+  if [[ $test1 != $test2 ]]; then
+    fail "exists at end: $test1 != $test2"= ; return 1
+  fi
+  
+  test2="$test2:/bla"
+  grow-path test1 /bla
+  if [[ $test1 != "$test2" ]]; then
+    fail "append: $test1 != $test2" ; return 1
+  fi
+  
+  test2="/foo:$test2"
+  grow-path test1 /foo 1
+  if [[ $test1 != "$test2" ]]; then
+    fail "prepend: $test1 != $test2" ; return 1
+  fi
+
+  test1=""
+  test2="/bar"
+  grow-path test1 /bar
+  if [[ $test1 != "$test2" ]]; then
+    fail "set: $test1 != $test2" ; return 1
+  fi
+
+  test1=""
+  test2="/bar"
+  grow-path test1 /bar 1
+  if [[ $test1 != "$test2" ]]; then
+    fail "prepend set: $test1 != $test2" ; return 1
+  fi
+}
+
+test-slice-value() {
+  value="$1" ; shift
+  expect="$1" ; shift
+  result="$( slice $value $@ )"
+
+  if [[ $result != $expect ]]; then
+    fail "slice: $result != $expect" ; return 1
+  fi
+}
+
+test-slice() {
+  test-slice-value '12345' '12345'       &&
+  test-slice-value '12345' '1'      0  1 &&
+  test-slice-value '12345' '123'    0  3 &&
+  test-slice-value '12345' '3'      2  3 &&
+  test-slice-value '12345' '3'      2 -2 &&
+  test-slice-value '12345' '345'   -3
+}
+
+setup && (
+  run-test backup &&
+  run-test backup-drop &&
+  run-test command-exists &&
+  run-test grow-path &&
+  run-test slice
+); teardown $?

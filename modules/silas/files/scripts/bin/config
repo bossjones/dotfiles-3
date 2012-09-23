@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+main() {
+  command="git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+
+  case "$1" in
+    'add')
+      $command $@ -f
+      ;;  
+    *)  
+      $command $@
+      ;;  
+  esac
+}
+
+main $@

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+main() {
+  name="$( basename $PWD )"
+  command="$1" ; shift
+  virtualenv=${VIRTUALENV-venv}
+
+  if [[ -f ${virtualenv}/bin/activate ]]; then
+    deactivate &>/dev/null
+    source ${virtualenv}/bin/activate
+  fi  
+
+  case $command in
+    'run')
+      command='runserver'
+      ;;
+  esac
+
+  if [[ -f "./manage.py" ]]; then
+    python "./manage.py" $command $@
+  elif [[ -f "$name/manage.py" ]]; then
+    python "$name/manage.py" $command $@
+  else
+    echo "Can't find manage.py"
+  fi
+}
+
+main $@

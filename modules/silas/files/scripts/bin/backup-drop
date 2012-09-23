@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+main() {
+  code=0
+
+  for path in $@; do
+    if backup "$path"; then
+      rm -fr "$path"
+    else
+      code=2; break
+    fi
+  done
+
+  return $code
+}
+
+main $@

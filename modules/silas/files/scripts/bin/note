@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+note-delete() {
+  if [ -n "$*" ]; then
+    rm -f "${NOTE_PATH-$HOME/.notes}/$*" &> /dev/null || \
+      echo "Note doesn't exist." >&2
+  else
+    echo "Note name required." >&2
+  fi
+}
+
+note-edit() {
+  if [ -n "$*" ]; then
+    $EDITOR "${NOTE_PATH-$HOME/.notes}/$*"
+  else
+    $EDITOR "${NOTE_PATH-$HOME/.notes}/$( date +%Y-%m-%d )"
+  fi
+}
+
+note-print() {
+  if [ -n "$*" ]; then
+    cat "$HOME/.notes/$*" 2> /dev/null || \
+      echo "Note doesn't exist." >&2
+  else
+    echo "Note name required."
+  fi
+}
+
+main() {
+  case "$1" in
+    "-d")
+      shift
+      note-delete $@
+      ;;
+    "-e")
+      shift
+      note-edit $@
+      ;;
+    "-h")
+      echo "Usage: note [option] [NAME]"
+      echo
+      echo "Options:"
+      echo "  -h       display help message"
+      echo "  -d NAME  delete note"
+      echo "  -e NAME  edit note"
+      echo "  -p NAME  print note"
+      ;;
+    "-l")
+      ls "${NOTE_PATH-$HOME/.notes}"
+      ;;
+    "-p")
+      shift
+      note-print $@
+      ;;
+    -[[:digit:]]*)
+      note-edit "$( date --date="${1:1} day ago" +%Y-%m-%d )"
+      ;;
+    *)
+      note-edit $@
+      ;;
+  esac
+}
+
+main $@

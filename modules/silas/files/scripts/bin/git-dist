@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+git-dist-archive() {
+  type="$1"
+  tag="$2"
+  name="$3"
+  ext="$4"
+  if [[ "$type" == "zip" ]]; then
+    git archive --format=zip --prefix="${name}-${tag}/" "$tag" > "${name}-${tag}.${ext}"
+  else
+    git archive --format=tar --prefix="${name}-${tag}/" "$tag" | $type > "${name}-${tag}.${ext}"
+  fi
+} 
+
+main() {
+  name="$( basename "$( pwd )" )"
+  case "${2-gzip}" in
+    "bzip2")
+      git-dist-archive bzip2 "$1" "${3-$name}" "${4-tar.bz2}"
+      ;;
+    "gzip")
+      git-dist-archive gzip "$1" "${3-$name}" "${4-tar.gz}"
+      ;;
+    "zip")
+      git-dist-archive zip "$1" "${3-$name}" "${4-zip}"
+      ;;
+    *)
+      echo "Unknown type: $2"
+      return 1
+      ;;
+  esac
+}
+
+main $@

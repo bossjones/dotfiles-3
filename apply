@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+root="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+puppet apply --modulepath ${root}/modules ${root}/nodes/${HOSTNAME}.pp
