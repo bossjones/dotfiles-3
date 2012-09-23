@@ -1,3 +1,9 @@
 [submodule "modules/silas/files/vim/bundle/syntastic"]
 	path = modules/silas/files/vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
+[submodule "modules/silas/files/vim/bundle/stylus"]
+	path = modules/silas/files/vim/bundle/stylus
+	url = git://github.com/wavded/vim-stylus.git
+[submodule "modules/silas/files/vim/bundle/jade"]
+	path = modules/silas/files/vim/bundle/jade
+	url = git://github.com/digitaltoad/vim-jade.git
