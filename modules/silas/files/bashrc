@@ -18,7 +18,7 @@ else
 fi
 
 ################################################################################
-# Setup misc
+# Helper functions
 ################################################################################
 
 p() {
@@ -41,8 +41,52 @@ sp() {
   fi
 }
 
+cgrow-path() {
+  if [[ -d "$2" ]]; then
+    grow-path "$@"
+  fi
+}
+
 ################################################################################
-# Complete options
+# Settings
+################################################################################
+
+set -o vi
+set bell-style none
+
+shopt -s checkwinsize
+shopt -s histappend
+
+################################################################################
+# Environment
+################################################################################
+
+alias ll='ls -lh'
+alias reload="source $HOME/.bashrc"
+alias node='rock --runtime=node08 run node'
+alias src="cd $HOME/src"
+alias pp="git pull && git push"
+alias vi='echo Just type vim, it will save you time in the long run.'
+
+export BACKUP_PATH="$HOME/Dropbox/Backups"
+export EDITOR='vim'
+export GIT_MERGE_AUTOEDIT='no'
+export HISTCONTROL='ignoreboth'
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export NOTE_PATH="$HOME/Dropbox/Notes"
+export PS1='[\u@\h \W]$ '
+
+cgrow-path PATH "$HOME/src/brpm"
+cgrow-path PATH "$HOME/src/rock/rock/scripts"
+cgrow-path PATH '/opt/vagrant/bin'
+cgrow-path PATH '/sbin'
+cgrow-path PATH '/usr/sbin'
+cgrow-path PATH '/usr/local/sbin'
+
+cgrow-path PYTHONPATH "$HOME/src/rock/rock"
+
+################################################################################
+# Complete
 ################################################################################
 
 if [[ -d "${NOTE_PATH-$HOME/.notes}" ]]; then
@@ -54,73 +98,3 @@ if [[ -f "$HOME/.ssh/known_hosts" ]]; then
     cut -f 1 -d ' ' | sed -e s/,.*//g | \
     sort -u | grep -v "\["))" ssh
 fi
-
-################################################################################
-# Setttings
-################################################################################
-
-alias ll='ls -lh'
-alias reload="source $HOME/.bashrc"
-alias src="cd $HOME/src"
-alias pp="git pull && git push"
-alias vi='echo Just type vim, it will save you time in the long run.'
-
-export BACKUP_PATH="$HOME/Dropbox/Backups"
-export EDITOR='vim'
-export HISTCONTROL='ignoreboth'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export PS1='[\u@\h \W]$ '
-
-grow-path PATH "$HOME/.local/bin"
-grow-path PATH "$HOME/src/brpm"
-
-if [[ -d /opt/vagrant/bin ]]; then
-  grow-path PATH "/opt/vagrant/bin"
-fi
-
-set -o vi
-set bell-style none
-
-shopt -s checkwinsize
-shopt -s histappend
-
-################################################################################
-# OS specific settings
-################################################################################
-
-load-darwin() {
-  export PLATFORM='darwin'
-  alias ls='ls -G'
-}
-
-load-freebsd() {
-  export PLATFORM='freebsd'
-}
-
-load-linux() {
-  export PLATFORM='linux'
-
-  grow-path PATH '/sbin'
-  grow-path PATH '/usr/sbin'
-  grow-path PATH '/usr/local/sbin'
-
-  if command-exists service; then
-    complete -W "$( ls /etc/init.d/ )" service
-  fi
-}
-
-load-netbsd() {
-  export PLATFORM='netbsd'
-}
-
-# Load OS specific settings
-case "`uname`" in
-  'Darwin')
-    load-darwin ;;
-  'FreeBSD')
-    load-freebsd ;;
-  'Linux')
-    load-linux ;;
-  'NetBSD')
-    load-netbsd ;;
-esac
