@@ -98,3 +98,15 @@ if [[ -f "$HOME/.ssh/known_hosts" ]]; then
     cut -f 1 -d ' ' | sed -e s/,.*//g | \
     sort -u | grep -v "\["))" ssh
 fi
+
+################################################################################
+# Other
+################################################################################
+
+if [[ -f "$HOME/.bash_env" ]]; then
+  . "$HOME/.bash_env"
+fi
+
+if [[ -f "$HOME/.bash_local" ]]; then
+  . "$HOME/.bash_local"
+fi

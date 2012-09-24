@@ -1,3 +1,3 @@
 node 'x220' {
-  class { 'silas': }
+  include silas
 }

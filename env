@@ -1,0 +1,2 @@
+export FACTER_EMAIL="${FACTER_EMAIL:-silas@sewell.org}"
+export FACTER_HOME="$HOME"
