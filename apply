@@ -6,4 +6,4 @@ root="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 sync
 
-puppet apply --modulepath "${root}/modules" "${root}/nodes/${HOSTNAME}.pp"
+puppet apply --modulepath "${root}/modules" "${root}/nodes/${NODE}.pp"
