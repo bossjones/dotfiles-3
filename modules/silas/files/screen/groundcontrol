@@ -9,3 +9,4 @@ screen -t views 1
 chdir "$HOME/src/groundcontrol"
 screen -t static 2
 screen -t run 3
+screen -t redis 4
