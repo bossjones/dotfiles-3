@@ -6,8 +6,8 @@ class silas::ssh {
   }
 
   file { "${home}/.ssh/config":
-    ensure  => directory,
-    mode    => '0700',
+    ensure  => present,
+    mode    => '0600',
     seltype => 'ssh_home_t',
     content => template('silas/ssh/config.erb'),
   }
