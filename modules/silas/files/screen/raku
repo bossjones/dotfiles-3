@@ -1,0 +1,11 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/raku"
+
+screen -t 'code1' 0
+screen -t 'code2' 1
+screen -t 'code3' 2
+screen -t 'run1' 3
+screen -t 'run2' 4
+screen -t 'shell' 5
+screen -t 'warden shell' 6
