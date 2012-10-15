@@ -21,6 +21,12 @@ fi
 # Helper functions
 ################################################################################
 
+cgrow-path() {
+  if [[ -d "$2" ]]; then
+    grow-path "$@"
+  fi
+}
+
 p() {
   if [[ -n "$1" ]]; then
     $PYTHON $@
@@ -41,10 +47,8 @@ sp() {
   fi
 }
 
-cgrow-path() {
-  if [[ -d "$2" ]]; then
-    grow-path "$@"
-  fi
+src() {
+  cd "$HOME/src/$1"
 }
 
 ################################################################################
@@ -64,7 +68,6 @@ shopt -s histappend
 alias ll='ls -lh'
 alias reload="source $HOME/.bashrc"
 alias node='rock --runtime=node08 run node'
-alias src="cd $HOME/src"
 alias pp="git pull && git push"
 alias vi='echo Just type vim, it will save you time in the long run.'
 
@@ -91,6 +94,14 @@ cgrow-path PYTHONPATH "$HOME/src/rock/rock"
 
 if [[ -d "${NOTE_PATH-$HOME/.notes}" ]]; then
   complete -W "$( ls ${NOTE_PATH-$HOME/.notes} )" note
+fi
+
+if [[ -d "$HOME/.screen" ]]; then
+  complete -W "$( ls $HOME/.screen )" sp
+fi
+
+if [[ -d "$HOME/src" ]]; then
+  complete -W "$( ls $HOME/src )" src
 fi
 
 if [[ -f "$HOME/.ssh/known_hosts" ]]; then
