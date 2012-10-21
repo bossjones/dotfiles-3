@@ -1,5 +1,13 @@
 GSSAPIAuthentication no
 VerifyHostKeyDNS no
 
-Host dev hub *keyfu* *sewell*
+Host dev
+  HostName dev.sewell.org
+  Port 65000
+
+Host hub
+  HostName hub.sewell.org
+  Port 65000
+
+Host *keyfu* *sewell*
   Port 65000
