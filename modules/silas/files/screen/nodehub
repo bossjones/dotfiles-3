@@ -1,0 +1,14 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/nodehub/lib/nodehub"
+screen -t code1 0
+screen -t code2 1
+
+chdir "$HOME/src/nodehub/lib/nodehub/web/views"
+screen -t views 2
+
+chdir "$HOME/src/nodehub/lib/nodehub/web/public"
+screen -t public 3
+
+chdir "$HOME/src/nodehub"
+screen -t run 4
