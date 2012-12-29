@@ -12,3 +12,4 @@ screen -t public 3
 
 chdir "$HOME/src/nodehub"
 screen -t run 4
+screen -t shell 5
