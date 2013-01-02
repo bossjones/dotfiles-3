@@ -1,0 +1,5 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/rpms"
+screen -t source 0
+screen -t build 1
