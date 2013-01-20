@@ -1,0 +1,14 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/cirrus/cirrus"
+screen -t code1 0
+screen -t code2 1
+
+chdir "$HOME/src/cirrus/templates"
+screen -t templates 2
+
+chdir "$HOME/src/cirrus/static"
+screen -t static 3
+
+chdir "$HOME/src/cirrus"
+screen -t run 4
