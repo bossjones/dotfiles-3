@@ -6,13 +6,16 @@ screen -t 'rock - code' 0
 chdir "$HOME/src/rock/rock"
 screen -t 'rock - tests' 1
 
-chdir "$HOME/src/rock/packages/rpm"
-screen -t rpms 2
+chdir "$HOME/src/rock/packages"
+screen -t 'package - code' 2
+
+chdir "$HOME/src/rock/packages"
+screen -t 'package - shell' 3
 
 chdir "$HOME/src/rock/tests"
-screen -t tests 3
+screen -t tests 4
 
 chdir "$HOME/src/rock"
-screen -t shell 4
+screen -t shell 5
 
 chdir "$HOME/src/rock"
