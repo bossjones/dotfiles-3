@@ -8,3 +8,7 @@ sync() {
   git submodule foreach git submodule init && \
   git submodule foreach git submodule update
 }
+
+upgrade() {
+  git submodule foreach git pull
+}
