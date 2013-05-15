@@ -74,7 +74,6 @@ alias vi='echo Just type vim, it will save you time in the long run.'
 export BACKUP_PATH="$HOME/Dropbox/Backups"
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
-export GOROOT="$HOME/src/go"
 export HISTCONTROL='ignoreboth'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export NOTE_PATH="$HOME/Dropbox/Notes"
