@@ -61,7 +61,7 @@ backup-drop() {
 
 dget() {
   if type -f xcurl &>/dev/null; then
-    run='curl -O'
+    run='curl -LO'
   elif type -f xwget &>/dev/null; then
     run='wget'
   else
