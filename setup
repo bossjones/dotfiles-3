@@ -17,6 +17,7 @@ class Dotfiles(object):
             '.gdbinit',
             '.gemrc',
             '.screenrc',
+            '.screen/rock',
         ]
 
     def get(self, path):
@@ -39,7 +40,11 @@ class Dotfiles(object):
                 data = self.get(name)
                 if data is not None:
                     logging.info('dotfile %s writing', name)
-                    with open(os.path.expanduser('~/.%s' % name), 'w+') as f:
+                    file_path = os.path.expanduser('~/%s' % name)
+                    dir_path = os.path.join(*os.path.split(file_path)[:-1])
+                    if not os.path.isdir(dir_path):
+                        os.makedirs(dir_path, 0700)
+                    with open(file_path, 'w+') as f:
                         f.write(data)
             except Exception as e:
                 logging.error('dotfile %s error: %s', name, e.message)
