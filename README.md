@@ -2,10 +2,8 @@
 
 This is my personal dotfiles repository, you shouldn't run these commands.
 
-### curl
+### Setup
 
-     curl -sL git.io/setup | python
+    curl -sL git.io/setup | python
 
-### wget
-
-     wget -qO- git.io/setup | python
+    wget -qO- git.io/setup | python
