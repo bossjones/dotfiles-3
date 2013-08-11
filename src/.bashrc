@@ -59,6 +59,19 @@ backup-drop() {
   return $code
 }
 
+dget() {
+  if type -f xcurl &>/dev/null; then
+    run='curl -O'
+  elif type -f xwget &>/dev/null; then
+    run='wget'
+  else
+    echo "curl and wget commands not found" >&2
+    return 1
+  fi
+
+  $run "$@"
+}
+
 extract() {
   for path in $@; do
     if [ -f "$path" ] ; then
@@ -84,6 +97,19 @@ extract() {
       echo "'$path' is not a valid file"
     fi
   done
+}
+
+get() {
+  if type -f xcurl &>/dev/null; then
+    run='curl -sL'
+  elif type -f xwget &>/dev/null; then
+    run='wget -qO-'
+  else
+    echo "curl and wget commands not found" >&2
+    return 1
+  fi
+
+  $run "$@"
 }
 
 libgit-dist() {
