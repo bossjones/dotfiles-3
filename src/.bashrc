@@ -60,9 +60,9 @@ backup-drop() {
 }
 
 dget() {
-  if type -f xcurl &>/dev/null; then
+  if type -f curl &>/dev/null; then
     run='curl -LO'
-  elif type -f xwget &>/dev/null; then
+  elif type -f wget &>/dev/null; then
     run='wget'
   else
     echo "curl and wget commands not found" >&2
@@ -100,9 +100,9 @@ extract() {
 }
 
 get() {
-  if type -f xcurl &>/dev/null; then
+  if type -f curl &>/dev/null; then
     run='curl -sL'
-  elif type -f xwget &>/dev/null; then
+  elif type -f wget &>/dev/null; then
     run='wget -qO-'
   else
     echo "curl and wget commands not found" >&2
