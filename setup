@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+import Queue
+import httplib
+import logging
+import os
+import threading
+
+
+class Dotfiles(object):
+
+    def __init__(self):
+        self.q = Queue.Queue()
+        self.data = [
+            'bashrc',
+            'gdbinit',
+            'gemrc',
+            'screen',
+            'screenrc',
+        ]
+
+    def get(self, path):
+        host = 'raw.github.com'
+        full_path = '/silas/config/master/src/%s' % path
+
+        c = httplib.HTTPSConnection(host)
+        c.request('GET', full_path)
+        res = c.getresponse()
+        if res.status == 200:
+            return res.read()
+        else:
+            logging.error('failed to get https://%s%s (%s)' %
+                (host, full_path, res.status))
+
+    def run(self):
+        while True:
+            name = self.q.get()
+            try:
+                data = self.get(name)
+                if data is not None:
+                    with open(os.path.expanduser('~/.%s' % name), 'w+') as f:
+                        f.write(data)
+            finally:
+                self.q.task_done()
+
+    def start(self, num=5):
+        for _ in xrange(num):
+            t = threading.Thread(target=self.run)
+            t.daemon = True
+            t.start()
+
+        for d in self.data:
+            self.q.put(d)
+
+        return self
+
+    def join(self):
+        self.q.join()
+        return self
+
+
+def main():
+    logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
+
+    Dotfiles().start().join()
+
+
+if __name__ == '__main__':
+    main()

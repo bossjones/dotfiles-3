@@ -1,0 +1,27 @@
+source "$HOME/.screenrc"
+
+chdir "$HOME/src/rock/rock/rock"
+screen -t 'rock - code' 0
+
+chdir "$HOME/src/rock/rock"
+screen -t 'rock - tests' 1
+
+chdir "$HOME/src/rock/tests"
+screen -t tests 2
+
+chdir "$HOME/src/rock/homebrew"
+screen -t 'homebrew' 3
+
+chdir "$HOME/src/rock/packages/deb"
+screen -t 'deb' 4
+
+chdir "$HOME/src/rock/packages/rpm"
+screen -t 'rpm' 5
+
+chdir "$HOME/src/rock/site"
+screen -t 'site - code' 6
+
+chdir "$HOME/src/rock/site"
+screen -t 'site - run' 7
+
+chdir "$HOME/src/rock"
