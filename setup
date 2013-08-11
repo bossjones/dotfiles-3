@@ -12,35 +12,37 @@ class Dotfiles(object):
 
     def __init__(self):
         self.q = Queue.Queue()
-        self.data = [
-            'bashrc',
-            'gdbinit',
-            'gemrc',
-            'screen',
-            'screenrc',
+        self.files = [
+            '.bashrc',
+            '.gdbinit',
+            '.gemrc',
+            '.screenrc',
         ]
 
     def get(self, path):
+        logging.info('got dotfile %s' % path)
+
         host = 'raw.github.com'
         full_path = '/silas/config/master/src/%s' % path
 
         c = httplib.HTTPSConnection(host)
         c.request('GET', full_path)
         res = c.getresponse()
-        if res.status == 200:
-            return res.read()
-        else:
-            logging.error('failed to get https://%s%s (%s)' %
-                (host, full_path, res.status))
+        if res.status != 200:
+            raise Exception('failed to get https://%s%s (%s)' % (host,
+                full_path, res.status))
+        return res.read()
 
     def run(self):
         while True:
-            name = self.q.get()
             try:
+                name = self.q.get()
                 data = self.get(name)
                 if data is not None:
                     with open(os.path.expanduser('~/.%s' % name), 'w+') as f:
                         f.write(data)
+            except Exception as e:
+                logging.error('dotfile error: %s', e.message)
             finally:
                 self.q.task_done()
 
@@ -50,7 +52,7 @@ class Dotfiles(object):
             t.daemon = True
             t.start()
 
-        for d in self.data:
+        for d in self.files:
             self.q.put(d)
 
         return self
