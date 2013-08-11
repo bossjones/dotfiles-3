@@ -20,8 +20,6 @@ class Dotfiles(object):
         ]
 
     def get(self, path):
-        logging.info('got dotfile %s' % path)
-
         host = 'raw.github.com'
         full_path = '/silas/config/master/src/%s' % path
 
@@ -37,12 +35,14 @@ class Dotfiles(object):
         while True:
             try:
                 name = self.q.get()
+                logging.info('dotfile %s getting', name)
                 data = self.get(name)
                 if data is not None:
+                    logging.info('dotfile %s writing', name)
                     with open(os.path.expanduser('~/.%s' % name), 'w+') as f:
                         f.write(data)
             except Exception as e:
-                logging.error('dotfile error: %s', e.message)
+                logging.error('dotfile %s error: %s', name, e.message)
             finally:
                 self.q.task_done()
 
@@ -63,7 +63,8 @@ class Dotfiles(object):
 
 
 def main():
-    logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
+    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
+                        level=logging.INFO)
 
     Dotfiles().start().join()
 
