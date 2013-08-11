@@ -14,8 +14,10 @@ class Error(Exception):
 
 class Dotfile(object):
 
-    def __init__(self, name):
+    def __init__(self, name, mode=0600, directory_mode=0700):
         self.name = name
+        self.mode = mode
+        self.directory_mode = 0700
 
     def __str__(self):
         return self.name
@@ -52,6 +54,14 @@ class Dotfile(object):
         return res.read()
 
 
+    def save(self):
+        data = self.fetch()
+        if not os.path.isdir(self.directory):
+            os.makedirs(self.directory, self.directory_mode)
+        with open(self.path, 'w+', self.mode) as f:
+            f.write(data)
+
+
 class Dotfiles(object):
 
     def __init__(self):
@@ -65,14 +75,8 @@ class Dotfiles(object):
         while True:
             try:
                 dotfile = self.q.get()
-                logging.info('dotfile %r getting', dotfile)
-                data = dotfile.fetch()
-                if data is not None:
-                    logging.info('dotfile %r writing', dotfile)
-                    if not os.path.isdir(dotfile.directory):
-                        os.makedirs(dotfile.directory, 0700)
-                    with open(dotfile.path, 'w+') as f:
-                        f.write(data)
+                logging.info('dotfile %r saving', dotfile)
+                dotfile.save()
             except Exception as e:
                 logging.error('dotfile %r error: %s', dotfile, e.message)
             finally:
