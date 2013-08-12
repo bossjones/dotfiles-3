@@ -24,6 +24,8 @@ class Dotfile(object):
         self.path = os.path.expanduser('~/%s' % self.name)
         self.directory = os.path.dirname(self.path)
         self.extract = extract
+        if url is None:
+            url = 'https://raw.github.com/silas/config/master/src/%s' % name
         self.set_url(url)
 
     def __str__(self):
@@ -33,8 +35,6 @@ class Dotfile(object):
         return 'dotfile %s' % repr(str(self))
 
     def set_url(self, value):
-        if value is None:
-            value = 'https://raw.github.com/silas/config/master/src/%s' % name
         self.url = urlparse.urlparse(value)
         if not hasattr(self, 'original_url'):
             self.original_url = self.url
@@ -59,20 +59,18 @@ class Dotfile(object):
         if not os.path.isdir(self.directory):
             os.makedirs(self.directory, self.directory_mode)
         if self.extract and self.original_url.path.endswith('.tar.gz'):
-            if not os.path.isdir(self.name):
-                os.makedirs(self.name, self.directory_mode)
+            if not os.path.isdir(self.path):
+                os.makedirs(self.path, self.directory_mode)
             p = subprocess.Popen(
-                ' '.join(['tar', '-xz', '--strip-components=1', '-C', pipes.quote(self.name)]),
+                ' '.join(['tar', '-xz', '--strip-components=1', '-C', pipes.quote(self.path)]),
                 shell=True,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-            p.stdin.write(data)
-            p.stdin.close()
-            p.wait()
+            out, _ = p.communicate(data)
             if p.returncode != 0:
-                raise Error('failed to extract: %s' % self.url.geturl())
+                raise Error('failed to extract: %s' % out)
         else:
             with open(self.path, 'w+', self.mode) as f:
                 f.write(data)
@@ -151,7 +149,7 @@ def main():
     p.add(Dotfile('.screenrc'))
     p.add(Dotfile('.ssh/config'))
     p.add(Dotfile(
-        '~/.vim/autoload/pathogen.vim',
+        '.vim/autoload/pathogen.vim',
         'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim',
     ))
     p.add(Dotfile(
