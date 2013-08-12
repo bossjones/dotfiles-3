@@ -197,6 +197,8 @@ alias pp="git pull --rebase && git push"
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
 export HISTCONTROL='ignoreboth'
+export LANG='en_US.UTF-8'
+export LC_CTYPE='en_US.UTF-8'
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
 export PS1='[\u@\h \W]$ '
 
