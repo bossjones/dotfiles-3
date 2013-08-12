@@ -15,13 +15,14 @@ class Error(Exception):
     pass
 
 
-class Dotfile(object):
+class File(object):
 
-    def __init__(self, name, url=None, mode=0600, directory_mode=0700, extract=True):
+    def __init__(self, name, url=None, path=None, mode=0600,
+                 directory_mode=0700, extract=True):
         self.name = name
         self.mode = mode
         self.directory_mode = 0700
-        self.path = os.path.expanduser('~/%s' % self.name)
+        self.path = path or os.path.expanduser('~/%s' % self.name)
         self.directory = os.path.dirname(self.path)
         self.extract = extract
         if url is None:
@@ -32,7 +33,7 @@ class Dotfile(object):
         return self.name
 
     def __repr__(self):
-        return 'dotfile %s' % repr(str(self))
+        return 'file %s' % repr(str(self))
 
     def set_url(self, value):
         self.url = urlparse.urlparse(value)
@@ -62,7 +63,7 @@ class Dotfile(object):
             if not os.path.isdir(self.path):
                 os.makedirs(self.path, self.directory_mode)
             p = subprocess.Popen(
-                ' '.join(['tar', '-xz', '--strip-components=1', '-C', pipes.quote(self.path)]),
+                'tar -xz --strip-components=1 -C %s' % pipes.quote(self.path),
                 shell=True,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
@@ -74,6 +75,19 @@ class Dotfile(object):
         else:
             with open(self.path, 'w+', self.mode) as f:
                 f.write(data)
+
+
+class VimBundle(File):
+
+    def __init__(self, name):
+        url = 'https://github.com/%s/archive/master.tar.gz' % name
+        name = name.split('/')[-1]
+        if name.startswith('vim-'):
+            name = name[4:]
+        if name.endswith('.vim'):
+            name = name[:-4]
+        super(VimBundle, self).__init__(name, url)
+
 
 class Shell(object):
 
@@ -142,20 +156,23 @@ def main():
                         level=logging.INFO)
 
     p = Pool()
-    p.add(Dotfile('.bashrc'))
-    p.add(Dotfile('.gdbinit'))
-    p.add(Dotfile('.gemrc'))
-    p.add(Dotfile('.screen/rock'))
-    p.add(Dotfile('.screenrc'))
-    p.add(Dotfile('.ssh/config'))
-    p.add(Dotfile(
+    p.add(File('.bashrc'))
+    p.add(File('.gdbinit'))
+    p.add(File('.gemrc'))
+    p.add(File('.gitconfig'))
+    p.add(File('.hushlogin'))
+    p.add(File('.screen/rock'))
+    p.add(File('.screenrc'))
+    p.add(File('.ssh/config'))
+    p.add(File(
         '.vim/autoload/pathogen.vim',
         'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim',
     ))
-    p.add(Dotfile(
-        '.vim/bundle/syntastic',
-        'https://github.com/scrooloose/syntastic/archive/master.tar.gz',
-    ))
+    p.add(VimBundle('Shougo/neocomplcache.vim'))
+    p.add(VimBundle('scrooloose/syntastic'))
+    p.add(VimBundle('tpope/vim-dispatch'))
+    p.add(VimBundle('tpope/vim-endwise'))
+    p.add(VimBundle('tpope/vim-markdown'))
     p.start().join()
 
 
