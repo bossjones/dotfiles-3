@@ -77,6 +77,31 @@ class Dotfile(object):
             with open(self.path, 'w+', self.mode) as f:
                 f.write(data)
 
+class Shell(object):
+
+    def __init__(self, command, codes=None):
+        self.command = command
+        self.codes = codes or [0]
+
+    def __str__(self):
+        if len(self.command) > 20:
+            return '%s' % self.command[:20].strip()
+        return self.command
+
+    def __repr__(self):
+        return 'shell %s' % repr(str(self))
+
+    def run(self):
+        p = subprocess.Popen(
+            self.command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        out, _ = p.communicate()
+        if p.returncode not in self.codes:
+            raise Error(out)
+
 
 class Pool(object):
 
