@@ -86,6 +86,7 @@ class VimBundle(File):
             name = name[4:]
         if name.endswith('.vim'):
             name = name[:-4]
+        name = '.vim/bundle/%s' % name
         super(VimBundle, self).__init__(name, url)
 
 
