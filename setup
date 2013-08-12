@@ -171,7 +171,6 @@ def main():
     ))
     p.add(VimBundle('Shougo/neocomplcache.vim'))
     p.add(VimBundle('scrooloose/syntastic'))
-    p.add(VimBundle('tpope/vim-dispatch'))
     p.add(VimBundle('tpope/vim-endwise'))
     p.add(VimBundle('tpope/vim-markdown'))
     p.start().join()
