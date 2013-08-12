@@ -5,7 +5,10 @@ import Queue
 import httplib
 import logging
 import os
+import pipes
+import subprocess
 import threading
+import urlparse
 
 
 class Error(Exception):
@@ -14,70 +17,84 @@ class Error(Exception):
 
 class Dotfile(object):
 
-    def __init__(self, name, mode=0600, directory_mode=0700):
+    def __init__(self, name, url=None, mode=0600, directory_mode=0700, extract=True):
         self.name = name
         self.mode = mode
         self.directory_mode = 0700
+        self.path = os.path.expanduser('~/%s' % self.name)
+        self.directory = os.path.dirname(self.path)
+        self.extract = extract
+        self.set_url(url)
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
-        return repr(self.name)
+        return 'dotfile %s' % repr(str(self))
 
-    @property
-    def path(self):
-        return os.path.expanduser('~/%s' % self.name)
-
-    @property
-    def directory(self):
-        return os.path.dirname(self.path)
-
-    @property
-    def url_host(self):
-        return 'raw.github.com'
-
-    @property
-    def url_path(self):
-        return '/silas/config/master/src/%s' % self.name
-
-    @property
-    def url(self):
-        return 'https://' + self.url_host + self.url_path
+    def set_url(self, value):
+        if value is None:
+            value = 'https://raw.github.com/silas/config/master/src/%s' % name
+        self.url = urlparse.urlparse(value)
+        if not hasattr(self, 'original_url'):
+            self.original_url = self.url
 
     def fetch(self):
-        c = httplib.HTTPSConnection(self.url_host)
-        c.request('GET', self.url_path)
-        res = c.getresponse()
-        if res.status != 200:
-            raise Error('failed to get %s (%s)' % (self.url, res.status))
-        return res.read()
+        while True:
+            if self.url.scheme == 'https':
+                c = httplib.HTTPSConnection(self.url.netloc)
+            else:
+                c = httplib.HTTPConnection(self.url.netloc)
+            c.request('GET', self.url.path)
+            res = c.getresponse()
+            if res.status >= 301 and res.status <= 302 and 'Location' in res.msg:
+                self.set_url(res.msg['Location'])
+                continue
+            elif res.status < 200 or res.status >= 300:
+                raise Error('failed to get %s (%s)' % (self.url, res.status))
+            return res.read()
 
-    def save(self):
+    def run(self):
         data = self.fetch()
         if not os.path.isdir(self.directory):
             os.makedirs(self.directory, self.directory_mode)
-        with open(self.path, 'w+', self.mode) as f:
-            f.write(data)
+        if self.extract and self.original_url.path.endswith('.tar.gz'):
+            if not os.path.isdir(self.name):
+                os.makedirs(self.name, self.directory_mode)
+            p = subprocess.Popen(
+                ' '.join(['tar', '-xz', '--strip-components=1', '-C', pipes.quote(self.name)]),
+                shell=True,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            p.stdin.write(data)
+            p.stdin.close()
+            p.wait()
+            if p.returncode != 0:
+                raise Error('failed to extract: %s' % self.url.geturl())
+        else:
+            with open(self.path, 'w+', self.mode) as f:
+                f.write(data)
 
 
-class Dotfiles(object):
+class Pool(object):
 
     def __init__(self):
         self.q = Queue.Queue()
-        self.files = []
+        self.tasks = []
 
-    def add(self, *args, **kwargs):
-        self.files.append(Dotfile(*args, **kwargs))
+    def add(self, obj):
+        self.tasks.append(obj)
 
     def run(self):
         while True:
             try:
-                dotfile = self.q.get()
-                logging.info('dotfile %r saving', dotfile)
-                dotfile.save()
+                task = self.q.get()
+                logging.info('running %r', task)
+                task.run()
             except Exception as e:
-                logging.error('dotfile %r error: %s', dotfile, e.message)
+                logging.error('error %r: %s', task, e.message)
             finally:
                 self.q.task_done()
 
@@ -87,7 +104,7 @@ class Dotfiles(object):
             t.daemon = True
             t.start()
 
-        for d in self.files:
+        for d in self.tasks:
             self.q.put(d)
 
         return self
@@ -101,14 +118,22 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
 
-    df = Dotfiles()
-    df.add('.bashrc')
-    df.add('.gdbinit')
-    df.add('.gemrc')
-    df.add('.screen/rock')
-    df.add('.screenrc')
-    df.add('.ssh/config')
-    df.start().join()
+    p = Pool()
+    p.add(Dotfile('.bashrc'))
+    p.add(Dotfile('.gdbinit'))
+    p.add(Dotfile('.gemrc'))
+    p.add(Dotfile('.screen/rock'))
+    p.add(Dotfile('.screenrc'))
+    p.add(Dotfile('.ssh/config'))
+    p.add(Dotfile(
+        '~/.vim/autoload/pathogen.vim',
+        'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim',
+    ))
+    p.add(Dotfile(
+        '.vim/bundle/syntastic',
+        'https://github.com/scrooloose/syntastic/archive/master.tar.gz',
+    ))
+    p.start().join()
 
 
 if __name__ == '__main__':
