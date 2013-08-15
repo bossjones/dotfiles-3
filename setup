@@ -7,6 +7,7 @@ import logging
 import os
 import pipes
 import subprocess
+import sys
 import threading
 import urlparse
 
@@ -33,7 +34,12 @@ class File(object):
         return self.name
 
     def __repr__(self):
-        return 'file %s' % repr(str(self))
+        return 'file %r' % str(self)
+
+    @staticmethod
+    def write(path, data, mode=0600):
+        with open(os.path.expanduser(path), 'w+', mode) as f:
+            f.write(data)
 
     def set_url(self, value):
         self.url = urlparse.urlparse(value)
@@ -73,8 +79,7 @@ class File(object):
             if p.returncode != 0:
                 raise Error('failed to extract: %s' % out)
         else:
-            with open(self.path, 'w+', self.mode) as f:
-                f.write(data)
+            self.write(self.path, data, self.mode)
 
 
 class VimBundle(File):
@@ -102,7 +107,7 @@ class Shell(object):
         return self.command
 
     def __repr__(self):
-        return 'shell %s' % repr(str(self))
+        return 'shell %r' % str(self)
 
     def run(self):
         p = subprocess.Popen(
@@ -114,6 +119,24 @@ class Shell(object):
         out, _ = p.communicate()
         if p.returncode not in self.codes:
             raise Error(out)
+
+
+class Platform(object):
+
+    def __init__(self, pool):
+        self.pool = pool
+
+    def __str__(self):
+        return sys.platform
+
+    def __repr__(self):
+        return 'platform %r' % str(self)
+
+    def darwin(self):
+        File.write('~/.bash_profile', '. ~/.bashrc')
+
+    def run(self):
+        getattr(self, sys.platform, lambda: None)()
 
 
 class Pool(object):
@@ -157,6 +180,7 @@ def main():
                         level=logging.INFO)
 
     p = Pool()
+    p.add(Platform(p))
     p.add(File('.bashrc'))
     p.add(File('.gdbinit'))
     p.add(File('.gemrc'))
