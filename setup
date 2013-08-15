@@ -165,10 +165,8 @@ def main():
     p.add(File('.screen/rock'))
     p.add(File('.screenrc'))
     p.add(File('.ssh/config'))
-    p.add(File(
-        '.vim/autoload/pathogen.vim',
-        'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim',
-    ))
+    p.add(File('.vimrc'))
+    p.add(File('.vim/autoload/pathogen.vim', 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'))
     p.add(VimBundle('Shougo/neocomplcache.vim'))
     p.add(VimBundle('scrooloose/syntastic'))
     p.add(VimBundle('tpope/vim-endwise'))
