@@ -37,7 +37,7 @@ class File(object):
         return 'file %r' % str(self)
 
     @staticmethod
-    def link(src_path, dst_path):
+    def link(src, dst):
         src = os.path.expanduser(src)
         dst = os.path.expanduser(dst)
         if not os.path.exists(dst):
