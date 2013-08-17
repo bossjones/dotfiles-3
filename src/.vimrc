@@ -1,8 +1,6 @@
 ""Disable VI's compatible mode
 set nocompatible
 
-set rtp+=$GOROOT/misc/vim
-
 ""Disable autocomplete scratch window
 set completeopt=menu
 

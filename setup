@@ -37,8 +37,16 @@ class File(object):
         return 'file %r' % str(self)
 
     @staticmethod
+    def link(src_path, dst_path):
+        src = os.path.expanduser(src)
+        dst = os.path.expanduser(dst)
+        if not os.path.exists(dst):
+            os.symlink(src, dst)
+
+    @staticmethod
     def write(path, data, mode=0600):
-        with open(os.path.expanduser(path), 'w+', mode) as f:
+        path = os.path.expanduser(path)
+        with open(path, 'w+', mode) as f:
             f.write(data)
 
     def set_url(self, value):
@@ -133,6 +141,7 @@ class Platform(object):
         return 'platform %r' % str(self)
 
     def darwin(self):
+        File.link('/usr/local/go/misc/vim', '~/.vim/bundle/golang')
         File.write('~/.bash_profile', '. ~/.bashrc')
 
     def run(self):
