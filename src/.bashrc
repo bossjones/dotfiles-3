@@ -7,31 +7,31 @@ backup() {
     dst_path="${BACKUP_PATH-$HOME/Backups}"
     src_name="$( basename $src_path )"
     dst_name="$( date +%Y-%m-%d )-$( basename $src_path )"
-    
+
     if [[ ! -d "$src_path" ]]; then
       echo "Invalid source path: $src_path" 1>&2
       code=2; break
     fi
-    
+
     if [[ ! -d "$dst_path" ]]; then
       echo "Invalid destination path: $dst_path" 1>&2
       code=2; break
     fi
-    
+
     if ! pushd "$( dirname $src_path )" > /dev/null; then
       code=2; break
     fi
-    
+
     if [[ -e "$dst_name" ]]; then
       echo "Desination name already exists: $dst_name" 1>&2
       code=2; break
     fi
-    
+
     if [[ -e "$dst_path/$dst_name.tar.bz2" ]]; then
       echo "Desination path already exists: $dst_path" 1>&2
       code=2; break
     fi
-    
+
     if ! (mv "$src_name" "$dst_name" && \
           tar cjf "$dst_name.tar.bz2" "$dst_name" && \
           mv "$dst_name.tar.bz2" "$dst_path" && \
@@ -112,6 +112,10 @@ get() {
   $run "$@"
 }
 
+jump() {
+  cd -P "$HOME/.marks/$1" 2>/dev/null || echo "No such mark: $1"
+}
+
 libgit-dist() {
   type="$1"
   tag="$2"
@@ -122,7 +126,7 @@ libgit-dist() {
   else
     git archive --format=tar --prefix="${name}-${tag}/" "$tag" | $type > "${name}-${tag}.${ext}"
   fi
-} 
+}
 
 git-dist() {
   name="$( basename "$( pwd )" )"
@@ -166,6 +170,14 @@ grow-path-exists() {
   fi
 }
 
+mark() {
+  mkdir -p "$HOME/.marks"; ln -s "$( pwd )" "$HOME/.marks/$1"
+}
+
+marks() {
+  ls -l "$HOME/.marks" | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+}
+
 p() {
   if [[ -n "$1" ]]; then
     $PYTHON "$@"
@@ -190,7 +202,12 @@ src() {
   cd "$HOME/src/$1"
 }
 
+unmark() {
+  rm -i "$HOME/.marks/$1"
+}
+
 alias ll='ls -lh'
+alias j='jump'
 alias reload="source $HOME/.bashrc"
 alias pp="git pull --rebase && git push"
 
