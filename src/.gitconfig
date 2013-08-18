@@ -1,5 +1,5 @@
 [user]
-  email = silas@sewell.org
+  email = ${email}
   name = Silas Sewell
   editor = vim
 [core]

@@ -2,10 +2,12 @@
 # encoding: utf-8
 
 import Queue
+import argparse
 import httplib
 import logging
 import os
 import pipes
+import string
 import subprocess
 import sys
 import threading
@@ -19,13 +21,14 @@ class Error(Exception):
 class File(object):
 
     def __init__(self, name, url=None, path=None, mode=0600,
-                 directory_mode=0700, extract=True):
+                 directory_mode=0700, extract=True, template=None):
         self.name = name
         self.mode = mode
         self.directory_mode = 0700
         self.path = path or os.path.expanduser('~/%s' % self.name)
         self.directory = os.path.dirname(self.path)
         self.extract = extract
+        self.template = template
         if url is None:
             url = 'https://raw.github.com/silas/config/master/src/%s' % name
         self.set_url(url)
@@ -48,6 +51,12 @@ class File(object):
         path = os.path.expanduser(path)
         with open(path, 'w+', mode) as f:
             f.write(data)
+
+    def _template(self, data):
+        if not self.template:
+            return data
+        t = string.Template(data)
+        return t.safe_substitute(self.template)
 
     def set_url(self, value):
         self.url = urlparse.urlparse(value)
@@ -87,7 +96,7 @@ class File(object):
             if p.returncode != 0:
                 raise Error('failed to extract: %s' % out)
         else:
-            self.write(self.path, data, self.mode)
+            self.write(self.path, self._template(data), self.mode)
 
 
 class VimBundle(File):
@@ -188,12 +197,16 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--email', default='silas@sewell.org')
+    args = parser.parse_args()
+
     p = Pool()
     p.add(Platform(p))
     p.add(File('.bashrc'))
     p.add(File('.gdbinit'))
     p.add(File('.gemrc'))
-    p.add(File('.gitconfig'))
+    p.add(File('.gitconfig', template={'email': args.email}))
     p.add(File('.hushlogin'))
     p.add(File('.screen/rock'))
     p.add(File('.screenrc'))
