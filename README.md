@@ -1,6 +1,6 @@
-# Config
+# Dotfiles
 
-This is my personal dotfiles repository, you shouldn't run these commands.
+This is my personal dotfiles repository, don't run the below command.
 
 ### Setup Script
 
