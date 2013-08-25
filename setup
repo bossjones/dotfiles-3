@@ -13,6 +13,11 @@ import sys
 import threading
 import urlparse
 
+env = os.environ.get
+
+DOTFILES_URL = env('DOTFILES_URL', 'https://raw.github.com/silas/dotfiles')
+EMAIL = env('EMAIL', 'silas@sewell.org')
+
 
 class Error(Exception):
     pass
@@ -24,13 +29,13 @@ class File(object):
                  directory_mode=0700, extract=True, template=None):
         self.name = name
         self.mode = mode
-        self.directory_mode = 0700
         self.path = path or os.path.expanduser('~/%s' % self.name)
         self.directory = os.path.dirname(self.path)
+        self.directory_mode = directory_mode
         self.extract = extract
         self.template = template
         if url is None:
-            url = 'https://raw.github.com/silas/config/master/src/%s' % name
+            url = '%s/master/src/%s' % (DOTFILES_URL, name)
         self.set_url(url)
 
     def __str__(self):
@@ -198,7 +203,7 @@ def main():
                         level=logging.INFO)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--email', default='silas@sewell.org')
+    parser.add_argument('--email', default=EMAIL)
     args = parser.parse_args()
 
     p = Pool()
@@ -213,7 +218,8 @@ def main():
     p.add(File('.screenrc'))
     p.add(File('.ssh/config'))
     p.add(File('.vimrc'))
-    p.add(File('.vim/autoload/pathogen.vim', 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'))
+    p.add(File('.vim/autoload/pathogen.vim',
+               'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'))
     p.add(VimBundle('Shougo/neocomplcache.vim'))
     p.add(VimBundle('scrooloose/syntastic'))
     p.add(VimBundle('tpope/vim-endwise'))
