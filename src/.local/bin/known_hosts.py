@@ -5,6 +5,7 @@ Generates autocomplete for ssh known_hosts file.
 """
 
 import os
+import sys
 
 
 def main():
@@ -26,7 +27,7 @@ def main():
     hosts = list(hosts)
     hosts.sort()
 
-    print ' '.join(hosts),
+    sys.stdout.write(' '.join(hosts))
 
 
 if __name__ == '__main__':
