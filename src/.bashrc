@@ -219,6 +219,7 @@ export LC_CTYPE='en_US.UTF-8'
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
 export PS1='[\u@\h \W]$ '
 
+grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$HOME/src/brpm"
 grow-path-exists PATH "$HOME/src/rock/rock/scripts"
