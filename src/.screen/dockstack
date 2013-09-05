@@ -1,18 +1,14 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/dockstack/dockstack"
+chdir "$HOME/src/dockstack"
 screen -t code 0
-screen -t code 1
 
-chdir "$HOME/src/dockstack/dockstack/templates"
-screen -t templates 2
+chdir "$HOME/src/dockstack/templates"
+screen -t templates 1
 
-chdir "$HOME/src/dockstack/dockstack/static"
-screen -t static 3
-
-chdir "$HOME/src/dockstack/tests"
-screen -t tests 4
+chdir "$HOME/src/dockstack/static"
+screen -t static 2
 
 chdir "$HOME/src/dockstack"
-screen -t run 5
-screen -t shell 6
+screen -t run 3
+screen -t shell 4
