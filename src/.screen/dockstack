@@ -3,11 +3,9 @@ source "$HOME/.screenrc"
 chdir "$HOME/src/dockstack"
 screen -t code 0
 
-chdir "$HOME/src/dockstack/templates"
-screen -t templates 1
-
-chdir "$HOME/src/dockstack/static"
-screen -t static 2
+chdir "$HOME/src/dockstack/public"
+screen -t js 1
+screen -t templates 2
 
 chdir "$HOME/src/dockstack"
 screen -t run 3
