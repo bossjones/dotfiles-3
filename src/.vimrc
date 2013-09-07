@@ -87,7 +87,7 @@ function! ToggleSpell()
   endif
 endfunction
  
-nmap ` :call ToggleSpell()<CR>
+nmap ` :SyntasticToggleMode<CR>
 
 ""Alt+j and Alt+k to move between tabs
 nnoremap <A-j> gT
