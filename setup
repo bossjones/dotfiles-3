@@ -221,6 +221,7 @@ def main():
     p.add(File('.vim/autoload/pathogen.vim',
                'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'))
     p.add(VimBundle('Shougo/neocomplcache.vim'))
+    p.add(VimBundle('nono/vim-handlebars'))
     p.add(VimBundle('scrooloose/syntastic'))
     p.add(VimBundle('tpope/vim-endwise'))
     p.add(VimBundle('tpope/vim-markdown'))
