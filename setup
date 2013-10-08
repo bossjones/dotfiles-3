@@ -213,6 +213,7 @@ def main():
     p.add(File('.gemrc'))
     p.add(File('.gitconfig', template={'email': args.email}))
     p.add(File('.hushlogin'))
+    p.add(File('.local/bin/hosts.py'))
     p.add(File('.local/bin/known_hosts.py'))
     p.add(File('.screen/rock'))
     p.add(File('.screenrc'))
