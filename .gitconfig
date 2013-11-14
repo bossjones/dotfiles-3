@@ -1,5 +1,5 @@
 [user]
-  email = {{ g.env.EMAIL('silas@sewell.org') }}
+  email = {{ g.env.EMAIL or 'silas@sewell.org' }}
   name = Silas Sewell
   editor = vim
 [core]
