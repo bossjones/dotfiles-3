@@ -59,19 +59,6 @@ backup-drop() {
   return $code
 }
 
-dget() {
-  if type -f curl &>/dev/null; then
-    run='curl -LO'
-  elif type -f wget &>/dev/null; then
-    run='wget'
-  else
-    echo "curl and wget commands not found" >&2
-    return 1
-  fi
-
-  $run "$@"
-}
-
 extract() {
   for path in $@; do
     if [ -f "$path" ] ; then
@@ -97,23 +84,6 @@ extract() {
       echo "'$path' is not a valid file"
     fi
   done
-}
-
-get() {
-  if type -f curl &>/dev/null; then
-    run='curl -sL'
-  elif type -f wget &>/dev/null; then
-    run='wget -qO-'
-  else
-    echo "curl and wget commands not found" >&2
-    return 1
-  fi
-
-  $run "$@"
-}
-
-jump() {
-  cd -P "$HOME/.marks/$1" 2>/dev/null || echo "No such mark: $1"
 }
 
 libgit-dist() {
@@ -170,14 +140,6 @@ grow-path-exists() {
   fi
 }
 
-mark() {
-  mkdir -p "$HOME/.marks"; ln -s "$( pwd )" "$HOME/.marks/$1"
-}
-
-marks() {
-  ls -l "$HOME/.marks" | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
-}
-
 p() {
   if [[ -n "$1" ]]; then
     $PYTHON "$@"
@@ -202,14 +164,10 @@ src() {
   cd "$HOME/src/$1"
 }
 
-unmark() {
-  rm -i "$HOME/.marks/$1"
-}
-
+alias grab='python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/grab.py)"'
 alias ll='ls -lh'
-alias j='jump'
+alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
-alias pp="git pull --rebase && git push"
 
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
@@ -221,7 +179,6 @@ export PS1='[\u@\h \W]$ '
 export GOPATH="$HOME/src/go"
 
 grow-path-exists PATH "$HOME/.local/bin"
-grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$HOME/src/brpm"
 grow-path-exists PATH "$HOME/src/rock/rock/scripts"
 grow-path-exists PATH '/opt/vagrant/bin'
