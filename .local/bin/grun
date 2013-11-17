@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+name="$1" ; shift
+
+cd "$name"
+
+go build
+
+exec ./$name "$@"
