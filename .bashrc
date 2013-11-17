@@ -218,6 +218,7 @@ export LANG='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
 export PS1='[\u@\h \W]$ '
+export GOPATH="$HOME/src/go"
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
