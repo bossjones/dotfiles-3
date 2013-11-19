@@ -221,6 +221,7 @@ export PS1='[\u@\h \W]$ '
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
+grow-path-exists PATH "$GOPATH/bin"
 grow-path-exists PATH "$HOME/src/brpm"
 grow-path-exists PATH "$HOME/src/rock/rock/scripts"
 grow-path-exists PATH '/opt/vagrant/bin'
