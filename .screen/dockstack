@@ -1,18 +1,7 @@
 source "$HOME/.screenrc"
 
-chdir "$HOME/src/dockstack/dockstack"
-screen -t code 0
+chdir "$GOPATH/src/github.com/silas/dockstack"
 
-chdir "$HOME/src/dockstack/dockstack/web"
-screen -t 'code - web' 1
-
-chdir "$HOME/src/dockstack/dockstack/web/templates"
-screen -t templates 2
-
-chdir "$HOME/src/dockstack/dockstack/web/static"
-screen -t static 3
-
-chdir "$HOME/src/dockstack"
-screen -t web 4
-screen -t worker 5
-screen -t shell 6
+screen -t dock 0
+screen -t dockstack 1
+screen -t shell 2
