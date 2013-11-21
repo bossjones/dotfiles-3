@@ -189,6 +189,10 @@ grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH '/usr/local/sbin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 
+for path in $( ls -d ~/.gem/ruby/* 2>/dev/null ); do
+  grow-path-exists PATH "${path}/bin"
+done
+
 set -o vi
 set bell-style none
 
