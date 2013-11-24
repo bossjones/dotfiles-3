@@ -178,6 +178,7 @@ export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
 export PS1='[\u@\h \W]$ '
 export GOPATH="$HOME/src/go"
 
+grow-path-exists PATH "$HOME/.rvm/bin"
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$GOPATH/bin"
@@ -192,6 +193,9 @@ grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 for path in $( ls -d ~/.gem/ruby/* 2>/dev/null ); do
   grow-path-exists PATH "${path}/bin"
 done
+
+[ -s ~/.rvm/scripts/rvm ] &&
+  . ~/.rvm/scripts/rvm
 
 set -o vi
 set bell-style none
