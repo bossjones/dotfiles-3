@@ -164,6 +164,14 @@ src() {
   cd "$HOME/src/$1"
 }
 
+vagrant-init() {
+  if [[ -f Vagrantfile ]]; then
+    echo 'Vagrantfile already exists.' >&1
+    return 1
+  fi
+  curl -sO https://raw.github.com/silas/vagrant-template/master/Vagrantfile
+}
+
 alias grab='python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/grab.py)"'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
