@@ -188,11 +188,8 @@ grow-path-exists PATH '/opt/vagrant/bin'
 grow-path-exists PATH '/sbin'
 grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH '/usr/local/sbin'
+grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
-
-for path in $( ls -d ~/.gem/ruby/* 2>/dev/null ); do
-  grow-path-exists PATH "${path}/bin"
-done
 
 [ -s ~/.rvm/scripts/rvm ] &&
   . ~/.rvm/scripts/rvm
