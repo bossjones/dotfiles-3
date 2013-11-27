@@ -1,7 +1,0 @@
-source "$HOME/.screenrc"
-
-chdir "$GOPATH/src/github.com/silas/dockstack"
-
-screen -t dock 0
-screen -t dockstack 1
-screen -t shell 2
