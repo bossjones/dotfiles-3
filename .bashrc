@@ -151,10 +151,10 @@ p() {
 }
 
 qo() {
-  path=$( find . -name "$1" | head -n 1 )
+  path=$( find . -name "$1" )
 
-  if [[ -f "$path" ]]; then
-    vim "$path"
+  if [[ -n "$path" ]]; then
+    vim $path
   else
     echo "Not found: $1" 1>&2
   fi
