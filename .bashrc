@@ -150,6 +150,16 @@ p() {
   fi
 }
 
+qo() {
+  path=$( find . -name "$1" | head -n 1 )
+
+  if [[ -f "$path" ]]; then
+    vim "$path"
+  else
+    echo "Not found: $1" 1>&2
+  fi
+}
+
 sp() {
   if [[ -z "$1" ]]; then
     screen
