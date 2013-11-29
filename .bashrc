@@ -151,7 +151,7 @@ p() {
 }
 
 qo() {
-  path=$( find . -name "$1" )
+  path=$( find . -name "$1" -type f )
 
   if [[ -n "$path" ]]; then
     vim $path
