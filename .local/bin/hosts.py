@@ -33,10 +33,13 @@ with open(path) as f:
  
 block = [
     '4chan.org',
+    'boards.4chan.org',
     'cnn.com',
     'experts-exchange.com',
+    'google-analytics.com',
     'news.ycombinator.com',
     'slashdot.org',
+    'ssl.google-analytics.com',
     'techcrunch.com',
 ]
 
