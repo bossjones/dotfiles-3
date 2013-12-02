@@ -47,6 +47,7 @@ if not (now.hour >= 21 and now.hour < 23):
     block += [
     	'amazon.com',
     	'digg.com',
+    	'hulu.com',
     	'linkedin.com',
         'facebook.com',
         'twitter.com',
