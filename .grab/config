@@ -1,6 +1,26 @@
 [file ".gitconfig"]
 render = true
 
-[file ".vim/bundle/vim-golang"]
+[file ".vim/autoload/pathogen.vim"]
+type = file
+url = https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+[file ".vim/bundle/golang"]
 type = git
 url = https://github.com/jnwhiteh/vim-golang.git
+
+[file ".vim/bundle/neocomplcache"]
+type = git
+url = https://github.com/Shougo/neocomplcache.vim.git
+
+[file ".vim/bundle/syntastic"]
+type = git
+url = https://github.com/scrooloose/syntastic.git
+
+[file ".vim/bundle/endwise"]
+type = git
+url = https://github.com/tpope/vim-endwise.git
+
+[file ".vim/bundle/markdown"]
+type = git
+url = https://github.com/tpope/vim-markdown.git
