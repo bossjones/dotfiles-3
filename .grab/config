@@ -1,2 +1,6 @@
 [file ".gitconfig"]
-render = true
+  render = true
+
+[file ".vim/bundle/vim-golang"]
+  type = git
+  url = https://github.com/jnwhiteh/vim-golang.git
