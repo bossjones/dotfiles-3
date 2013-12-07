@@ -210,6 +210,7 @@ grow-path-exists PATH '/sbin'
 grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH '/usr/local/sbin'
 grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
+grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 
 [ -s ~/.rvm/scripts/rvm ] &&
