@@ -214,7 +214,6 @@ grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 [ -s ~/.rvm/scripts/rvm ] &&
   . ~/.rvm/scripts/rvm
 
-set -o vi
 set bell-style none
 
 shopt -s checkwinsize
