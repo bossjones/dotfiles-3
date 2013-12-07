@@ -2,7 +2,6 @@
 render = true
 
 [file ".vim/autoload/pathogen.vim"]
-type = file
 url = https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
 [file ".vim/bundle/golang"]
