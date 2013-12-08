@@ -1,9 +1,5 @@
 # Dotfiles
 
-My dotfiles, uses [Grab][grab] to install.
-
-```
-python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/grab.py)"
-```
+Silas's dotfiles, uses [Grab][grab] to install.
 
 [grab]: https://github.com/silas/grab
