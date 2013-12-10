@@ -170,10 +170,6 @@ sp() {
   fi
 }
 
-src() {
-  cd "$HOME/src/$1"
-}
-
 vagrant-init() {
   if [[ -f Vagrantfile ]]; then
     echo 'Vagrantfile already exists.' >&1
@@ -198,6 +194,7 @@ export GOPATH="$HOME/src/go"
 export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
+export CDPATH="$HOME/src"
 
 grow-path-exists PATH "$HOME/.rvm/bin"
 grow-path-exists PATH "$HOME/.local/bin"
@@ -220,6 +217,9 @@ set bell-style none
 
 shopt -s checkwinsize
 shopt -s histappend
+
+[ -f /usr/local/etc/bash_completion ] &&
+  . /usr/local/etc/bash_completion
 
 [ -d ~/.screen ] &&
   complete -W "$( ls ~/.screen )" sp
