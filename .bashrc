@@ -194,7 +194,6 @@ export GOPATH="$HOME/src/go"
 export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
-export CDPATH="$HOME/src"
 
 grow-path-exists PATH "$HOME/.rvm/bin"
 grow-path-exists PATH "$HOME/.local/bin"
