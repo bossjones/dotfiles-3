@@ -171,15 +171,15 @@ sp() {
 }
 
 SRC_PATHS=(
-  "$HOME/src/$1"
-  "$HOME/src/go/src/github.com/silas/$1"
-  "$HOME/src/go/src/github.com/$1"
+  "$HOME/src"
+  "$HOME/src/go/src/github.com/silas"
+  "$HOME/src/go/src/github.com"
 )
 
 src() {
   for path in "${SRC_PATHS[@]}"; do
-    if [[ -d "$path" ]]; then
-      cd "$path"
+    if [[ -d "$path/$1" ]]; then
+      cd "$path/$1"
       break
     fi
   done
