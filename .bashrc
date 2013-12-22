@@ -194,8 +194,8 @@ export GOPATH="$HOME/src/go"
 export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
+export PATH="/usr/local/bin:$PATH"
 
-grow-path-exists PATH "$HOME/.rvm/bin"
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$GOPATH/bin"
@@ -208,9 +208,6 @@ grow-path-exists PATH '/usr/local/sbin'
 grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
 grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
-
-[ -s ~/.rvm/scripts/rvm ] &&
-  . ~/.rvm/scripts/rvm
 
 set bell-style none
 
