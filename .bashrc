@@ -170,6 +170,21 @@ sp() {
   fi
 }
 
+SRC_PATHS=(
+  "$HOME/src/$1"
+  "$HOME/src/go/src/github.com/silas/$1"
+  "$HOME/src/go/src/github.com/$1"
+)
+
+src() {
+  for path in "${SRC_PATHS[@]}"; do
+    if [[ -d "$path" ]]; then
+      cd "$path"
+      break
+    fi
+  done
+}
+
 vagrant-init() {
   if [[ -f Vagrantfile ]]; then
     echo 'Vagrantfile already exists.' >&1
@@ -209,21 +224,19 @@ grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
 grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 
+case "$( uname -s )" in
+  'Darwin')
+    alias rndc='rndc -k /usr/local/etc/rndc.key -c /usr/local/etc/rndc.conf'
+    ;;
+esac
+
 set bell-style none
 
 shopt -s checkwinsize
 shopt -s histappend
 
-[ -f /usr/local/etc/bash_completion ] &&
-  . /usr/local/etc/bash_completion
-
-[ -d ~/.screen ] &&
-  complete -W "$( ls ~/.screen )" sp
-
-[ -d ~/src ] &&
-  complete -W "$( ls ~/src )" src
-
-[ -f ~/.ssh/known_hosts ] &&
-  complete -W "$(python ~/.local/bin/known_hosts.py)" ssh
+complete -W "$( ls ~/.screen )" sp
+complete -W "$( ls ${SRC_PATHS[*]} )" src
+complete -W "$( python ~/.local/bin/known_hosts.py )" ssh
 
 [ -f ~/.bash_local ] && . ~/.bash_local
