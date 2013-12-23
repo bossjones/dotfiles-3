@@ -236,7 +236,7 @@ shopt -s checkwinsize
 shopt -s histappend
 
 complete -W "$( ls ~/.screen )" sp
-complete -W "$( ls ${SRC_PATHS[*]} )" src
+complete -W "$( ls ${SRC_PATHS[*]} 2>/dev/null )" src
 complete -W "$( python ~/.local/bin/known_hosts.py )" ssh
 
 [ -f ~/.bash_local ] && . ~/.bash_local
