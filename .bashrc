@@ -197,6 +197,7 @@ alias grab='python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/gra
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
+alias kfe='vim ~/src/admin/keyfu/keyfu.conf && killall keyfu'
 
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
