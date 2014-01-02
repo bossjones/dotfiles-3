@@ -185,12 +185,13 @@ src() {
   done
 }
 
-vagrant-init() {
-  if [[ -f Vagrantfile ]]; then
-    echo 'Vagrantfile already exists.' >&1
+template() {
+  name="$1"
+  if [[ -f "$name" ]]; then
+    echo "$name already exists." >&1
     return 1
   fi
-  curl -sO https://raw.github.com/silas/vagrant-template/master/Vagrantfile
+  cp -f "$HOME/.template/$name" "./$name"
 }
 
 alias grab='python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/grab.py)"'
