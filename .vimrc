@@ -107,3 +107,7 @@ set pastetoggle=<leader>p
 
 ""Toggle set list
 nmap <leader>l :set list!<CR>
+
+""Golang
+let gofmt_command = "goimports"
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
