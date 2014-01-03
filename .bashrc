@@ -150,6 +150,13 @@ p() {
   fi
 }
 
+install_go_tools() {
+  go get code.google.com/p/go.tools/cmd/godoc
+  go get code.google.com/p/go.tools/cmd/goimports
+  go get github.com/golang/lint/golint
+  go get github.com/kr/godep
+}
+
 qo() {
   path=$( find . -name "$1" -type f )
 
