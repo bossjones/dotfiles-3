@@ -151,6 +151,7 @@ p() {
 }
 
 install_go_tools() {
+  go get code.google.com/p/go.tools/cmd/cover
   go get code.google.com/p/go.tools/cmd/godoc
   go get code.google.com/p/go.tools/cmd/goimports
   go get github.com/golang/lint/golint
