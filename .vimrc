@@ -4,9 +4,6 @@ set nocompatible
 ""Disable autocomplete scratch window
 set completeopt=menu
 
-""Leader
-let mapleader = ","
-
 ""Pathogen
 call pathogen#infect()
 
@@ -104,9 +101,6 @@ cmap w!! w !sudo tee % >/dev/null
 
 ""Toggle paste
 set pastetoggle=<leader>p
-
-""Toggle set list
-nmap <leader>l :set list!<CR>
 
 ""Golang
 let gofmt_command = "goimports"
