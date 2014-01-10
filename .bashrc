@@ -240,6 +240,7 @@ case "$( uname -s )" in
     ;;
 esac
 
+set -o vi
 set bell-style none
 
 shopt -s checkwinsize
