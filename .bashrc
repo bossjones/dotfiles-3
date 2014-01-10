@@ -140,6 +140,11 @@ grow-path-exists() {
   fi
 }
 
+jr() {
+  name="${1%.*}" ; shift
+  javac "${name}.java" && java "$name" $@
+}
+
 p() {
   if [[ -n "$1" ]]; then
     $PYTHON "$@"
