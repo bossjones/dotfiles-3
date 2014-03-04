@@ -238,6 +238,7 @@ grow-path-exists PATH '/usr/local/sbin'
 grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
 grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
+grow-path-exists PYTHONPATH "$HOME/src/ops"
 
 case "$( uname -s )" in
   'Darwin')
