@@ -242,7 +242,7 @@ grow-path-exists PYTHONPATH "$HOME/src/ops"
 
 case "$( uname -s )" in
   'Darwin')
-    alias rndc='rndc -k /usr/local/etc/rndc.key -c /usr/local/etc/rndc.conf'
+    export DOCKER_HOST='tcp://127.0.0.1:4243'
     ;;
 esac
 
