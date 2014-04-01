@@ -8,9 +8,9 @@ url = https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 type = git
 url = https://github.com/fatih/vim-go.git
 
-[file ".vim/bundle/YouCompleteMe"]
+[file ".vim/bundle/neocomplcache"]
 type = git
-url = https://github.com/Valloric/YouCompleteMe.git
+url = https://github.com/Shougo/neocomplcache.vim.git
 
 [file ".vim/bundle/syntastic"]
 type = git
