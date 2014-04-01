@@ -101,7 +101,3 @@ cmap w!! w !sudo tee % >/dev/null
 
 ""Toggle paste
 set pastetoggle=<leader>p
-
-""Golang
-let gofmt_command = "goimports"
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
