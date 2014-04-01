@@ -4,13 +4,9 @@ render = true
 [file ".vim/autoload/pathogen.vim"]
 url = https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-[file ".vim/bundle/golang"]
+[file ".vim/bundle/go"]
 type = git
-url = https://github.com/jnwhiteh/vim-golang.git
-
-[file ".vim/bundle/neocomplcache"]
-type = git
-url = https://github.com/Shougo/neocomplcache.vim.git
+url = https://github.com/fatih/vim-go.git
 
 [file ".vim/bundle/syntastic"]
 type = git
