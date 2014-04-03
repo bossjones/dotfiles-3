@@ -226,6 +226,7 @@ export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
 export PATH="/usr/local/bin:$PATH"
 export HISTCONTROL='ignoreboth:erasedups'
+export PROMPT_COMMAND='$PROMPT_COMMAND; history -a; history -n'
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
