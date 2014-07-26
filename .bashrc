@@ -242,7 +242,7 @@ grow-path-exists PYTHONPATH "$HOME/src/ops"
 
 case "$( uname -s )" in
   'Darwin')
-    export DOCKER_HOST='tcp://127.0.0.1:4243'
+    export DOCKER_HOST='tcp://127.0.0.1:2375'
     ;;
 esac
 
