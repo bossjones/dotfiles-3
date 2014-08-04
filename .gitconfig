@@ -1,5 +1,5 @@
 [user]
-  email = {{ g.env.EMAIL or 'silas@sewell.org' }}
+  email = silas@sewell.org
   name = Silas Sewell
   editor = vim
 [core]
@@ -10,7 +10,5 @@
   diff = auto
   status = auto
   branch = auto
-{% if version_gte(g.git.version, '1.7.4.2') %}
 [push]
   default = simple
-{% end %}
