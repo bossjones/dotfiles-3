@@ -207,7 +207,8 @@ template() {
   cp -f "$HOME/.template/$name" "./$name"
 }
 
-alias grab='python -c "$(curl -fsSL https://raw.github.com/silas/grab/master/grab.py)"'
+
+alias dot='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
@@ -225,7 +226,6 @@ export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
 export PATH="/usr/local/bin:$PATH"
-export HISTCONTROL='ignoreboth:erasedups'
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
@@ -236,7 +236,7 @@ grow-path-exists PATH '/opt/vagrant/bin'
 grow-path-exists PATH '/sbin'
 grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH '/usr/local/sbin'
-grow-path-exists PATH '/Applications/Postgres93.app/Contents/MacOS/bin'
+grow-path-exists PATH '/Applications/Postgres.app/Contents/Versions/9.3/bin'
 grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 grow-path-exists PYTHONPATH "$HOME/src/ops"
