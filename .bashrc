@@ -225,6 +225,7 @@ export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
 export PATH="/usr/local/bin:$PATH"
+export HISTCONTROL='ignoreboth:erasedups'
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
