@@ -13,14 +13,6 @@ set ai
 ""Enable syntax hightlighting
 syntax on
 
-""Python syntax highlighting for scon files
-autocmd BufReadPre SConstruct set filetype=python
-autocmd BufReadPre SConscript set filetype=python
-
-""Python syntax highlighting for waf files
-autocmd BufReadPre wscript set filetype=python
-autocmd BufReadPre wscript set filetype=python
-
 ""Alway use assume bash for sh
 let is_bash=1
 
@@ -73,17 +65,6 @@ au FileType bash,html,jade,javascript,puppet,ruby setl tabstop=2 softtabstop=2 s
 au FileType c,erlang,haskell,java,markdown,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 au FileType go,perl,make setl tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
-""Spell check
-function! ToggleSpell()
-  if !exists("b:spell")
-    setlocal spell spelllang=en_us
-    let b:spell = 1
-  else
-    setlocal nospell
-    unlet b:spell
-  endif
-endfunction
- 
 nmap ` :SyntasticToggleMode<CR>
 
 ""Alt+j and Alt+k to move between tabs
