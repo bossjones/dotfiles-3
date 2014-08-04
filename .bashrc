@@ -155,12 +155,43 @@ p() {
   fi
 }
 
+pathogen() {
+  name="$1"
+  url="$2"
+
+  path="$HOME/.vim/bundle"
+
+  mkdir -p "$path"
+
+  path="$path/$name"
+
+  if [[ -d "$path" ]]; then
+    git --git-dir="$path/.git" pull >/dev/null
+  else
+    git clone "$url" "$path" >/dev/null
+  fi
+}
+
 install_go_tools() {
-  go get code.google.com/p/go.tools/cmd/cover
-  go get code.google.com/p/go.tools/cmd/godoc
-  go get code.google.com/p/go.tools/cmd/goimports
-  go get github.com/golang/lint/golint
-  go get github.com/kr/godep
+  go get -u github.com/jstemmer/gotags
+  go get -u code.google.com/p/go.tools/cmd/cover
+  go get -u code.google.com/p/go.tools/cmd/godoc
+  go get -u code.google.com/p/go.tools/cmd/goimports
+  go get -u github.com/golang/lint/golint
+  go get -u github.com/tools/godep
+}
+
+install_vim_tools() {
+  pathogen endwise https://github.com/tpope/vim-endwise.git
+  pathogen go https://github.com/fatih/vim-go.git
+  pathogen markdown https://github.com/tpope/vim-markdown.git
+  pathogen puppet https://github.com/rodjek/vim-puppet.git
+  pathogen syntastic https://github.com/scrooloose/syntastic.git
+}
+
+install_tools() {
+  install_go_tools
+  install_vim_tools
 }
 
 qo() {
@@ -206,7 +237,6 @@ template() {
   fi
   cp -f "$HOME/.template/$name" "./$name"
 }
-
 
 alias dot='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 alias ll='ls -lh'
