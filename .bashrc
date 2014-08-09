@@ -179,6 +179,7 @@ install_go_tools() {
   go get -u code.google.com/p/go.tools/cmd/goimports
   go get -u github.com/golang/lint/golint
   go get -u github.com/tools/godep
+  go get -u github.com/mitchellh/gox
 }
 
 install_vim_tools() {
