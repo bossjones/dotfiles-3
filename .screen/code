@@ -1,0 +1,5 @@
+source "$HOME/.screenrc"
+
+screen -t 'code' 0
+screen -t 'tests' 1
+screen -t 'run' 2
