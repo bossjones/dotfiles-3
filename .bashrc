@@ -173,13 +173,24 @@ pathogen() {
 }
 
 install_go_tools() {
-  go get -u github.com/jstemmer/gotags
   go get -u code.google.com/p/go.tools/cmd/cover
   go get -u code.google.com/p/go.tools/cmd/godoc
   go get -u code.google.com/p/go.tools/cmd/goimports
   go get -u github.com/golang/lint/golint
-  go get -u github.com/tools/godep
+  go get -u github.com/jstemmer/gotags
   go get -u github.com/mitchellh/gox
+  go get -u github.com/tools/godep
+}
+
+install_python_tools() {
+  if ! type -f pip &>/dev/null; then
+    sudo easy_install pip
+  fi
+  if ! type -f virtualenv &>/dev/null; then
+    sudo pip install virtualenv
+  fi
+  python -c "$( curl -fsSL https://github.com/mitsuhiko/pipsi/raw/master/get-pipsi.py )"
+  pipsi install pythonpy
 }
 
 install_vim_tools() {
@@ -192,6 +203,7 @@ install_vim_tools() {
 
 install_tools() {
   install_go_tools
+  install_python_tools
   install_vim_tools
 }
 
