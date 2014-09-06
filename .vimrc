@@ -55,15 +55,18 @@ colorscheme desert
 ""Enable filetype plugins
 filetype plugin on
 
+""Tab types
+command Tab2 setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+command Tab4 setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+command Tab setl tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
 ""Set default tabs
-setl expandtab
-setl tabstop=2
-setl softtabstop=2
+Tab2
 
 ""File specific tabs
-au FileType bash,html,jade,javascript,puppet,ruby setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-au FileType c,erlang,haskell,java,markdown,python setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-au FileType go,perl,make setl tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+au FileType bash,html,jade,javascript,puppet,ruby Tab2
+au FileType c,erlang,haskell,java,markdown,python Tab4
+au FileType go,perl,make Tab
 
 nmap ` :SyntasticToggleMode<CR>
 
