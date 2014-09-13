@@ -269,6 +269,7 @@ export PORT='8000'
 export TMOUT=0
 export GRAB_REPO='silas/dotfiles'
 export PATH="/usr/local/bin:$PATH"
+export PATH="./node_modules/.bin:$PATH"
 
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$GOROOT/bin"
