@@ -194,11 +194,9 @@ install_python_tools() {
 }
 
 install_vim_tools() {
-  pathogen endwise https://github.com/tpope/vim-endwise.git
-  pathogen go https://github.com/fatih/vim-go.git
-  pathogen markdown https://github.com/tpope/vim-markdown.git
-  pathogen puppet https://github.com/rodjek/vim-puppet.git
-  pathogen syntastic https://github.com/scrooloose/syntastic.git
+  mkdir -p ~/.vim/autoload
+  curl -fLo ~/.vim/autoload/plug.vim \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 install_tools() {

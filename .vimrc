@@ -1,11 +1,21 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-endwise'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv', { 'on': 'Gitv' }
+Plug 'rodjek/vim-puppet'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'   }
+Plug 'scrooloose/syntastic'
+
+call plug#end()
+
 ""Disable VI's compatible mode
 set nocompatible
 
 ""Disable autocomplete scratch window
 set completeopt=menu
-
-""Pathogen
-call pathogen#infect()
 
 ""Enable AI
 set ai
