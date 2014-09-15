@@ -172,6 +172,12 @@ pathogen() {
   fi
 }
 
+install_darwin_tools() {
+  brew install \
+    bash \
+    go
+}
+
 install_go_tools() {
   go get -u code.google.com/p/go.tools/cmd/cover
   go get -u code.google.com/p/go.tools/cmd/godoc
@@ -282,12 +288,6 @@ grow-path-exists PATH '/Applications/Postgres.app/Contents/Versions/9.3/bin'
 grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 grow-path-exists PYTHONPATH "$HOME/src/ops"
-
-case "$( uname -s )" in
-  'Darwin')
-    export DOCKER_HOST='tcp://127.0.0.1:2375'
-    ;;
-esac
 
 set -o vi
 set bell-style none
