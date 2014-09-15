@@ -299,4 +299,13 @@ complete -W "$( ls ~/.screen )" sp
 complete -W "$( ls ${SRC_PATHS[*]} 2>/dev/null )" src
 complete -W "$( python ~/.local/bin/known_hosts.py )" ssh
 
+if type -f brew &>/dev/null; then
+  BREW_PREFIX="$(brew --prefix)"
+
+  for fileName in docker git-completion.bash; do
+    [ -f "$BREW_PREFIX/etc/bash_completion.d/$fileName" ] &&
+       . "$BREW_PREFIX/etc/bash_completion.d/$fileName"
+  done
+fi
+
 [ -f ~/.bash_local ] && . ~/.bash_local
