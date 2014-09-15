@@ -255,7 +255,7 @@ template() {
   cp -f "$HOME/.template/$name" "./$name"
 }
 
-alias dot='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/.dot.git/ --work-tree=$HOME'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
