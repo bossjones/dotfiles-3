@@ -117,6 +117,26 @@ git-dist() {
   esac
 }
 
+goto() {
+  name="$1"
+  path="${HOME}/.goto/${name}"
+
+  if [[ ! -e $path ]]; then
+    echo "Not found: $name"
+    return 1
+  fi
+
+  if [[ -L $path ]]; then
+    cd $path
+    cd $( pwd -P )
+  elif [[ -x $path ]]; then
+    $path
+  else
+    echo "Unknown file type: $name"
+    return 1
+  fi
+}
+
 grow-path() {
   name="$1"
   path_list="${!name}"

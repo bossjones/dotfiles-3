@@ -1,15 +1,25 @@
+""Disable VI's compatible mode
+set nocompatible
+
+filetype off
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-endwise'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'gregsexton/gitv', { 'on': 'Gitv' }
 Plug 'rodjek/vim-puppet'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'   }
 Plug 'scrooloose/syntastic'
 
 call plug#end()
+
+"" Plugin settings
+let g:go_fmt_command = "goimports"
 
 ""Disable VI's compatible mode
 set nocompatible
@@ -64,6 +74,7 @@ colorscheme desert
 
 ""Enable filetype plugins
 filetype plugin on
+"filetype plugin indent off
 
 ""Tab types
 command Tab2 setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
