@@ -198,8 +198,7 @@ install_darwin_tools() {
     go
   brew tap homebrew/binary
   brew tap rockstack/rock
-  mkdir -p "$(brew --prefix)/Library/Taps/silas"
-  git clone git@github.com:silas/silas.git "$(brew --prefix)/Library/Taps/silas/silas"
+  brew tap silas/silas
 }
 
 install_go_tools() {
