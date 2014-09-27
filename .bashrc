@@ -196,6 +196,10 @@ install_darwin_tools() {
   brew install \
     bash \
     go
+  brew tap homebrew/binary
+  brew tap rockstack/rock
+  mkdir -p "$(brew --prefix)/Library/Taps/silas"
+  git clone git@github.com:silas/silas.git "$(brew --prefix)/Library/Taps/silas/silas"
 }
 
 install_go_tools() {
@@ -208,17 +212,6 @@ install_go_tools() {
   go get -u github.com/tools/godep
 }
 
-install_python_tools() {
-  if ! type -f pip &>/dev/null; then
-    sudo easy_install pip
-  fi
-  if ! type -f virtualenv &>/dev/null; then
-    sudo pip install virtualenv
-  fi
-  python -c "$( curl -fsSL https://github.com/mitsuhiko/pipsi/raw/master/get-pipsi.py )"
-  pipsi install pythonpy
-}
-
 install_vim_tools() {
   mkdir -p ~/.vim/autoload
   curl -fLo ~/.vim/autoload/plug.vim \
@@ -226,8 +219,8 @@ install_vim_tools() {
 }
 
 install_tools() {
+  install_darwin_tools
   install_go_tools
-  install_python_tools
   install_vim_tools
 }
 
