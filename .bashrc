@@ -192,6 +192,12 @@ pathogen() {
   fi
 }
 
+install_darwin_tools() {
+  brew install \
+    bash \
+    go
+}
+
 install_go_tools() {
   go get -u code.google.com/p/go.tools/cmd/cover
   go get -u code.google.com/p/go.tools/cmd/godoc
@@ -269,7 +275,7 @@ template() {
   cp -f "$HOME/.template/$name" "./$name"
 }
 
-alias dot='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/.dot.git/ --work-tree=$HOME'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
@@ -303,12 +309,6 @@ grow-path-exists PATH '/usr/local/go/bin'
 grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
 grow-path-exists PYTHONPATH "$HOME/src/ops"
 
-case "$( uname -s )" in
-  'Darwin')
-    export DOCKER_HOST='tcp://127.0.0.1:2375'
-    ;;
-esac
-
 set -o vi
 set bell-style none
 
@@ -318,5 +318,14 @@ shopt -s histappend
 complete -W "$( ls ~/.screen )" sp
 complete -W "$( ls ${SRC_PATHS[*]} 2>/dev/null )" src
 complete -W "$( python ~/.local/bin/known_hosts.py )" ssh
+
+if type -f brew &>/dev/null; then
+  BREW_PREFIX="$(brew --prefix)"
+
+  for fileName in docker git-completion.bash; do
+    [ -f "$BREW_PREFIX/etc/bash_completion.d/$fileName" ] &&
+       . "$BREW_PREFIX/etc/bash_completion.d/$fileName"
+  done
+fi
 
 [ -f ~/.bash_local ] && . ~/.bash_local
