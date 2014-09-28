@@ -193,9 +193,8 @@ pathogen() {
 }
 
 install_darwin_tools() {
-  brew install \
-    bash \
-    go
+  brew install bash vim
+  brew install go --cross-compile-common
   brew tap homebrew/binary
   brew tap rockstack/rock
   brew tap silas/silas
@@ -319,5 +318,7 @@ if type -f brew &>/dev/null; then
        . "$BREW_PREFIX/etc/bash_completion.d/$fileName"
   done
 fi
+
+export KEYFU_PATH="${HOME}/.keyfu"
 
 [ -f ~/.bash_local ] && . ~/.bash_local
