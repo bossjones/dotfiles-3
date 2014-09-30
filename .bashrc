@@ -319,6 +319,4 @@ if type -f brew &>/dev/null; then
   done
 fi
 
-export KEYFU_PATH="${HOME}/.keyfu"
-
 [ -f ~/.bash_local ] && . ~/.bash_local
