@@ -266,11 +266,9 @@ template() {
   cp -f "$HOME/.template/$name" "./$name"
 }
 
-alias dot='git --git-dir=$HOME/.dot.git/ --work-tree=$HOME'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
-alias kfe='vim ~/src/admin/keyfu/keyfu.conf && killall keyfu'
 
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
