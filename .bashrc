@@ -141,15 +141,15 @@ grow-path() {
   name="$1"
   path_list="${!name}"
   path="$2"
-  prepend="$3"
+  append="$3"
 
   if [[ $path_list == "" ]]; then
     export $name="$path"
   elif [[ $path_list != $path && $path_list != $path:* && $path_list != *:$path:* && $path_list != *:$path ]]; then
-    if [[ -n $prepend ]]; then
-      export $name="$path:$path_list"
-    else
+    if [[ -n $append ]]; then
       export $name="$path_list:$path"
+    else
+      export $name="$path:$path_list"
     fi
   fi
 }
@@ -158,11 +158,6 @@ grow-path-exists() {
   if [[ -d "$2" ]]; then
     grow-path "$@"
   fi
-}
-
-jr() {
-  name="${1%.*}" ; shift
-  javac "${name}.java" && java "$name" $@
 }
 
 p() {
@@ -175,29 +170,27 @@ p() {
   fi
 }
 
-pathogen() {
-  name="$1"
-  url="$2"
-
-  path="$HOME/.vim/bundle"
-
-  mkdir -p "$path"
-
-  path="$path/$name"
-
-  if [[ -d "$path" ]]; then
-    git --git-dir="$path/.git" pull >/dev/null
-  else
-    git clone "$url" "$path" >/dev/null
-  fi
-}
-
 install_darwin_tools() {
-  brew install bash vim
+  brew update
+  brew install \
+    bash \
+    boot2docker \
+    coreutils \
+    curl \
+    docker \
+    httpie \
+    jq \
+    ngrok \
+    node \
+    vim
   brew install go --cross-compile-common
   brew tap homebrew/binary
   brew tap rockstack/rock
   brew tap silas/silas
+  brew install \
+    dot \
+    keyfu \
+    rock-cli
 }
 
 install_go_tools() {
@@ -280,23 +273,13 @@ export PS1='[\u@\h \W]$ '
 export GOPATH="$HOME/src/go"
 export PORT='8000'
 export TMOUT=0
-export GRAB_REPO='silas/dotfiles'
-export PATH="/usr/local/bin:$PATH"
-export PATH="./node_modules/.bin:$PATH"
 
-grow-path-exists PATH "$HOME/.local/bin"
+grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$GOPATH/bin"
-grow-path-exists PATH "$HOME/src/brpm"
-grow-path-exists PATH "$HOME/src/rock/rock/scripts"
-grow-path-exists PATH '/opt/vagrant/bin'
-grow-path-exists PATH '/sbin'
-grow-path-exists PATH '/usr/sbin'
-grow-path-exists PATH '/usr/local/sbin'
-grow-path-exists PATH '/Applications/Postgres.app/Contents/Versions/9.3/bin'
-grow-path-exists PATH '/usr/local/go/bin'
-grow-path-exists PYTHONPATH "$HOME/src/rock/rock"
-grow-path-exists PYTHONPATH "$HOME/src/ops"
+grow-path-exists PATH "/usr/local/bin:$PATH"
+grow-path-exists PATH "$HOME/.local/bin"
+grow-path PATH "./node_modules/.bin:$PATH"
 
 set -o vi
 set bell-style none
