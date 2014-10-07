@@ -170,12 +170,6 @@ p() {
   fi
 }
 
-install_bash() {
-  curl -s 'https://raw.githubusercontent.com/silas/dot/master/dot' \
-    -o ~/.local/bin/dot
-  chmod 755 ~/.local/bin/dot
-}
-
 install_darwin() {
   brew update
   brew install \
@@ -184,6 +178,7 @@ install_darwin() {
     coreutils \
     curl \
     docker \
+    gh \
     git \
     go --cross-compile-common \
     hg \
@@ -228,6 +223,10 @@ install_linux_rpm() {
 }
 
 install_linux() {
+  curl -s 'https://raw.githubusercontent.com/silas/dot/master/dot' \
+    -o ~/.local/bin/dot
+  chmod 755 ~/.local/bin/dot
+
   sudo yum install vim-enhanced
   if type -f apt-get &>/dev/null; then
     install_linux_deb
@@ -243,7 +242,6 @@ install_vim() {
 }
 
 install_all() {
-  install_bash
   install_$OS
   if type -f go &>/dev/null; then
     install_go
