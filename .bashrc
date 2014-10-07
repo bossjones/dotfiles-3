@@ -181,6 +181,7 @@ install_darwin() {
   brew install \
     bash \
     boot2docker \
+    coreutils \
     curl \
     docker \
     git \
@@ -190,6 +191,8 @@ install_darwin() {
     jq \
     ngrok \
     node \
+    the_silver_searcher \
+    tmux \
     vim
   brew tap rockstack/rock
   brew install \
@@ -305,7 +308,6 @@ export OS=$( uname -s | tr '[:upper:]' '[:lower:]' )
 export PORT='8000'
 export PS1='[\u@\h \W]$ '
 export SRC_PATHS=(~/src ~/src/go/src/github.com/silas ~/src/go/src/github.com)
-
 export TMOUT=0
 
 grow-path-exists PATH '/usr/sbin'
