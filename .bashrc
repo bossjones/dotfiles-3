@@ -197,6 +197,7 @@ install_darwin() {
   brew tap silas/silas
   brew install \
     dot \
+    fabric \
     keyfu
 }
 
