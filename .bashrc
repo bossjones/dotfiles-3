@@ -241,7 +241,7 @@ install_vim() {
 
 install_all() {
   install_bash
-  install_$( uname -s | tr '[:upper:]' '[:lower:]' )
+  install_$OS
   if type -f go &>/dev/null; then
     install_go
   fi
