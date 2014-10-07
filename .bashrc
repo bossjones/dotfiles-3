@@ -170,30 +170,37 @@ p() {
   fi
 }
 
-install_darwin_tools() {
+install_bash() {
+  curl -s 'https://raw.githubusercontent.com/silas/dot/master/dot' \
+    -o ~/.local/bin/dot
+  chmod 755 ~/.local/bin/dot
+}
+
+install_darwin() {
   brew update
   brew install \
     bash \
     boot2docker \
-    coreutils \
     curl \
     docker \
+    git \
+    go --cross-compile-common \
+    hg \
     httpie \
     jq \
     ngrok \
     node \
     vim
-  brew install go --cross-compile-common
-  brew tap homebrew/binary
   brew tap rockstack/rock
+  brew install \
+    rock-cli
   brew tap silas/silas
   brew install \
     dot \
-    keyfu \
-    rock-cli
+    keyfu
 }
 
-install_go_tools() {
+install_go() {
   go get -u code.google.com/p/go.tools/cmd/cover
   go get -u code.google.com/p/go.tools/cmd/godoc
   go get -u code.google.com/p/go.tools/cmd/goimports
@@ -203,16 +210,17 @@ install_go_tools() {
   go get -u github.com/tools/godep
 }
 
-install_vim_tools() {
+install_vim() {
   mkdir -p ~/.vim/autoload
   curl -fLo ~/.vim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
-install_tools() {
-  install_darwin_tools
-  install_go_tools
-  install_vim_tools
+install_all() {
+  install_bash
+  install_$( uname -s | tr '[:upper:]' '[:lower:]' )
+  install_go
+  install_vim
 }
 
 kf() {
