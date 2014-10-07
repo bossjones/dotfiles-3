@@ -1,12 +1,10 @@
 # vi: set ft=ruby
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'precise64'
-  config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
-  #config.vm.box = 'fedora18'
-  #config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/fedora-18-x64-vbox4210.box'
-  #config.vm.box = 'centos6'
-  #config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box'
+  config.vm.box = 'ubuntu/trusty64'
+  #config.vm.box = 'chef/centos-7.0'
+  #config.vm.box = 'chef/centos-6.5'
+  #config.vm.box = 'chef/fedora-20'
 
   config.vm.network :forwarded_port, :host => 8000, :guest => 8000
 
