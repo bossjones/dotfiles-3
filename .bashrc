@@ -215,6 +215,10 @@ install_tools() {
   install_vim_tools
 }
 
+kf() {
+  vim "$HOME/.keyfu/$1.js"
+}
+
 qo() {
   path=$( find . -name "$1" -type f )
 
