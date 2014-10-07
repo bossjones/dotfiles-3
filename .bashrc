@@ -210,6 +210,28 @@ install_go() {
   go get -u github.com/tools/godep
 }
 
+install_linux_deb() {
+  sudo apt-get install -y \
+    curl \
+    git
+}
+
+install_linux_rpm() {
+  sudo yum install -y \
+    curl \
+    git \
+    vim-enhanced
+}
+
+install_linux() {
+  sudo yum install vim-enhanced
+  if type -f apt-get &>/dev/null; then
+    install_linux_deb
+  elif type -f yum &>/dev/null; then
+    install_linux_rpm
+  fi
+}
+
 install_vim() {
   mkdir -p ~/.vim/autoload
   curl -fLo ~/.vim/autoload/plug.vim \
@@ -219,7 +241,9 @@ install_vim() {
 install_all() {
   install_bash
   install_$( uname -s | tr '[:upper:]' '[:lower:]' )
-  install_go
+  if type -f go &>/dev/null; then
+    install_go
+  fi
   install_vim
 }
 
