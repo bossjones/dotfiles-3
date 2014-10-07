@@ -272,12 +272,6 @@ sp() {
   fi
 }
 
-SRC_PATHS=(
-  "$HOME/src"
-  "$HOME/src/go/src/github.com/silas"
-  "$HOME/src/go/src/github.com"
-)
-
 src() {
   for path in "${SRC_PATHS[@]}"; do
     if [[ -d "$path/$1" ]]; then
@@ -302,13 +296,16 @@ alias reload="source $HOME/.bashrc"
 
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
+export GOPATH="$HOME/src/go"
 export HISTCONTROL='ignoreboth'
 export LANG='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
-export PS1='[\u@\h \W]$ '
-export GOPATH="$HOME/src/go"
+export OS=$( uname -s | tr '[:upper:]' '[:lower:]' )
 export PORT='8000'
+export PS1='[\u@\h \W]$ '
+export SRC_PATHS=(~/src ~/src/go/src/github.com/silas ~/src/go/src/github.com)
+
 export TMOUT=0
 
 grow-path-exists PATH '/usr/sbin'
@@ -328,13 +325,5 @@ complete -W "$( ls ~/.screen )" sp
 complete -W "$( ls ${SRC_PATHS[*]} 2>/dev/null )" src
 complete -W "$( python ~/.local/bin/known_hosts.py )" ssh
 
-if type -f brew &>/dev/null; then
-  BREW_PREFIX="$(brew --prefix)"
-
-  for fileName in docker git-completion.bash; do
-    [ -f "$BREW_PREFIX/etc/bash_completion.d/$fileName" ] &&
-       . "$BREW_PREFIX/etc/bash_completion.d/$fileName"
-  done
-fi
-
+[ -f ~/.bash_$OS ] && . ~/.bash_$OS
 [ -f ~/.bash_local ] && . ~/.bash_local
