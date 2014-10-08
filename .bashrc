@@ -205,6 +205,7 @@ install_go() {
   go get -u code.google.com/p/go.tools/cmd/goimports
   go get -u github.com/golang/lint/golint
   go get -u github.com/jstemmer/gotags
+  go get -u github.com/jteeuwen/go-bindata/...
   go get -u github.com/mitchellh/gox
   go get -u github.com/tools/godep
 }
