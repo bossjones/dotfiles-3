@@ -20,10 +20,9 @@ function github(query, opts) {
     }
   });
 
-  var url = opts.url + '/search?utf8=%E2%9C%93';
-  url += '&q=' + encodeURIComponent(q.join(' '));
-  if (type) url += '&type=' + encodeURIComponent(type);
-  if (l) url += '&l=' + encodeURIComponent(l);
+  var query = { q: q.join(' ') };
+  if (type) query.type = type;
+  if (l) query.l = l;
 
-  return url;
+  return opts.url + '/search?' + qs.stringify(query);
 }
