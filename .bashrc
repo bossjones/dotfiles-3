@@ -196,6 +196,7 @@ install_darwin() {
   brew install \
     dot \
     fabric \
+    fig \
     keyfu
 }
 
