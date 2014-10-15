@@ -63,8 +63,6 @@ extract() {
   for path in $@; do
     if [ -f "$path" ] ; then
       case "$path" in
-        *.tar.bz2) tar xvjf "$path" ;;
-        *.tar.gz)  tar xvzf "$path" ;;
         *.7z)      7z x "$path" ;;
         *.Z)       uncompress "$path" ;;
         *.bz2)     bunzip2 "$path" ;;
@@ -74,6 +72,8 @@ extract() {
         *.rar)     unrar x "$path" ;;
         *.rpm)     rpm2cpio "$path" | cpio -idmv ;;
         *.tar)     tar xvf "$path" ;;
+        *.tar.bz2) tar xvjf "$path" ;;
+        *.tar.gz)  tar xvzf "$path" ;;
         *.tbz2)    tar xvjf "$path" ;;
         *.tgz)     tar xvzf "$path" ;;
         *.war)     unzip "$path" ;;
