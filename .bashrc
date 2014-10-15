@@ -67,6 +67,7 @@ extract() {
         *.Z)       uncompress "$path" ;;
         *.bz2)     bunzip2 "$path" ;;
         *.egg)     unzip "$path" ;;
+        *.gem)     gem unpack "$path" ;;
         *.gz)      gunzip "$path" ;;
         *.jar)     unzip "$path" ;;
         *.rar)     unrar x "$path" ;;
