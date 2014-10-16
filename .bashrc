@@ -59,6 +59,11 @@ backup-drop() {
   return $code
 }
 
+docker-clean() {
+  docker rm $( docker ps -a -q ) &>/dev/null
+  docker rmi $( docker images -q --filter dangling=true ) &>/dev/null
+}
+
 extract() {
   for path in $@; do
     if [ -f "$path" ] ; then
