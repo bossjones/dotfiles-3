@@ -210,6 +210,7 @@ install_darwin() {
     dot \
     fabric \
     fig \
+    gdrive \
     keyfu
 }
 
