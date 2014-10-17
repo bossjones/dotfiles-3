@@ -40,6 +40,13 @@ backup() {
         ); then
       code=2; break
     fi
+
+    if type -f gdrive &>/dev/null; then
+      gdrive upload \
+        -p $( gdrive list -t Backups -n | awk '{ print $1 }' ) \
+        -f "${dst_path}/${dst_name}.tar.bz2" \
+        &>/dev/null
+    fi
   done
 
   return $code
