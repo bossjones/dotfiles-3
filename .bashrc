@@ -41,9 +41,9 @@ backup() {
       code=2; break
     fi
 
-    if type -f gdrive &>/dev/null; then
-      gdrive upload \
-        -p $( gdrive list -t Backups -n | awk '{ print $1 }' ) \
+    if type -f drive &>/dev/null; then
+      drive upload \
+        -p $( drive list -t Backups -n | awk '{ print $1 }' ) \
         -f "${dst_path}/${dst_name}.tar.bz2" \
         &>/dev/null
     fi
@@ -80,7 +80,6 @@ extract() {
         *.bz2)     bunzip2 "$path" ;;
         *.egg)     unzip "$path" ;;
         *.gem)     gem unpack "$path" ;;
-        *.gz)      gunzip "$path" ;;
         *.jar)     unzip "$path" ;;
         *.rar)     unrar x "$path" ;;
         *.rpm)     rpm2cpio "$path" | cpio -idmv ;;
@@ -91,6 +90,8 @@ extract() {
         *.tgz)     tar xvzf "$path" ;;
         *.war)     unzip "$path" ;;
         *.zip)     unzip "$path" ;;
+        # should be after *.tar.gz
+        *.gz)      gunzip "$path" ;;
         *)         echo "'$path' cannot be extracted via >extract<" ;;
       esac
     else
@@ -307,6 +308,7 @@ template() {
   cp -f "$HOME/.template/$name" "./$name"
 }
 
+alias dr='docker run -ti --rm'
 alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
