@@ -131,26 +131,6 @@ git-dist() {
   esac
 }
 
-goto() {
-  name="$1"
-  path="${HOME}/.goto/${name}"
-
-  if [[ ! -e $path ]]; then
-    echo "Not found: $name"
-    return 1
-  fi
-
-  if [[ -L $path ]]; then
-    cd $path
-    cd $( pwd -P )
-  elif [[ -x $path ]]; then
-    $path
-  else
-    echo "Unknown file type: $name"
-    return 1
-  fi
-}
-
 grow-path() {
   name="$1"
   path_list="${!name}"
@@ -174,16 +154,6 @@ grow-path-exists() {
   fi
 }
 
-p() {
-  if [[ -n "$1" ]]; then
-    $PYTHON "$@"
-  elif type -f ipython &>/dev/null; then
-    ipython
-  else
-    $PYTHON
-  fi
-}
-
 install_darwin() {
   brew update
   brew install \
@@ -192,6 +162,7 @@ install_darwin() {
     coreutils \
     curl \
     docker \
+    fig \
     gh \
     git \
     go --cross-compile-common \
@@ -210,7 +181,6 @@ install_darwin() {
   brew install \
     dot \
     fabric \
-    fig \
     gdrive \
     keyfu
 }
@@ -229,7 +199,8 @@ install_go() {
 install_linux_deb() {
   sudo apt-get install -y \
     curl \
-    git
+    git \
+    vim
 }
 
 install_linux_rpm() {
@@ -266,8 +237,15 @@ install_all() {
   install_vim
 }
 
-kf() {
-  vim "$HOME/.keyfu/$1.js"
+
+p() {
+  if [[ -n "$1" ]]; then
+    $PYTHON "$@"
+  elif type -f ipython &>/dev/null; then
+    ipython
+  else
+    $PYTHON
+  fi
 }
 
 qo() {

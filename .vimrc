@@ -15,6 +15,7 @@ Plug 'gregsexton/gitv', { 'on': 'Gitv' }
 Plug 'rodjek/vim-puppet'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'   }
 Plug 'scrooloose/syntastic'
+Plug 'Keithbsmiley/swift.vim'
 
 call plug#end()
 
