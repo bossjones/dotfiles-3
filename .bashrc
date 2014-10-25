@@ -183,6 +183,7 @@ install_darwin() {
     fabric \
     gdrive \
     keyfu
+  brew install https://raw.githubusercontent.com/EricChiang/pup/master/pup.rb
 }
 
 install_go() {
