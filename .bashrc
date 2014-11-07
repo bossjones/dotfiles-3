@@ -303,7 +303,7 @@ export OS=$( uname -s | tr '[:upper:]' '[:lower:]' )
 export PORT='8000'
 export PS1='[\u@\h \W]$ '
 export SRC_PATHS=(~/src ~/src/go/src/github.com/silas ~/src/go/src/github.com)
-export TMOUT=0
+export TMOUT=0 &>/dev/null
 
 grow-path-exists PATH '/usr/sbin'
 grow-path-exists PATH "$GOROOT/bin"
