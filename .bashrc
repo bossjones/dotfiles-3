@@ -240,12 +240,12 @@ install_all() {
 
 
 p() {
-  if [[ -n "$1" ]]; then
-    $PYTHON "$@"
+  if [[ -n "$@" ]]; then
+    python "$@"
   elif type -f ipython &>/dev/null; then
     ipython
   else
-    $PYTHON
+    python
   fi
 }
 
