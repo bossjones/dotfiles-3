@@ -157,33 +157,21 @@ grow-path-exists() {
 install_darwin() {
   brew update
   brew install \
-    bash \
     boot2docker \
-    coreutils \
-    curl \
     docker \
     fig \
-    gh \
-    git \
     go --cross-compile-common \
     hg \
     httpie \
     jq \
     ngrok \
     node \
-    the_silver_searcher \
-    tmux \
     vim
-  brew tap rockstack/rock
-  brew install \
-    rock-cli
   brew tap silas/silas
   brew install \
     dot \
     fabric \
-    gdrive \
-    keyfu
-  brew install https://raw.githubusercontent.com/EricChiang/pup/master/pup.rb
+    gdrive
 }
 
 install_go() {
