@@ -16,6 +16,7 @@ Plug 'rodjek/vim-puppet'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'   }
 Plug 'scrooloose/syntastic'
 Plug 'Keithbsmiley/swift.vim'
+Plug 'elixir-lang/vim-elixir'
 
 call plug#end()
 
