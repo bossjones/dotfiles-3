@@ -171,7 +171,8 @@ install_darwin() {
   brew install \
     dot \
     fabric \
-    gdrive
+    gdrive \
+    keyfu
 }
 
 install_go() {
