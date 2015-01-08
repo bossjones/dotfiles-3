@@ -301,6 +301,7 @@ grow-path-exists PATH "/usr/local/bin:$PATH"
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path PATH "./node_modules/.bin:$PATH"
 
+set -o vi
 set bell-style none
 
 shopt -s checkwinsize
