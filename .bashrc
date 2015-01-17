@@ -157,11 +157,7 @@ grow-path-exists() {
 install_darwin() {
   brew update
   brew install \
-    boot2docker \
-    docker \
-    fig \
-    go --cross-compile-common \
-    hg \
+    go --with-cc-common \
     httpie \
     jq \
     ngrok \
@@ -170,7 +166,6 @@ install_darwin() {
   brew tap silas/silas
   brew install \
     dot \
-    fabric \
     gdrive \
     keyfu
 }
@@ -184,6 +179,11 @@ install_go() {
   go get -u github.com/jteeuwen/go-bindata/...
   go get -u github.com/mitchellh/gox
   go get -u github.com/tools/godep
+}
+
+install_python() {
+  easy_install --prefix="$PYTHONPREFIX" pip
+  "$PYTHONPREFIX/bin/pip" install --root="$PYTHONPREFIX" ipython
 }
 
 install_linux_deb() {
@@ -291,6 +291,7 @@ export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd'
 export OS=$( uname -s | tr '[:upper:]' '[:lower:]' )
 export PORT='8000'
 export PS1='[\u@\h \W]$ '
+export PYTHONPREFIX="$HOME/.python"
 export SRC_PATHS=(~/src ~/src/go/src/github.com/silas ~/src/go/src/github.com)
 export TMOUT=0 &>/dev/null
 
@@ -299,7 +300,12 @@ grow-path-exists PATH "$GOROOT/bin"
 grow-path-exists PATH "$GOPATH/bin"
 grow-path-exists PATH "/usr/local/bin:$PATH"
 grow-path-exists PATH "$HOME/.local/bin"
-grow-path PATH "./node_modules/.bin:$PATH"
+grow-path-exists PATH "$HOME/.python/bin"
+grow-path-exists PATH "$HOME/.python/usr/local/bin"
+grow-path PATH "./node_modules/.bin"
+
+grow-path PYTHONPATH "$PYTHONPREFIX/lib/python2.7/site-packages"
+grow-path-exists PYTHONPATH "$PYTHONPREFIX/Library/Python/2.7/site-packages"
 
 set -o vi
 set bell-style none
