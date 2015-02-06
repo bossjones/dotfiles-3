@@ -66,11 +66,6 @@ backup-drop() {
   return $code
 }
 
-docker-clean() {
-  docker rm $( docker ps -a -q ) &>/dev/null
-  docker rmi $( docker images -q --filter dangling=true ) &>/dev/null
-}
-
 extract() {
   for path in $@; do
     if [ -f "$path" ] ; then
@@ -98,37 +93,6 @@ extract() {
       echo "'$path' is not a valid file"
     fi
   done
-}
-
-libgit-dist() {
-  type="$1"
-  tag="$2"
-  name="$3"
-  ext="$4"
-  if [[ "$type" == "zip" ]]; then
-    git archive --format=zip --prefix="${name}-${tag}/" "$tag" > "${name}-${tag}.${ext}"
-  else
-    git archive --format=tar --prefix="${name}-${tag}/" "$tag" | $type > "${name}-${tag}.${ext}"
-  fi
-}
-
-git-dist() {
-  name="$( basename "$( pwd )" )"
-  case "${2-gzip}" in
-    "bzip2")
-      libgit-dist bzip2 "$1" "${3-$name}" "${4-tar.bz2}"
-      ;;
-    "gzip")
-      libgit-dist gzip "$1" "${3-$name}" "${4-tar.gz}"
-      ;;
-    "zip")
-      libgit-dist zip "$1" "${3-$name}" "${4-zip}"
-      ;;
-    *)
-      echo "Unknown type: $2"
-      return 1
-      ;;
-  esac
 }
 
 grow-path() {
@@ -186,31 +150,10 @@ install_python() {
   "$PYTHONPREFIX/bin/pip" install --root="$PYTHONPREFIX" ipython
 }
 
-install_linux_deb() {
-  sudo apt-get install -y \
-    curl \
-    git \
-    vim
-}
-
-install_linux_rpm() {
-  sudo yum install -y \
-    curl \
-    git \
-    vim-enhanced
-}
-
 install_linux() {
   curl -s 'https://raw.githubusercontent.com/silas/dot/master/dot' \
     -o ~/.local/bin/dot
   chmod 755 ~/.local/bin/dot
-
-  sudo yum install vim-enhanced
-  if type -f apt-get &>/dev/null; then
-    install_linux_deb
-  elif type -f yum &>/dev/null; then
-    install_linux_rpm
-  fi
 }
 
 install_vim() {
@@ -227,6 +170,18 @@ install_all() {
   install_vim
 }
 
+jv() {
+  file="$1" ; shift
+  class="${file%.java}"
+
+  if [[ "$file" != "$class" ]]; then
+    if ! javac "$file"; then
+      return $?
+    fi
+  fi
+
+  java "$class" "$@"
+}
 
 p() {
   if [[ -n "$@" ]]; then
