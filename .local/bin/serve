@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+exports.http = function(port) {
+  var http = require('http');
+
+  http.createServer(function(req, res) {
+    console.log(req.method, req.url);
+
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('OK\n');
+  }).listen(port);
+}
+
+exports.tcp = function(port) {
+  var net = require('net');
+
+  var server = net.createServer(function(c) {
+    c.on('data', function(data) {
+      process.stdout.write(data.toString());
+    });
+  });
+
+  server.listen(port);
+}
+
+exports.udp = function(port) {
+  var dgram = require('dgram');
+
+  var socket = dgram.createSocket('udp4');
+
+  socket.bind(port, function() {
+    socket.on('message', function(data) {
+      console.log(data.toString());
+    });
+  });
+}
+
+function main(argv) {
+  try {
+    if (!argv) throw new Error('argv is required');
+
+    var type = argv[0];
+    if (!type) throw new Error('type is required');
+
+    var serve = exports[type];
+    if (!serve) throw new Error('type unknown: ' + type);
+
+    var port = argv[1];
+    if (!port) throw new Error('port is required');
+
+    serve(port);
+  } catch (err) {
+    process.stderr.write('usage: serve TYPE PORT\n\n' + err.message + '\n');
+    process.exit(1);
+  }
+}
+
+if (require.main === module) {
+  main(process.argv.slice(2));
+}
