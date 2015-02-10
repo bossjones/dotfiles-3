@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-exports.http = function(port) {
+exports.http = function(port, address) {
   var http = require('http');
 
   http.createServer(function(req, res) {
@@ -8,10 +8,10 @@ exports.http = function(port) {
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('OK\n');
-  }).listen(port);
+  }).listen(port, address);
 }
 
-exports.tcp = function(port) {
+exports.tcp = function(port, address) {
   var net = require('net');
 
   var server = net.createServer(function(c) {
@@ -20,17 +20,23 @@ exports.tcp = function(port) {
     });
   });
 
-  server.listen(port);
+  server.listen(port, address);
 }
 
-exports.udp = function(port) {
+exports.udp = function(port, address) {
   var dgram = require('dgram');
 
   var socket = dgram.createSocket('udp4');
 
-  socket.bind(port, function() {
+  socket.bind(port, address, function() {
     socket.on('message', function(data) {
-      console.log(data.toString());
+      data = data.toString();
+
+      if (data[data.length - 1] === '\n') {
+        process.stdout.write(data);
+      } else {
+        console.log(data);
+      }
     });
   });
 }
@@ -48,9 +54,11 @@ function main(argv) {
     var port = argv[1];
     if (!port) throw new Error('port is required');
 
-    serve(port);
+    var address = argv[2] || undefined;
+
+    serve(port, address);
   } catch (err) {
-    process.stderr.write('usage: serve TYPE PORT\n\n' + err.message + '\n');
+    process.stderr.write('usage: serve TYPE PORT [ADDRESS]\n\n' + err.message + '\n');
     process.exit(1);
   }
 }
