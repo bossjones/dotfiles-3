@@ -72,7 +72,6 @@ extract() {
       case "$path" in
         *.7z)      7z x "$path" ;;
         *.Z)       uncompress "$path" ;;
-        *.bz2)     bunzip2 "$path" ;;
         *.egg)     unzip "$path" ;;
         *.gem)     gem unpack "$path" ;;
         *.jar)     unzip "$path" ;;
@@ -85,8 +84,9 @@ extract() {
         *.tgz)     tar xvzf "$path" ;;
         *.war)     unzip "$path" ;;
         *.zip)     unzip "$path" ;;
-        # should be after *.tar.gz
+        # should be after *.tar.*
         *.gz)      gunzip "$path" ;;
+        *.bz2)     bunzip2 "$path" ;;
         *)         echo "'$path' cannot be extracted via >extract<" ;;
       esac
     else
