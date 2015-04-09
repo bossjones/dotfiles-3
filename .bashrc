@@ -236,6 +236,10 @@ alias ll='ls -lh'
 alias pp='git pull --rebase && git push'
 alias reload="source $HOME/.bashrc"
 
+if type -f hub &>/dev/null; then
+  alias git=hub
+fi
+
 export EDITOR='vim'
 export GIT_MERGE_AUTOEDIT='no'
 export GOPATH="$HOME/src/go"
