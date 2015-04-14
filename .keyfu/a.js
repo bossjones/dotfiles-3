@@ -1,4 +1,4 @@
 link(
-  "http://www.amazon.com/",
-  "http://www.amazon.com/s?url=search-alias%3Daps&field-keywords=%s"
+  "http://smile.amazon.com/",
+  "http://smile.amazon.com/s?url=search-alias%3Daps&field-keywords=%s"
 );

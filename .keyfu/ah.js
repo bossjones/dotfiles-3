@@ -1,1 +1,1 @@
-link("https://www.amazon.com/gp/history")
+link("https://smile.amazon.com/gp/history")
