@@ -100,9 +100,6 @@ nnoremap <A-k> gt
 ""Toggle set list
 nmap <leader>l :set list!<CR>
 
-""TextMate style tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
-
 ""Sudo write
 cmap w!! w !sudo tee % >/dev/null
 
