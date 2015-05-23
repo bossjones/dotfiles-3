@@ -259,7 +259,9 @@ grow-path-exists PATH "/usr/local/bin:$PATH"
 grow-path-exists PATH "$HOME/.local/bin"
 grow-path-exists PATH "$HOME/.python/bin"
 grow-path-exists PATH "$HOME/.python/usr/local/bin"
+grow-path-exists PATH "$HOME/anaconda/bin"
 grow-path PATH "./node_modules/.bin"
+
 
 grow-path PYTHONPATH "$PYTHONPREFIX/lib/python2.7/site-packages"
 grow-path-exists PYTHONPATH "$PYTHONPREFIX/Library/Python/2.7/site-packages"
